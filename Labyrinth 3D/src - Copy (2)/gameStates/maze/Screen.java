@@ -177,122 +177,112 @@ public class Screen {
 			///////////////////////////////////////////////////////////////////////////////////////////
 
 			ZBuffer[x] = perpWallDist;
-			
-		}
-		
-		loopEntities(entity, camera, pixels);
-		
-		return null;
-	}
-	
-	int texIndex = 0;
 
-	double spriteWorldPosX;
-	double spriteWorldPosY;
-	
-	double transformX;
-	double transformY;
-	
-	int spriteHeight;
-	int spriteWidth;
-	
-	int drawStartY;
-	int drawEndY;
-	
-	int drawStartX;
-	int drawEndX;
-	
-	Entity e;
-	Texture texture;
-	
-	int texSize;
+			int texIndex = 0;
 
-	private void loopY(int stripe, int textureX, Texture texture, int[] pixels) {
+			double spriteWorldPosX;
+			double spriteWorldPosY;
 
-		for(int y = drawStartY; y < drawEndY; y++){
-			
-			int d = (y) * 256 - height * 128 + spriteHeight * 128;
-			int textureY = ((d * texSize) / spriteHeight) / 256;
+			int texSize;
 
-			int sum = (int)textureY*texSize + (int)textureX;
+			//required for correct matrix multiplication
+			double invDet = 1.0 / (camera.xPlane * camera.yDir - camera.xDir * camera.yPlane); 
 
-			//get current color from the texture
-			int color = texture.pixels[sum]; 
+			for(int entities = 0; entities < entity.size(); entities++){
 
-			//paint pixel if it isn't transparent, black is the invisible color
-			if((color >>24 & 0xff) != 0) 
-				pixels[stripe + (y*width)] = color; 
-		}
-	}
+				Entity e = entity.get(entities);
 
-	private void loopEntities(ArrayList<Entity> entity, Camera camera, int [] pixels){
-
-		//required for correct matrix multiplication
-		double invDet = 1.0 / (camera.xPlane * camera.yDir - camera.xDir * camera.yPlane); 
-		
-		
-		for(int entities = 0; entities < entity.size(); entities++){
-
-			e = entity.get(entities);
-
-			texIndex = e.getTextureIndex();
-
-			texture = textures.get(texIndex);
-
-			texSize = textures.get(e.getTextureIndex()).SIZE;
-
-			//translate sprite position to relative to camera
-			spriteWorldPosX = e.worldPositionX - camera.xPos;
-			spriteWorldPosY = e.worldPositionY - camera.yPos;
-
-			//transform sprite with the inverse camera matrix
-			// [ planeX   dirX ] -1                                       [ dirY      -dirX ]
-			// [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
-			// [ planeY   dirY ]                                          [ -planeY  planeX ]
-
-			transformX = invDet * (camera.yDir * spriteWorldPosX - camera.xDir * spriteWorldPosY);
-			//this is actually the depth inside the screen, that what Z is in 3D
-			transformY = invDet * (-camera.yPlane * spriteWorldPosX + camera.xPlane * spriteWorldPosY); 
-
-			int spriteScreenX = (int) ((width / 2) * (1 + transformX / transformY));
-
-			//calculate height of the sprite on screen
-
-			//using "transformY" instead of the real distance prevents fisheye
-			spriteHeight = (int) Math.abs((height / (transformY))); 
-			spriteWidth  = (int) Math.abs((height / (transformY)));
-
-			//calculate lowest and highest pixel to fill in current stripe
-			drawStartY = (-spriteHeight / 2 + height / 2);
-			//calculate width of the sprite
-			drawEndY = (spriteHeight / 2 + height / 2);
-
-			drawStartX = -spriteWidth / 2 + spriteScreenX;
-			drawEndX = spriteWidth / 2 + spriteScreenX;
-
-			if(drawStartY < 0) 
-				drawStartY = 0;
-			if(drawEndY >= height) 
-				drawEndY = height - 1;
-
-			if(drawStartX < 0) 
-				drawStartX = 0;
-			if(drawEndX >= width)
-				drawEndX = width - 1;
-
-			//loop through every vertical stripe of the sprite on screen
-			for(int stripe = drawStartX; stripe < drawEndX; stripe++){
-				//the conditions in the if are:
-				//1) it's in front of camera plane so you don't see things behind you, 2) it's on the screen (left)
-				//3) it's on the screen (right), 4) ZBuffer, with perpendicular distance
+				texIndex = e.getTextureIndex();
 				
-				if(transformY > 0 && stripe > 0 && stripe < width && transformY < ZBuffer[stripe])
-				{
-					int textureX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * texSize / spriteWidth) / 256;
+				Texture texture = textures.get(texIndex);
 
-					loopY(stripe, textureX, texture, pixels);
+				texSize = textures.get(e.getTextureIndex()).SIZE;
+
+				//translate sprite position to relative to camera
+				spriteWorldPosX = e.worldPositionX - camera.xPos;
+				spriteWorldPosY = e.worldPositionY - camera.yPos;
+
+				//transform sprite with the inverse camera matrix
+				// [ planeX   dirX ] -1                                       [ dirY      -dirX ]
+				// [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
+				// [ planeY   dirY ]                                          [ -planeY  planeX ]
+
+
+				double transformX = invDet * (camera.yDir * spriteWorldPosX - camera.xDir * spriteWorldPosY);
+				//this is actually the depth inside the screen, that what Z is in 3D
+				double transformY = invDet * (-camera.yPlane * spriteWorldPosX + camera.xPlane * spriteWorldPosY); 
+
+				int spriteScreenX = (int) ((width / 2) * (1 + transformX / transformY));
+
+				//calculate height of the sprite on screen
+
+				//using "transformY" instead of the real distance prevents fisheye
+				int spriteHeight = (int) Math.abs((height / (transformY))); 
+				int spriteWidth  = (int) Math.abs((height / (transformY)));
+
+				//calculate lowest and highest pixel to fill in current stripe
+				int drawStartY = (-spriteHeight / 2 + height / 2);
+				//calculate width of the sprite
+				int drawEndY = (spriteHeight / 2 + height / 2);
+
+				int drawStartX = -spriteWidth / 2 + spriteScreenX;
+				int drawEndX = spriteWidth / 2 + spriteScreenX;
+
+
+				if(drawStartY < 0) 
+					drawStartY = 0;
+				if(drawEndY >= height) 
+					drawEndY = height - 1;
+
+				if(drawStartX < 0) 
+					drawStartX = 0;
+				if(drawEndX >= width)
+					drawEndX = width - 1;
+
+				int loops = 0;
+				int loops2 = 0;
+
+				//loop through every vertical stripe of the sprite on screen
+				for(int stripe = drawStartX; stripe < drawEndX; stripe++){
+
+					if(transformY > 0 && stripe > 0 && stripe < width && transformY < ZBuffer[stripe])
+					{
+						int textureX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * texSize / spriteWidth) / 256;
+
+						//the conditions in the if are:
+						//1) it's in front of camera plane so you don't see things behind you
+						//2) it's on the screen (left)
+						//3) it's on the screen (right)
+						//4) ZBuffer, with perpendicular distance
+
+						loops2=0;
+						//for every pixel of the current stripe
+						for(int y = drawStartY; y < drawEndY; y++){
+							int d = (y) * 256 - height * 128 + spriteHeight * 128;
+							int textureY = ((d * texSize) / spriteHeight) / 256;
+
+							int sum = (int)textureY*texSize + (int)textureX;
+
+							//get current color from the texture
+							int color = texture.pixels[sum]; 
+
+							//paint pixel if it isn't transparent, black is the invisible color
+							if((color >>24 & 0xff) != 0) 
+								pixels[stripe + (y*width)] = color; 
+							
+							loops2++;
+						}
+					}
+					loops++;
 				}
+//				System.out.println(loops + " " + loops2 + " " + drawStartY + " " + drawEndY);
 			}
 		}
+		return null;
+	}
+
+	public int[] updateObjects(Camera camera, int[] pixels, ArrayList<Entity> objects) {
+
+		return pixels;
 	}
 }
