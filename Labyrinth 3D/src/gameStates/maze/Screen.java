@@ -12,6 +12,29 @@ public class Screen {
 
 	public double[] ZBuffer;
 
+	
+	int texIndex = 0;
+
+	double spriteWorldPosX;
+	double spriteWorldPosY;
+	
+	double transformX;
+	double transformY;
+	
+	int spriteHeight;
+	int spriteWidth;
+	
+	int drawStartY;
+	int drawEndY;
+	
+	int drawStartX;
+	int drawEndX;
+	
+	Entity e;
+	Texture texture;
+	
+	int texSize;
+	
 	public Screen(int[][] m, int mapW, int mapH, ArrayList<Texture> tex, int w, int h) {
 		map = m;
 		mapWidth = mapW;
@@ -185,28 +208,6 @@ public class Screen {
 		return null;
 	}
 	
-	int texIndex = 0;
-
-	double spriteWorldPosX;
-	double spriteWorldPosY;
-	
-	double transformX;
-	double transformY;
-	
-	int spriteHeight;
-	int spriteWidth;
-	
-	int drawStartY;
-	int drawEndY;
-	
-	int drawStartX;
-	int drawEndX;
-	
-	Entity e;
-	Texture texture;
-	
-	int texSize;
-
 	private void loopY(int stripe, int textureX, Texture texture, int[] pixels) {
 
 		for(int y = drawStartY; y < drawEndY; y++){
