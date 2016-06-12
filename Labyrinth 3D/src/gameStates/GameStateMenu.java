@@ -11,7 +11,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.SwingWorker;
 
-import utility.Utility;
 import engine.gameBase.GamePanel;
 import engine.gameBase.GameState;
 import engine.gameBase.GameStateHandler;
@@ -57,6 +56,8 @@ public class GameStateMenu extends GameState {
 					
 				} catch (Exception e) {
 					e.printStackTrace();
+					System.out.println("texture error. shutting down");
+					System.exit(0);
 				}
 				return null;
 			}
@@ -117,7 +118,6 @@ public class GameStateMenu extends GameState {
 		}
 
 		if(KeyHandler.isPressed(KeyHandler.ENTER)){
-//			gsh.changeGameState(GameStateHandler.NAMING);
 			gsh.changeGameState(GameStateHandler.MAZE_10);
 
 		}

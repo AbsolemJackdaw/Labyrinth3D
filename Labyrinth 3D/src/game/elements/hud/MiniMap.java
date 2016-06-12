@@ -71,25 +71,6 @@ public class MiniMap {
 
 		playerPos = new MiniMapPlayerRectangle(colX*(3*size), colY*(3*size),Maze.numberGrid[colX][colY]);
 
-		if(offSetX >= -60 && offSetX < 1) {
-			ArrayList<MiniMapRectangle> replace = new ArrayList<MiniMapRectangle>();
-			
-			for( int i = 0; i < this.path.size(); i++) {
-				MiniMapRectangle mmr = path.get(i);
-				int x  = mmr.posX;
-				int y = mmr.posY;
-				int id = mmr.id;
-				
-				MiniMapRectangle mmr2 = new MiniMapRectangle(x, y, id);
-				replace.add(mmr2);
-			}
-			
-			for( int i = 0; i < replace.size(); i++) {
-				MiniMapRectangle mmr = replace.get(i);
-				path.set(i, mmr);
-			}
-		}
-
 	}
 
 	public class MiniMapRectangle{

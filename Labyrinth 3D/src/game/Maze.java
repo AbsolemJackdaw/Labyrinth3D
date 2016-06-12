@@ -2,17 +2,11 @@ package game;
 
 import static gameStates.content.Images.walls;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
+import utility.Maze2DScreenShot;
 
 public class Maze {
 
@@ -48,6 +42,7 @@ public class Maze {
 	private int mazeSizeFixed;
 	/**size that was originally set with border fix*/
 	private int mapSizeFixed;
+	
 	/**size that was originally set with border fix*/
 	private int worldSizeFixed;
 
@@ -401,21 +396,25 @@ public class Maze {
 
 	}
 
+	private int i() {
+		return rand.nextInt(5)+1;
+	}
+
 	/**returns a 3x3 grid to transform tiles from*/
 	private int getGridFromTile(int id, int x, int y){
 
-		int[][] grid0 = {{1,1,1},{0,0,0},{1,1,1}};
-		int[][] grid1 = {{1,0,1},{1,0,1},{1,0,1}};
-		int[][] grid2 = {{1,1,1},{0,0,0},{1,0,1}};
-		int[][] grid3 = {{1,0,1},{0,0,0},{1,1,1}};
-		int[][] grid4 = {{1,0,1},{0,0,1},{1,0,1}};
-		int[][] grid5 = {{1,0,1},{1,0,0},{1,0,1}};
-		int[][] grid6 = {{1,1,1},{1,0,0},{1,0,1}};
-		int[][] grid7 = {{1,1,1},{0,0,1},{1,0,1}};
-		int[][] grid8 = {{1,0,1},{0,0,1},{1,1,1}};
-		int[][] grid9 = {{1,0,1},{1,0,0},{1,1,1}};
-		int[][] grid10 = {{1,0,1},{0,0,0},{1,0,1}};
-		int[][] grid11 = {{1,1,1},{1,1,1},{1,1,1}};
+		int[][] grid0 = {{i(),i(),i()},{0,0,0},{i(),i(),i()}};
+		int[][] grid1 = {{i(),0,i()},{i(),0,i()},{i(),0,i()}};
+		int[][] grid2 = {{i(),i(),i()},{0,0,0},{i(),0,i()}};
+		int[][] grid3 = {{i(),0,i()},{0,0,0},{i(),i(),i()}};
+		int[][] grid4 = {{i(),0,i()},{0,0,i()},{i(),0,i()}};
+		int[][] grid5 = {{i(),0,i()},{i(),0,0},{i(),0,i()}};
+		int[][] grid6 = {{i(),i(),i()},{i(),0,0},{i(),0,i()}};
+		int[][] grid7 = {{i(),i(),i()},{0,0,i()},{i(),0,i()}};
+		int[][] grid8 = {{i(),0,i()},{0,0,i()},{i(),i(),i()}};
+		int[][] grid9 = {{i(),0,i()},{i(),0,0},{i(),i(),i()}};
+		int[][] grid10 = {{i(),0,i()},{0,0,0},{i(),0,i()}};
+		int[][] grid11 = {{i(),i(),i()},{i(),i(),i()},{i(),i(),i()}};
 
 		if(id == 0)
 			return grid0[x][y];
@@ -450,57 +449,7 @@ public class Maze {
 	}
 
 	/////////////////////////////BONUS, take pic of maze////////////////////////
-
-	private void draw(Graphics2D g){
-		for(int x = 0; x < mazeSizeFixed;x++){
-			for(int y = 0; y < mazeSizeFixed;y++){
-
-				BufferedImage wall= labyrinthGrid[x][y];
-
-				g.drawImage(wall, 
-						x*tileSize , 
-						y*tileSize , null);
-
-			}
-		}
-	}
-
-	private void printScreen(){
-		Dimension size = new Dimension(mazeSizeFixed*tileSize, mazeSizeFixed*tileSize);
-		BufferedImage img = new BufferedImage (size.width, size.height, BufferedImage.TYPE_3BYTE_BGR);
-		Graphics g = img.getGraphics ();
-		draw((Graphics2D) g);
-		g.dispose ();
-		try
-		{
-			Calendar cal = Calendar.getInstance();
-			int year = cal.get(Calendar.YEAR);
-			int month = cal.get(Calendar.MONTH);
-			int day = cal.get(Calendar.DAY_OF_MONTH);
-			int hour = cal.get(Calendar.HOUR_OF_DAY);
-			int minutes = cal.get(Calendar.MINUTE);
-			int seconds = cal.get(Calendar.SECOND);
-
-			String s = String.valueOf(year)+ "y" +
-					String.valueOf(month+1) + "m" +
-					String.valueOf(day) + "d" +
-					String.valueOf(hour) + "h" + 
-					String.valueOf(minutes) + "m" + 
-					String.valueOf(seconds)+ "s.png";
-
-			String dir = "End Results";
-			File f = new File(dir);
-			if(!f.exists())
-				f.mkdir();
-
-			ImageIO.write (img, "png", new File(dir + File.separator + s));
-
-			System.out.println("printed screen");
-		}
-		catch (IOException ex)
-		{
-			ex.printStackTrace ();
-			System.out.println("printing screen failed");
-		}
+	private void printScreen() {
+		new Maze2DScreenShot(mazeSizeFixed, labyrinthGrid, tileSize);
 	}
 }

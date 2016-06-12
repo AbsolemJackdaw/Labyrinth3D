@@ -23,6 +23,12 @@ public class Texture {
 	public static Texture portal_1 ;
 	public static Texture portal_2 ;
 	public static Texture portal_3 ;
+	public static Texture flat_stone ;
+	public static Texture brickStone ;
+	public static Texture brickStone1 ;
+	public static Texture brickStone2 ;
+	public static Texture brickStone3 ;
+	public static Texture brickStone4 ;
 
 
 	public Texture() {
@@ -63,6 +69,12 @@ public class Texture {
 		portal_1 = new Texture("/portal_active1.png", 64);
 		portal_2 = new Texture("/portal_active2.png", 64);
 		portal_3 = new Texture("/portal_active3.png", 64);
+		flat_stone = new Texture("/flat_stone.png", 64);
+		brickStone = new Texture("/wall_bricks.png", 64);
+		brickStone1 = new Texture("/wall_bricks_1.png", 64);
+		brickStone2 = new Texture("/wall_bricks_2.png", 64);
+		brickStone3 = new Texture("/wall_bricks_3.png", 64);
+		brickStone4 = new Texture("/wall_bricks_4.png", 64);
 
 	}
 }

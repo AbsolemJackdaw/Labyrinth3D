@@ -72,39 +72,8 @@ public class GameStateMaze3D extends GameState {
 		if(Camera.isPressed(Camera.T)){
 			gsh.changeGameState(GameStateHandler.ISLAND);
 		}
-		for(Entity e : entities) {
-			if(camera.xPos > e.worldPositionX-0.5 && camera.xPos < e.worldPositionX+0.5 ){
-				if(camera.yPos > e.worldPositionY-0.5 && camera.yPos < e.worldPositionY+0.5 ){
-					if(e instanceof EntityCollectible) {
-						System.out.println("pick up ! ");
-						PlayerData.currentlyCollectedCards.add(new Card(e.getID()).setPickedOrder(cardPickup));
-						cardPickup++;
-						entities.remove(e);
-						break;
-					}
-				}
-			}
-			if(e instanceof Portal) {
-				Portal portal = (Portal)e;
-				portal.update();
-
-				if(PlayerData.currentlyCollectedCards.size() >= totalCollectables)
-					portal.setActive(true);
-
-				if(portal.isActive()) {
-					if(camera.xPos > e.worldPositionX-0.5 && camera.xPos < e.worldPositionX+0.5 ){
-						if(camera.yPos > e.worldPositionY-0.5 && camera.yPos < e.worldPositionY+0.5 ){
-
-							for(Card c : PlayerData.currentlyCollectedCards)
-								PlayerData.cards.add(c);
-							PlayerData.currentlyCollectedCards.clear();
-
-							gsh.changeGameState(GameStateHandler.ISLAND);
-						}
-					}
-				}
-			}
-		}
+		
+		updateEntities();
 
 		minimap.update(camera);
 	}
@@ -202,7 +171,41 @@ public class GameStateMaze3D extends GameState {
 		}
 	}
 
+	private void updateEntities() {
+		for(Entity e : entities) {
+			if(camera.xPos > e.worldPositionX-0.5 && camera.xPos < e.worldPositionX+0.5 ){
+				if(camera.yPos > e.worldPositionY-0.5 && camera.yPos < e.worldPositionY+0.5 ){
+					if(e instanceof EntityCollectible) {
+						System.out.println("pick up ! ");
+						PlayerData.currentlyCollectedCards.add(new Card(e.getID()).setPickedOrder(cardPickup));
+						cardPickup++;
+						entities.remove(e);
+						break;
+					}
+				}
+			}
+			if(e instanceof Portal) {
+				Portal portal = (Portal)e;
+				portal.update();
 
+				if(PlayerData.currentlyCollectedCards.size() >= totalCollectables)
+					portal.setActive(true);
+
+				if(portal.isActive()) {
+					if(camera.xPos > e.worldPositionX-0.5 && camera.xPos < e.worldPositionX+0.5 ){
+						if(camera.yPos > e.worldPositionY-0.5 && camera.yPos < e.worldPositionY+0.5 ){
+
+							for(Card c : PlayerData.currentlyCollectedCards)
+								PlayerData.cards.add(c);
+							PlayerData.currentlyCollectedCards.clear();
+
+							gsh.changeGameState(GameStateHandler.ISLAND);
+						}
+					}
+				}
+			}
+		}
+	}
 
 
 

@@ -8,7 +8,7 @@ public class Portal extends Entity {
 
 	private boolean isActive;
 	private int animationCounter = 0;
-	private int animationTextureReference = 5;
+	private int animationTextureReference = 9;
 
 	public Portal(int size, int id) {
 		super(size, id);
@@ -36,13 +36,13 @@ public class Portal extends Entity {
 				animationTextureReference ++;
 			}
 
-			if(animationTextureReference > 7)
-				animationTextureReference = 5;
+			if(animationTextureReference > 11)
+				animationTextureReference = 9;
 
 			return animationTextureReference;
 		}
 
-		return 4;
+		return 8;
 	}
 
 	public boolean isActive() {

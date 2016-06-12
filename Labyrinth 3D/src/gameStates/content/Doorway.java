@@ -2,8 +2,6 @@ package gameStates.content;
 
 import java.awt.Rectangle;
 
-import game.entity.Entity;
-
 
 public class Doorway{
 

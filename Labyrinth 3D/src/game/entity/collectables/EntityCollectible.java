@@ -38,14 +38,13 @@ public class EntityCollectible extends Entity{
 	public int getTextureIndex() {
 		switch (id) {
 		case STATUE:
-			return 1;
+			return 5;
 		case HEAD:
-			return 3;
+			return 7;
 		case UNICORN_BLOOD:
-			return 2;
+			return 6;
 		default : 
-			System.out.println("no texture for this collectible ! resolved to default");
-			return 1;
+			return 5;
 		}
 	}
 

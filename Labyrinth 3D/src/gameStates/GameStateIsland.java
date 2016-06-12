@@ -27,7 +27,7 @@ public class GameStateIsland extends GameState {
 	private Rectangle topWall;
 
 	private boolean facingRight = true;
-	
+
 	private Doorway[] doors = new Doorway[]{
 			(Doorway) new Doorway(65, Doorway.DOOR1,150, 400),
 			(Doorway) new Doorway(65, Doorway.DOORSMITH, 305, 400),
@@ -61,6 +61,38 @@ public class GameStateIsland extends GameState {
 
 		g.drawImage(backGroundMain, 0, 0, null);
 
+		drawWallText(g);
+
+		if(facingRight)
+			g.drawImage(Images.player, playerPositionX, playerPositionY-60, null);
+		else
+			g.drawImage(Images.player, playerPositionX+64, playerPositionY-60, -64, 64, null);
+
+		//		draws the player's bounding box
+		//		for(Rectangle r : boundingBox) {
+		//			g.setColor(Color.BLUE);
+		//			g.draw(r);
+		//		}
+
+		//draws bounding box of map limits
+		//		g.draw(bottomWall);
+		//		g.draw(topWall);
+		//		g.draw(leftWall);
+		//		g.draw(rightWall);
+
+		//		g.setColor(Color.orange);
+		//		for(Doorway d : doors){
+		//			g.draw(d.getBoundingBox());
+		//		}
+
+		//fade in effect
+		if(alpha > 0) {
+			g.setColor(new Color(0f, 0f, 0f, alpha));
+			g.fillRect(0, 0, GamePanel.W, GamePanel.H);
+		}
+	}
+
+	private void drawWallText(Graphics2D g) {
 		g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 45));
 
 		g.setColor(Color.black);
@@ -81,30 +113,6 @@ public class GameStateIsland extends GameState {
 		g.setColor(Color.darkGray);
 		g.drawString("Smithy", 295, 350);
 
-		for(Rectangle r : boundingBox) {
-			g.setColor(Color.BLUE);
-			g.draw(r);
-		}
-
-		g.draw(bottomWall);
-		g.draw(topWall);
-		g.draw(leftWall);
-		g.draw(rightWall);
-
-		g.setColor(Color.orange);
-		for(Doorway d : doors){
-			g.draw(d.getBoundingBox());
-		}
-		
-		if(facingRight)
-			g.drawImage(Images.player, playerPositionX, playerPositionY-60, null);
-		else
-			g.drawImage(Images.player, playerPositionX+64, playerPositionY-60, -64, 64, null);
-
-		if(alpha > 0) {
-			g.setColor(new Color(0f, 0f, 0f, alpha));
-			g.fillRect(0, 0, GamePanel.W, GamePanel.H);
-		}
 	}
 
 	@Override
@@ -115,20 +123,20 @@ public class GameStateIsland extends GameState {
 			alpha-=0.005f;
 
 		doPlayerMovement();
-		
+
 		if(doors[0].getBoundingBox().intersects(boundingBox[0]))
 			if(KeyHandler.isPressed(KeyHandler.ENTER)|| KeyHandler.isPressed(KeyHandler.UP)){
 				//set gamestate to game, according to door, generate multiple floors
 				gsh.changeGameState(GameStateHandler.MAZE_10);
 			}
-		
+
 		if(doors[1].getBoundingBox().intersects(boundingBox[0]))
 			if(KeyHandler.isPressed(KeyHandler.ENTER)|| KeyHandler.isPressed(KeyHandler.UP)){
 				//set gamestate to game, according to door, generate multiple floors
 				gsh.changeGameState(GameStateHandler.SMITHY);
 			}
 	}
-	
+
 	private void doPlayerMovement() {
 		if(KeyHandler.keyState[KeyHandler.RIGHT]){
 			facingRight = true;
@@ -149,7 +157,7 @@ public class GameStateIsland extends GameState {
 					r.x-=2;
 			}
 		}
-		
+
 		if(KeyHandler.keyState[KeyHandler.UP]){
 			if(!boundingBox[0].intersects(topWall)) {
 				playerPositionY-=2;

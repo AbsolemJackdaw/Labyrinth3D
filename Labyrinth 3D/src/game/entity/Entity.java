@@ -15,8 +15,6 @@ public class Entity {
 	//wether the entity has to be deleted on update
 	boolean remove;
 	
-	private boolean hasAnimation = false;
-	
 	public Entity(int size, int id) {
 		this.size = size;
 		this.id = id;
@@ -41,28 +39,13 @@ public class Entity {
 	public int getID(){
 		return id;
 	}
-//	public Rectangle getBoundingBox(){
-//		return new Rectangle(posX, posY, size, size);
-//	}
 
 	public Entity setFirstPosition(double x, double y){
-//		posMapX = x + Maze.getTileSize()/2 - (size/2);
-//		posMapY = y - Maze.getTileSize()/2 + (size/2);
-//		setPosition();
 		
 		worldPositionX = x;
 		worldPositionY = y;
 		
 		return this;
-	}
-	
-//	private Point getPosition(){
-//		return new Point(posX, posY);
-//	}
-	
-	private void setPosition(){
-//		posX = GamePanel.W/2 + posMapX;
-//		posY = GamePanel.H/2 + posMapY;
 	}
 	
 	public Point getMapPosition(){
@@ -80,7 +63,6 @@ public class Entity {
 	public void setMapPosition(int x, int y){
 		worldPositionX = x ;
 		worldPositionY = y ;
-//		setPosition();
 	}
 	
 	public void remove(){

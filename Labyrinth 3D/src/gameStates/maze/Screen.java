@@ -44,16 +44,7 @@ public class Screen {
 
 		ZBuffer = new double[w];
 
-		textures.add(Texture.brick);
-
-		textures.add(Texture.statue);
-		textures.add(Texture.unicorn_blood);
-		textures.add(Texture.shriveled_head);
-
-		textures.add(Texture.portal);
-		textures.add(Texture.portal_1);
-		textures.add(Texture.portal_2);
-		textures.add(Texture.portal_3);
+		filltextureArray();
 
 	}
 
@@ -69,7 +60,14 @@ public class Screen {
 		}
 
 		//casting the walls
+		drawWalls(camera, pixels);
 
+		drawEntities(entity, camera, pixels);
+
+		return null;
+	}
+
+	private void drawWalls(Camera camera , int[] pixels) {
 		//loop trough screen width
 		for(int x=0; x < width; x++) {
 
@@ -193,57 +191,13 @@ public class Screen {
 			if(side == 1 && rayDirY < 0) 
 				texX = textures.get(texNum).SIZE - texX - 1;
 
-			//calculate y coordinate on texture
-			for(int y=drawStart; y<drawEnd; y++) {
-				int texY = (((y*2 - height + lineHeight) << 6) / lineHeight) / 2;
-				int color;
-				int sum = texX + (texY * textures.get(texNum).SIZE);
+			loopWallTextureHeight(drawStart, drawEnd, texX, texNum, lineHeight, side, texX, pixels);
 
-				if(sum > textures.get(texNum).SIZE*textures.get(texNum).SIZE )
-					sum = (textures.get(texNum).SIZE*textures.get(texNum).SIZE) -1;
-
-				if(sum < 0)
-					sum = 0;
-
-				if(side==0)
-					color = textures.get(texNum).pixels[sum];
-				else
-					color = (textures.get(texNum).pixels[sum]>>1) & 8355711;//Make y sides darker
-
-				pixels[x + y*(width)] = color;
-			}
 			ZBuffer[x] = perpWallDist;
 		}
-
-		loopEntities(entity, camera, pixels);
-
-		return null;
 	}
 
-	private void loopY(int stripe, int textureX, Texture texture, int[] pixels) {
-
-		for(int y = drawStartY; y < drawEndY; y++){
-
-			int d = (y) * 256 - height * 128 + spriteHeight * 128;
-			int textureY = ((d * texSize) / spriteHeight) / 256;
-
-			int sum = (int)textureY*texSize + (int)textureX;
-
-			if(sum < 0)
-				sum = 0;
-			if(sum > texSize*texSize)
-				sum = (texSize*texSize)-1;
-
-			//get current color from the texture
-			int color = texture.pixels[sum]; 
-
-			//paint pixel if it isn't transparent, black is the invisible color
-			if((color >>24 & 0xff) != 0) 
-				pixels[stripe + (y*width)] = color; 
-		}
-	}
-
-	private void loopEntities(ArrayList<Entity> entity, Camera camera, int [] pixels){
+	private void drawEntities(ArrayList<Entity> entity, Camera camera, int [] pixels){
 
 		//required for correct matrix multiplication
 		double invDet = 1.0 / (camera.xPlane * camera.yDir - camera.xDir * camera.yPlane); 
@@ -308,9 +262,73 @@ public class Screen {
 				{
 					int textureX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * texSize / spriteWidth) / 256;
 
-					loopY(stripe, textureX, texture, pixels);
+					loopEntityTextureHeight(stripe, textureX, texture, pixels);
 				}
 			}
 		}
+	}
+
+	private void loopEntityTextureHeight(int stripe, int textureX, Texture texture, int[] pixels) {
+
+		for(int y = drawStartY; y < drawEndY; y++){
+
+			int d = (y) * 256 - height * 128 + spriteHeight * 128;
+			int textureY = ((d * texSize) / spriteHeight) / 256;
+
+			int sum = (int)textureY*texSize + (int)textureX;
+
+			if(sum < 0)
+				sum = 0;
+			if(sum > texSize*texSize)
+				sum = (texSize*texSize)-1;
+
+			//get current color from the texture
+			int color = texture.pixels[sum]; 
+
+			//paint pixel if it isn't transparent, black is the invisible color
+			if((color >>24 & 0xff) != 0) 
+				pixels[stripe + (y*width)] = color; 
+		}
+	}
+
+	private void loopWallTextureHeight(int drawStart, int drawEnd, int texX, int texNum, 
+			int lineHeight, int side, int x, int[] pixels) {
+
+		//calculate y coordinate on texture
+		for(int y=drawStart; y<drawEnd; y++) {
+			int texY = (((y*2 - height + lineHeight) << 6) / lineHeight) / 2;
+			int color;
+			int sum = texX + (texY * textures.get(texNum).SIZE);
+
+			if(sum > textures.get(texNum).SIZE*textures.get(texNum).SIZE )
+				sum = (textures.get(texNum).SIZE*textures.get(texNum).SIZE) -1;
+
+			if(sum < 0)
+				sum = 0;
+
+			if(side==0)
+				color = textures.get(texNum).pixels[sum];
+			else
+				color = (textures.get(texNum).pixels[sum]>>1) & 8355711;//Make y sides darker
+
+			pixels[x + y*(width)] = color;
+		}
+	}
+
+	private void filltextureArray() {
+		textures.add(Texture.brickStone);
+		textures.add(Texture.brickStone1);
+		textures.add(Texture.brickStone2);
+		textures.add(Texture.brickStone3);
+		textures.add(Texture.brickStone4);
+
+		textures.add(Texture.statue);
+		textures.add(Texture.unicorn_blood);
+		textures.add(Texture.shriveled_head);
+
+		textures.add(Texture.portal);
+		textures.add(Texture.portal_1);
+		textures.add(Texture.portal_2);
+		textures.add(Texture.portal_3);
 	}
 }

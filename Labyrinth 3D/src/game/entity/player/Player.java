@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 import engine.gameBase.GamePanel;
 import engine.gameBase.KeyHandler;
@@ -35,8 +31,6 @@ public class Player {
 	BufferedImage playerSprite[] = new BufferedImage[4];
 
 	
-	ArrayList<Rectangle> colidingRectangles = new ArrayList<Rectangle>();
-
 	public boolean up;
 	public boolean down;
 	public boolean right;
@@ -62,10 +56,6 @@ public class Player {
 
 	public void draw(Graphics2D g){
 		g.setColor(Color.white);
-		//		g.drawImage(Loading.player, screenX+16, screenY-16, null);
-
-//		g.setColor(Color.green);
-//		g.fillRect(screenX+16+8, screenY-16+8, 16, 16);
 		
 		if(playerSprite[getPlayerDirection()] != null)
 			g.drawImage(playerSprite[getPlayerDirection()], screenX+22, screenY-20, null);
@@ -83,24 +73,6 @@ public class Player {
 	}
 
 	public void update(){
-//		if(playerSprite[getPlayerDirection()] == null){
-//			String path = "saves/"+PLAYERNAME+"/"+PLAYERNAME +".png";
-//
-//			for(int i = 0; i < playerSprite.length; i++){
-//				BufferedImage tempImg = null;
-//
-//				try {
-//					tempImg = (ImageIO.read(getClass().getResourceAsStream(path))).getSubimage(0+ (20*i), 0, 20, 28);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//					System.out.println(path);
-//				}
-//
-//				if(tempImg != null)
-//					playerSprite[i]= tempImg;
-//			}
-//			
-//		}
 		
 		//make method update bounding box
 		boundingBox = new Rectangle[]{
@@ -133,12 +105,6 @@ public class Player {
 		this.playerDirection = playerDirection;
 	}
 
-	
-	
-	
-	
-	
-	
 	
 	public void setTopHit(){topHit = true;}
 	public void setBotHit(){botHit = true;}

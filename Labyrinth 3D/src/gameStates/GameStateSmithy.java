@@ -12,7 +12,6 @@ import engine.gameBase.GameState;
 import engine.gameBase.GameStateHandler;
 import engine.gameBase.KeyHandler;
 import game.player.PlayerData;
-import gameStates.content.Images;
 
 public class GameStateSmithy extends GameState{
 
@@ -31,7 +30,6 @@ public class GameStateSmithy extends GameState{
 		interactSmith = new Rectangle(500, 80, 512, 512);
 	}
 
-	private double bob = 0;
 	private double bobbing;
 	boolean canTalk;
 	private boolean displayText;
