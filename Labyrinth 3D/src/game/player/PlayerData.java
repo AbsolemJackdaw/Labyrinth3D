@@ -10,5 +10,7 @@ public class PlayerData {
 	//resets everytime you exit a maze
 	public static ArrayList<Card> currentlyCollectedCards = new ArrayList<Card>();
 
+	public static boolean hasVisitedSmith;
+
 	
 }

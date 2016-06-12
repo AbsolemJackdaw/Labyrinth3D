@@ -12,29 +12,29 @@ public class Screen {
 
 	public double[] ZBuffer;
 
-	
+
 	int texIndex = 0;
 
 	double spriteWorldPosX;
 	double spriteWorldPosY;
-	
+
 	double transformX;
 	double transformY;
-	
+
 	int spriteHeight;
 	int spriteWidth;
-	
+
 	int drawStartY;
 	int drawEndY;
-	
+
 	int drawStartX;
 	int drawEndX;
-	
+
 	Entity e;
 	Texture texture;
-	
+
 	int texSize;
-	
+
 	public Screen(int[][] m, int mapW, int mapH, int w, int h) {
 		map = m;
 		mapWidth = mapW;
@@ -43,13 +43,13 @@ public class Screen {
 		height = h;
 
 		ZBuffer = new double[w];
-		
+
 		textures.add(Texture.brick);
-		
+
 		textures.add(Texture.statue);
 		textures.add(Texture.unicorn_blood);
 		textures.add(Texture.shriveled_head);
-		
+
 		textures.add(Texture.portal);
 		textures.add(Texture.portal_1);
 		textures.add(Texture.portal_2);
@@ -198,10 +198,10 @@ public class Screen {
 				int texY = (((y*2 - height + lineHeight) << 6) / lineHeight) / 2;
 				int color;
 				int sum = texX + (texY * textures.get(texNum).SIZE);
-				
+
 				if(sum > textures.get(texNum).SIZE*textures.get(texNum).SIZE )
 					sum = (textures.get(texNum).SIZE*textures.get(texNum).SIZE) -1;
-				
+
 				if(sum < 0)
 					sum = 0;
 
@@ -214,16 +214,16 @@ public class Screen {
 			}
 			ZBuffer[x] = perpWallDist;
 		}
-		
+
 		loopEntities(entity, camera, pixels);
-		
+
 		return null;
 	}
-	
+
 	private void loopY(int stripe, int textureX, Texture texture, int[] pixels) {
 
 		for(int y = drawStartY; y < drawEndY; y++){
-			
+
 			int d = (y) * 256 - height * 128 + spriteHeight * 128;
 			int textureY = ((d * texSize) / spriteHeight) / 256;
 
@@ -233,7 +233,7 @@ public class Screen {
 				sum = 0;
 			if(sum > texSize*texSize)
 				sum = (texSize*texSize)-1;
-			
+
 			//get current color from the texture
 			int color = texture.pixels[sum]; 
 
@@ -247,8 +247,8 @@ public class Screen {
 
 		//required for correct matrix multiplication
 		double invDet = 1.0 / (camera.xPlane * camera.yDir - camera.xDir * camera.yPlane); 
-		
-		
+
+
 		for(int entities = 0; entities < entity.size(); entities++){
 
 			e = entity.get(entities);
@@ -303,7 +303,7 @@ public class Screen {
 				//the conditions in the if are:
 				//1) it's in front of camera plane so you don't see things behind you, 2) it's on the screen (left)
 				//3) it's on the screen (right), 4) ZBuffer, with perpendicular distance
-				
+
 				if(transformY > 0 && stripe > 0 && stripe < width && transformY < ZBuffer[stripe])
 				{
 					int textureX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * texSize / spriteWidth) / 256;

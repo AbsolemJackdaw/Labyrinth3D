@@ -83,24 +83,24 @@ public class Player {
 	}
 
 	public void update(){
-		if(playerSprite[getPlayerDirection()] == null){
-			String path = "saves/"+PLAYERNAME+"/"+PLAYERNAME +".png";
-
-			for(int i = 0; i < playerSprite.length; i++){
-				BufferedImage tempImg = null;
-
-				try {
-					tempImg = (ImageIO.read(getClass().getResourceAsStream(path))).getSubimage(0+ (20*i), 0, 20, 28);
-				} catch (IOException e) {
-					e.printStackTrace();
-					System.out.println(path);
-				}
-
-				if(tempImg != null)
-					playerSprite[i]= tempImg;
-			}
-			
-		}
+//		if(playerSprite[getPlayerDirection()] == null){
+//			String path = "saves/"+PLAYERNAME+"/"+PLAYERNAME +".png";
+//
+//			for(int i = 0; i < playerSprite.length; i++){
+//				BufferedImage tempImg = null;
+//
+//				try {
+//					tempImg = (ImageIO.read(getClass().getResourceAsStream(path))).getSubimage(0+ (20*i), 0, 20, 28);
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//					System.out.println(path);
+//				}
+//
+//				if(tempImg != null)
+//					playerSprite[i]= tempImg;
+//			}
+//			
+//		}
 		
 		//make method update bounding box
 		boundingBox = new Rectangle[]{

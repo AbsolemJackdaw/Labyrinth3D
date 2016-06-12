@@ -46,9 +46,6 @@ public class GameStateMenu extends GameState {
 	
 	private void load(){
 		
-		//dont start or stop icon. it doesn't exist yet ! it exists AFTER this
-//		Utility.startLoadingIcon();
-
 		new SwingWorker<Integer, Void>() {
 
 			@Override
@@ -67,7 +64,7 @@ public class GameStateMenu extends GameState {
 			@Override
 			protected void done() {
 				super.done();
-				Utility.stopLoadingIcon();
+				System.out.println("images done loading");
 			}
 		}.execute();
 		

@@ -7,8 +7,8 @@ public class Camera{
 	
 	public double xPos, yPos, xDir, yDir, xPlane, yPlane;
 //	private static boolean left, right, forward, back, enter;
-	public final double MOVE_SPEED = .08;
-	public final double ROTATION_SPEED = .06;
+	public final double MOVE_SPEED = .04;
+	public final double ROTATION_SPEED = .033;
 	
 	public Camera(double x, double y, double xd, double yd, double xp, double yp) {
 		xPos = x;
@@ -74,7 +74,7 @@ public class Camera{
 		}
 	}
 
-	public static final int NUM_KEYS = 7;
+	public static final int NUM_KEYS = 8;
 
 	public static boolean keyState[] = new boolean[NUM_KEYS];
 	public static boolean prevKeyState[] = new boolean[NUM_KEYS];
@@ -85,8 +85,9 @@ public class Camera{
 	public static int Right = 3;
 	public static int StrafeLeft = 4;
 	public static int StrafeRight = 5;
-	public static int Enter = 6;
-
+	public static int T = 6;
+	public static int Map = 7;
+	
 	public static boolean anyKeyPress() {
 		for (int i = 0; i < NUM_KEYS; i++)
 			if (keyState[i])
@@ -105,7 +106,7 @@ public class Camera{
 	public static void keySet(int i, boolean b){
 
 		if (i == KeyEvent.VK_T)
-			keyState[Enter] = b;
+			keyState[T] = b;
 		else if (i == KeyEvent.VK_Z){
 			keyState[Forward] = b;
 		}else if (i == KeyEvent.VK_S){
@@ -118,6 +119,8 @@ public class Camera{
 			keyState[StrafeLeft] = b;
 		}else if (i == KeyEvent.VK_D){
 			keyState[StrafeRight] = b;
+		}else if (i == KeyEvent.VK_F){
+			keyState[Map] = b;
 		}
 	}	
 }

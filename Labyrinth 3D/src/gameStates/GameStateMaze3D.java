@@ -17,7 +17,6 @@ import game.player.PlayerData;
 import gameStates.content.Images;
 import gameStates.maze.Camera;
 import gameStates.maze.Screen;
-import gameStates.maze.Texture;
 
 public class GameStateMaze3D extends GameState {
 
@@ -70,15 +69,14 @@ public class GameStateMaze3D extends GameState {
 
 		screen.updateWalls(camera, GamePanel.getScreenPixels(),entities);
 
-		if(Camera.isPressed(Camera.Enter)){
-			gsh.changeGameState(GameStateHandler.MENU);
+		if(Camera.isPressed(Camera.T)){
+			gsh.changeGameState(GameStateHandler.ISLAND);
 		}
 		for(Entity e : entities) {
 			if(camera.xPos > e.worldPositionX-0.5 && camera.xPos < e.worldPositionX+0.5 ){
 				if(camera.yPos > e.worldPositionY-0.5 && camera.yPos < e.worldPositionY+0.5 ){
 					if(e instanceof EntityCollectible) {
 						System.out.println("pick up ! ");
-						//TODO when saving, or here, add cards also to playerdata.cards
 						PlayerData.currentlyCollectedCards.add(new Card(e.getID()).setPickedOrder(cardPickup));
 						cardPickup++;
 						entities.remove(e);
@@ -96,7 +94,12 @@ public class GameStateMaze3D extends GameState {
 				if(portal.isActive()) {
 					if(camera.xPos > e.worldPositionX-0.5 && camera.xPos < e.worldPositionX+0.5 ){
 						if(camera.yPos > e.worldPositionY-0.5 && camera.yPos < e.worldPositionY+0.5 ){
-							gsh.changeGameState(GameStateHandler.MENU);
+
+							for(Card c : PlayerData.currentlyCollectedCards)
+								PlayerData.cards.add(c);
+							PlayerData.currentlyCollectedCards.clear();
+
+							gsh.changeGameState(GameStateHandler.ISLAND);
 						}
 					}
 				}
@@ -110,7 +113,8 @@ public class GameStateMaze3D extends GameState {
 	public void draw(Graphics2D g) {
 		super.draw(g);
 
-		minimap.draw(g);
+		if(Camera.isPressed(Camera.Map))
+			minimap.draw(g);
 
 		g.drawImage(Images.hud, 0, 0, GamePanel.W, GamePanel.H, null);
 

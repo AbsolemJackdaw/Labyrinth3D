@@ -37,13 +37,13 @@ public class KeyHandler {
 
 		if (i == KeyEvent.VK_ENTER)
 			keyState[ENTER] = b;
-		else if (i == KeyEvent.VK_UP){
+		else if (i == KeyEvent.VK_Z){
 			keyState[UP] = b;
-		}else if (i == KeyEvent.VK_DOWN){
+		}else if (i == KeyEvent.VK_S){
 			keyState[DOWN] = b;
-		}else if (i == KeyEvent.VK_LEFT){
+		}else if (i == KeyEvent.VK_Q){
 			keyState[LEFT] = b;
-		}else if (i == KeyEvent.VK_RIGHT){
+		}else if (i == KeyEvent.VK_D){
 			keyState[RIGHT] = b;
 		}else if (i == KeyEvent.VK_SPACE){
 			keyState[SPACE] = b;

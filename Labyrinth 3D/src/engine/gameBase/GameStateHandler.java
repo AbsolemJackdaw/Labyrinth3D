@@ -1,7 +1,9 @@
 package engine.gameBase;
 
+import gameStates.GameStateIsland;
 import gameStates.GameStateMaze3D;
 import gameStates.GameStateMenu;
+import gameStates.GameStateSmithy;
 
 import java.awt.Graphics2D;
 
@@ -17,8 +19,9 @@ public class GameStateHandler {
 	public static final int MAZE_10 = 5;
 	public static final int MAZE_20 = 6;
 	public static final int MAZE_50 = 7;
-	
-	public static final GameState[] states = new GameState[6];
+	public static final int SMITHY = 8;
+
+	public static final GameState[] states = new GameState[10];
 
 	public GameStateHandler() {
 		currentGameState = MENU;
@@ -56,6 +59,12 @@ public class GameStateHandler {
 			break;
 		case MAZE_10:
 			states[state] = new GameStateMaze3D(this, 10, 3);
+			break;
+		case ISLAND:
+			states[state] = new GameStateIsland(this);
+			break;
+		case SMITHY:
+			states[state] = new GameStateSmithy(this);
 			break;
 			
 //		case GAME:

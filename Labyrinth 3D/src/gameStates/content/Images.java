@@ -178,6 +178,14 @@ public class Images {
 	public static BufferedImage unicorn_blood;
 
 	public static BufferedImage backGroundMain;
+	public static BufferedImage smithyBackground;
+
+	public static BufferedImage player;
+	public static BufferedImage smith;
+	public static BufferedImage bubble;
+	public static BufferedImage bubble_empty;
+
+	public static BufferedImage shadow;
 
 	
 	public static final int totalResources = 25;
@@ -233,6 +241,15 @@ public class Images {
 			portal = loadSprite("/entity/portal/portal.png");
 			loadImages(portalAnim,"/entity/portal/portal");
 			backGroundMain = loadSprite("/background/mainPlace.png");
+			smithyBackground = loadSprite("/background/smithy.png");
+
+			player = loadSprite("/playerSprite/playerMaze/player_hurt.png");
+			smith = loadSprite("/entity/reaper32.png");
+
+			bubble = loadSprite("/hud/bubble.png");
+			bubble_empty = loadSprite("/hud/bubble_empty.png");
+			shadow = loadSprite("/entity/shadow.png");
+
 	}
 
 	private void loadImages(BufferedImage[] list, String p) {
