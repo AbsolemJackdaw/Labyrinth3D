@@ -131,8 +131,11 @@
 
 package gameStates.content;
 
+import gameStates.maze.Texture;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -179,42 +182,57 @@ public class Images {
 	
 	public static final int totalResources = 25;
 
+	public static ArrayList<Texture> textures = new ArrayList<Texture>();
+
+	
 	public void load (){
 		loadPlayerImages();
 		loadSprites();
+		
+		textures.add(Texture.wood);
+		textures.add(Texture.brick);
+		textures.add(Texture.bluestone);
+		textures.add(Texture.stone);
+		textures.add(Texture.pixelTest);
+		textures.add(Texture.walls);
+		
+		textures.add(Texture.statue);
+		textures.add(Texture.unicorn_blood);
+		textures.add(Texture.shriveled_head);
+		
 	}
 
 	private void loadPlayerImages(){
 //			loadImages(heads, "playerSprite/front/head/head");
-			loadImages(bodies, "playerSprite/front/body/body");
-			loadImages(arms, "playerSprite/front/arm/hands");
-			loadImages(walls, "Walls/Wall");
-			loadImages(hair, "playerSprite/front/hair/hair");
-			loadImages(heads_l, "playerSprite/sidel/head/head");
-			loadImages(arms_l, "playerSprite/sidel/arm/arm");
-			loadImages(hair_l, "playerSprite/sidel/hair/hair");
-			loadImages(bodies_l, "playerSprite/sidel/body/body");
-			loadImages(heads_r, "playerSprite/sider/head/head");
-			loadImages(arms_r, "playerSprite/sider/arm/arm");
-			loadImages(hair_r, "playerSprite/sider/hair/hair");
-			loadImages(bodies_r, "playerSprite/sider/body/body");
+			loadImages(bodies, "/playerSprite/front/body/body");
+			loadImages(arms, "/playerSprite/front/arm/hands");
+			loadImages(walls, "/Walls/Wall");
+			loadImages(hair, "/playerSprite/front/hair/hair");
+			loadImages(heads_l, "/playerSprite/sidel/head/head");
+			loadImages(arms_l, "/playerSprite/sidel/arm/arm");
+			loadImages(hair_l, "/playerSprite/sidel/hair/hair");
+			loadImages(bodies_l, "/playerSprite/sidel/body/body");
+			loadImages(heads_r, "/playerSprite/sider/head/head");
+			loadImages(arms_r, "/playerSprite/sider/arm/arm");
+			loadImages(hair_r, "/playerSprite/sider/hair/hair");
+			loadImages(bodies_r, "/playerSprite/sider/body/body");
 
-			loadImages(hair_b, "playerSprite/back/hair/hair");
-			loadImages(bodies_b, "playerSprite/back/body/body");
+			loadImages(hair_b, "/playerSprite/back/hair/hair");
+			loadImages(bodies_b, "/playerSprite/back/body/body");
 	}
 
 	private void loadSprites(){
-			hud_elements = loadSprite("Hud/hudElements.png");
-			statue = loadSprite("entity/statue.png");
-			card = loadSprite("entity/card.png");
-			dried_head = loadSprite("entity/dried_head.png");
-			unicorn_blood = loadSprite("entity/unicorn_blood.png");
-			shade = loadSprite("Hud/shade.png");
-			hud_shade = loadSprite("Hud/hud_black.png");
-			hud = loadSprite("Hud/hud.png");
-			portal = loadSprite("entity/portal/portal.png");
-			loadImages(portalAnim,"entity/portal/portal");
-			backGroundMain = loadSprite("background/mainPlace.png");
+			hud_elements = loadSprite("/hud/hudElements.png");
+			statue = loadSprite("/entity/statue.png");
+			card = loadSprite("/entity/card.png");
+			dried_head = loadSprite("/entity/dried_head.png");
+			unicorn_blood = loadSprite("/entity/unicorn_blood.png");
+			shade = loadSprite("/hud/shade.png");
+			hud_shade = loadSprite("/hud/hud_black.png");
+			hud = loadSprite("/hud/hud.png");
+			portal = loadSprite("/entity/portal/portal.png");
+			loadImages(portalAnim,"/entity/portal/portal");
+			backGroundMain = loadSprite("/background/mainPlace.png");
 	}
 
 	private void loadImages(BufferedImage[] list, String p) {
@@ -226,7 +244,7 @@ public class Images {
 			BufferedImage tempImg = null;
 
 			try {
-				tempImg = ImageIO.read(getClass().getResourceAsStream(path));
+				tempImg = ImageIO.read(Images.class.getClass().getResourceAsStream(path));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -242,10 +260,10 @@ public class Images {
 		BufferedImage tempImg = null;
 
 		try {
-			tempImg = ImageIO.read(getClass().getResourceAsStream(path));
+			tempImg = ImageIO.read(Images.class.getClass().getResourceAsStream(path));
 		} catch (IOException e) {
-			e.printStackTrace();
 			System.out.println(path);
+			e.printStackTrace();
 		}
 
 		if(tempImg != null)

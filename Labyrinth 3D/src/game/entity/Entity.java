@@ -15,6 +15,8 @@ public class Entity {
 	//wether the entity has to be deleted on update
 	boolean remove;
 	
+	private boolean hasAnimation = false;
+	
 	public Entity(int size, int id) {
 		this.size = size;
 		this.id = id;

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Screen {
 	public int[][] map;
 	public int mapWidth, mapHeight, width, height;
-	public ArrayList<Texture> textures;
+	public ArrayList<Texture> textures = new ArrayList<Texture>();
 
 	public double[] ZBuffer;
 
@@ -35,15 +35,25 @@ public class Screen {
 	
 	int texSize;
 	
-	public Screen(int[][] m, int mapW, int mapH, ArrayList<Texture> tex, int w, int h) {
+	public Screen(int[][] m, int mapW, int mapH, int w, int h) {
 		map = m;
 		mapWidth = mapW;
 		mapHeight = mapH;
-		textures = tex;
 		width = w;
 		height = h;
 
 		ZBuffer = new double[w];
+		
+		textures.add(Texture.brick);
+		
+		textures.add(Texture.statue);
+		textures.add(Texture.unicorn_blood);
+		textures.add(Texture.shriveled_head);
+		
+		textures.add(Texture.portal);
+		textures.add(Texture.portal_1);
+		textures.add(Texture.portal_2);
+		textures.add(Texture.portal_3);
 
 	}
 
@@ -188,6 +198,12 @@ public class Screen {
 				int texY = (((y*2 - height + lineHeight) << 6) / lineHeight) / 2;
 				int color;
 				int sum = texX + (texY * textures.get(texNum).SIZE);
+				
+				if(sum > textures.get(texNum).SIZE*textures.get(texNum).SIZE )
+					sum = (textures.get(texNum).SIZE*textures.get(texNum).SIZE) -1;
+				
+				if(sum < 0)
+					sum = 0;
 
 				if(side==0)
 					color = textures.get(texNum).pixels[sum];
@@ -196,11 +212,7 @@ public class Screen {
 
 				pixels[x + y*(width)] = color;
 			}
-
-			///////////////////////////////////////////////////////////////////////////////////////////
-
 			ZBuffer[x] = perpWallDist;
-			
 		}
 		
 		loopEntities(entity, camera, pixels);
@@ -217,6 +229,11 @@ public class Screen {
 
 			int sum = (int)textureY*texSize + (int)textureX;
 
+			if(sum < 0)
+				sum = 0;
+			if(sum > texSize*texSize)
+				sum = (texSize*texSize)-1;
+			
 			//get current color from the texture
 			int color = texture.pixels[sum]; 
 

@@ -142,6 +142,7 @@ public class MiniMap {
 			}
 
 		}
+		
 		public void draw(Graphics2D g){
 			g.setColor(Color.black);
 			g.fill(rect);

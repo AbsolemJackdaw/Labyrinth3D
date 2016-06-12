@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 
 public class EntityCollectible extends Entity{
 
-	public static final int maxObjects = 3;
 	public static final int STATUE = 0;
 	public static final int HEAD = 1;
 	public static final int UNICORN_BLOOD = 2;
@@ -37,13 +36,21 @@ public class EntityCollectible extends Entity{
 
 	@Override
 	public int getTextureIndex() {
-		return 5;
+		switch (id) {
+		case STATUE:
+			return 1;
+		case HEAD:
+			return 3;
+		case UNICORN_BLOOD:
+			return 2;
+		default : 
+			System.out.println("no texture for this collectible ! resolved to default");
+			return 1;
+		}
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
 		super.draw(g);
-
-
 	}
 }

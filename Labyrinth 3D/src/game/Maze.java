@@ -13,7 +13,6 @@ import java.util.Calendar;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import javax.swing.SwingWorker;
 
 public class Maze {
 
@@ -46,18 +45,18 @@ public class Maze {
 	static Random rand = new Random();
 
 	/**size that was originally set with border fix*/
-	private static int mazeSizeFixed;
+	private int mazeSizeFixed;
 	/**size that was originally set with border fix*/
-	private static int mapSizeFixed;
+	private int mapSizeFixed;
 	/**size that was originally set with border fix*/
-	private static int worldSizeFixed;
+	private int worldSizeFixed;
 
 	/**side value of the maze*/
-	private static int mazeSize;
+	private int mazeSize;
 	/**total map size aka all grids*/
-	private static int mapSize;
+	private int mapSize;
 	/**scale size of the map with graphics*/
-	private static int worldSize;
+	private int worldSize;
 
 	/**size value of graphic tiles*/
 	private static int tileSize;
@@ -87,55 +86,67 @@ public class Maze {
 		this(size,64);
 	}
 
-	public static int getTileSize() {
+	public int getTileSize() {
 		return tileSize;
 	}
-	public static int getWorldSize() {
+	public int getWorldSize() {
 		return worldSize;
 	}
-	public static int getMapSize() {
+	public int getMapSize() {
 		return mapSize;
+	}
+
+	public int getMapSizeFixed() {
+		return mapSizeFixed;
+	}
+
+	public int getMazeSize() {
+		return mazeSize;
+	}
+
+	public int getMazeSizeFixed() {
+		return mazeSizeFixed;
 	}
 
 	public void load(){
 
-		new SwingWorker<Integer, Void>() {
+		//		new SwingWorker<Integer, Void>() {
+		//
+		//			@Override
+		//			protected Integer doInBackground() {
 
-			@Override
-			protected Integer doInBackground() {
+		//start loading icon
 
-				//start loading icon
+		System.out.println("loading maze. set size is " + mazeSize);
+		//				try {
 
-				System.out.println("loading maze. set size is " + mazeSize);
-				try {
+		for(int y = 0; y < mazeSizeFixed; y++)
+			for(int x = 0; x < mazeSizeFixed; x++)
+				numberGrid[x][y] = -1;
 
-					for(int y = 0; y < mazeSizeFixed; y++)
-						for(int x = 0; x < mazeSizeFixed; x++)
-							numberGrid[x][y] = -1;
+		createMazeMap();
+		eventualFix();
+		gridNumbers();
+		gridLabyrinth();
+		indexFor3D();
 
-					createMazeMap();
-					eventualFix();
-					gridNumbers();
-					gridLabyrinth();
-					indexFor3D();
+		if(printscreen)
+			printScreen();
 
-					if(printscreen)
-						printScreen();
+		//				} catch (Exception e) {
+		//					e.printStackTrace();
+		//				}
+		//				return null;
+		//			}
 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return null;
-			}
-
-			@Override
-			protected void done() {
-				super.done();
-				//stop loading icon
-
-				//switch gamestate
-			}
-		}.execute();
+		//			@Override
+		//			protected void done() {
+		//				super.done();
+		//				//stop loading icon
+		//
+		//				//switch gamestate
+		//			}
+		//		}.execute();
 
 	}
 
@@ -212,10 +223,10 @@ public class Maze {
 
 	/**creates a random maze*/
 	private void createMazeMap(){
-		
+
 		//cells with value -1 or 0 to check wether or not we passed here
 		int[][] cells = new int[mazeSizeFixed][mazeSizeFixed];
-		
+
 		//arrays keeping track of where we went
 		ArrayList<Integer> dirsTaken = new ArrayList<Integer>();
 		ArrayList<Integer> dirs = new ArrayList<Integer>();
@@ -227,14 +238,14 @@ public class Maze {
 				boolean [] bool = new boolean[]{false,false,false,false};
 				coords[x][y] = bool;
 			}
-		
-//		for(int loop = 0; loop < mazeSizeFixed ; loop++ ){
-//			cells[0][loop] = 0;
-//			cells[loop][0] = 0;
-//			cells[mazeSizeFixed-1][loop] = 0;
-//			cells[loop][mazeSizeFixed-1] = 0;
-//
-//		}
+
+		//		for(int loop = 0; loop < mazeSizeFixed ; loop++ ){
+		//			cells[0][loop] = 0;
+		//			cells[loop][0] = 0;
+		//			cells[mazeSizeFixed-1][loop] = 0;
+		//			cells[loop][mazeSizeFixed-1] = 0;
+		//
+		//		}
 
 		//position to start labyrinth generation
 		int x=rand.nextInt(mazeSize)+1;
@@ -393,18 +404,18 @@ public class Maze {
 	/**returns a 3x3 grid to transform tiles from*/
 	private int getGridFromTile(int id, int x, int y){
 
-		int[][] grid0 = {{2,2,2},{0,0,0},{2,2,2}};
-		int[][] grid1 = {{2,0,2},{2,0,2},{2,0,2}};
-		int[][] grid2 = {{2,2,2},{0,0,0},{2,0,2}};
-		int[][] grid3 = {{2,0,2},{0,0,0},{2,2,2}};
-		int[][] grid4 = {{2,0,2},{0,0,2},{2,0,2}};
-		int[][] grid5 = {{2,0,2},{2,0,0},{2,0,2}};
-		int[][] grid6 = {{2,2,2},{2,0,0},{2,0,2}};
-		int[][] grid7 = {{2,2,2},{0,0,2},{2,0,2}};
-		int[][] grid8 = {{2,0,2},{0,0,2},{2,2,2}};
-		int[][] grid9 = {{2,0,2},{2,0,0},{2,2,2}};
-		int[][] grid10 = {{2,0,2},{0,0,0},{2,0,2}};
-		int[][] grid11 = {{2,2,2},{2,2,2},{2,2,2}};
+		int[][] grid0 = {{1,1,1},{0,0,0},{1,1,1}};
+		int[][] grid1 = {{1,0,1},{1,0,1},{1,0,1}};
+		int[][] grid2 = {{1,1,1},{0,0,0},{1,0,1}};
+		int[][] grid3 = {{1,0,1},{0,0,0},{1,1,1}};
+		int[][] grid4 = {{1,0,1},{0,0,1},{1,0,1}};
+		int[][] grid5 = {{1,0,1},{1,0,0},{1,0,1}};
+		int[][] grid6 = {{1,1,1},{1,0,0},{1,0,1}};
+		int[][] grid7 = {{1,1,1},{0,0,1},{1,0,1}};
+		int[][] grid8 = {{1,0,1},{0,0,1},{1,1,1}};
+		int[][] grid9 = {{1,0,1},{1,0,0},{1,1,1}};
+		int[][] grid10 = {{1,0,1},{0,0,0},{1,0,1}};
+		int[][] grid11 = {{1,1,1},{1,1,1},{1,1,1}};
 
 		if(id == 0)
 			return grid0[x][y];

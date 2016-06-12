@@ -17,6 +17,7 @@ import engine.gameBase.GameState;
 import engine.gameBase.GameStateHandler;
 import engine.gameBase.KeyHandler;
 import gameStates.content.Images;
+import gameStates.maze.Texture;
 
 
 public class GameStateMenu extends GameState {
@@ -55,7 +56,7 @@ public class GameStateMenu extends GameState {
 
 				try {
 					new Images().load();
-					
+					new Texture().loadTextures();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -120,7 +121,7 @@ public class GameStateMenu extends GameState {
 
 		if(KeyHandler.isPressed(KeyHandler.ENTER)){
 //			gsh.changeGameState(GameStateHandler.NAMING);
-			gsh.changeGameState(GameStateHandler.MAZE);
+			gsh.changeGameState(GameStateHandler.MAZE_10);
 
 		}
 

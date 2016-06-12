@@ -14,8 +14,10 @@ public class GameStateHandler {
 	public static final int NAMING = 2;
 	public static final int CREATION = 3;
 	public static final int ISLAND = 4;
-	public static final int MAZE = 5;
-
+	public static final int MAZE_10 = 5;
+	public static final int MAZE_20 = 6;
+	public static final int MAZE_50 = 7;
+	
 	public static final GameState[] states = new GameState[6];
 
 	public GameStateHandler() {
@@ -52,8 +54,8 @@ public class GameStateHandler {
 		case MENU:
 			states[state] = new GameStateMenu(this);
 			break;
-		case MAZE:
-			states[state] = new GameStateMaze3D(this);
+		case MAZE_10:
+			states[state] = new GameStateMaze3D(this, 10, 3);
 			break;
 			
 //		case GAME:
