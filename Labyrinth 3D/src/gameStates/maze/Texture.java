@@ -29,6 +29,7 @@ public class Texture {
 	public static Texture brickStone2 ;
 	public static Texture brickStone3 ;
 	public static Texture brickStone4 ;
+	public static Texture brickStone5 ;
 
 
 	public Texture() {
@@ -75,6 +76,7 @@ public class Texture {
 		brickStone2 = new Texture("/wall_bricks_2.png", 64);
 		brickStone3 = new Texture("/wall_bricks_3.png", 64);
 		brickStone4 = new Texture("/wall_bricks_4.png", 64);
+		brickStone5 = new Texture("/wall_bricks_5.png", 64);
 
 	}
 }

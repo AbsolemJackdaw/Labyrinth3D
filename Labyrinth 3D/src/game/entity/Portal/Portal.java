@@ -36,13 +36,13 @@ public class Portal extends Entity {
 				animationTextureReference ++;
 			}
 
-			if(animationTextureReference > 11)
-				animationTextureReference = 9;
+			if(animationTextureReference > 6)
+				animationTextureReference = 4;
 
 			return animationTextureReference;
 		}
 
-		return 8;
+		return 3;
 	}
 
 	public boolean isActive() {

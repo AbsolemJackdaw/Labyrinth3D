@@ -38,13 +38,13 @@ public class EntityCollectible extends Entity{
 	public int getTextureIndex() {
 		switch (id) {
 		case STATUE:
-			return 5;
+			return 0;
 		case HEAD:
-			return 7;
+			return 2;
 		case UNICORN_BLOOD:
-			return 6;
+			return 1;
 		default : 
-			return 5;
+			return 0;
 		}
 	}
 

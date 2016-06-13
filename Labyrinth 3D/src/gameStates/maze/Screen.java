@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class Screen {
 	public int[][] map;
 	public int mapWidth, mapHeight, width, height;
-	public ArrayList<Texture> textures = new ArrayList<Texture>();
+	public ArrayList<Texture> wallTextures = new ArrayList<Texture>();
+	public ArrayList<Texture> entityTextures = new ArrayList<Texture>();
 
 	public double[] ZBuffer;
 
@@ -172,6 +173,9 @@ public class Screen {
 			//add a texture
 			int texNum = map[mapX][mapY] - 1;
 
+			//texture
+			Texture texture = wallTextures.get(texNum);
+			
 			double wallX;//Exact position of where wall was hit
 
 			if(side==1) {//If its a y-axis wall
@@ -183,16 +187,34 @@ public class Screen {
 			wallX-=Math.floor(wallX);
 
 			//x coordinate on the texture
-			int texX = (int)(wallX * (textures.get(texNum).SIZE));
+			int texX = (int)(wallX * (wallTextures.get(texNum).SIZE));
 
 			if(side == 0 && rayDirX > 0)
-				texX = textures.get(texNum).SIZE - texX - 1;
+				texX = wallTextures.get(texNum).SIZE - texX - 1;
 
 			if(side == 1 && rayDirY < 0) 
-				texX = textures.get(texNum).SIZE - texX - 1;
+				texX = wallTextures.get(texNum).SIZE - texX - 1;
 
-			loopWallTextureHeight(drawStart, drawEnd, texX, texNum, lineHeight, side, texX, pixels);
+			//calculate y coordinate on texture
+			for(int y=drawStart; y<drawEnd; y++) {
+				int texY = (((y*2 - height + lineHeight) << 6) / lineHeight) / 2;
+				int color;
+				int sum = texX + (texY * texture.SIZE);
 
+				if(sum > texture.SIZE*texture.SIZE )
+					sum = (texture.SIZE*texture.SIZE) -1;
+
+				if(sum < 0)
+					sum = 0;
+
+				if(side==0)
+					color = texture.pixels[sum];
+				else
+					color = (texture.pixels[sum]>>1) & 8355711;//Make y sides darker
+
+				pixels[x + y*(width)] = color;
+			}
+			
 			ZBuffer[x] = perpWallDist;
 		}
 	}
@@ -209,9 +231,9 @@ public class Screen {
 
 			texIndex = e.getTextureIndex();
 
-			texture = textures.get(texIndex);
+			texture = entityTextures.get(texIndex);
 
-			texSize = textures.get(e.getTextureIndex()).SIZE;
+			texSize = entityTextures.get(e.getTextureIndex()).SIZE;
 
 			//translate sprite position to relative to camera
 			spriteWorldPosX = e.worldPositionX - camera.xPos;
@@ -291,44 +313,21 @@ public class Screen {
 		}
 	}
 
-	private void loopWallTextureHeight(int drawStart, int drawEnd, int texX, int texNum, 
-			int lineHeight, int side, int x, int[] pixels) {
-
-		//calculate y coordinate on texture
-		for(int y=drawStart; y<drawEnd; y++) {
-			int texY = (((y*2 - height + lineHeight) << 6) / lineHeight) / 2;
-			int color;
-			int sum = texX + (texY * textures.get(texNum).SIZE);
-
-			if(sum > textures.get(texNum).SIZE*textures.get(texNum).SIZE )
-				sum = (textures.get(texNum).SIZE*textures.get(texNum).SIZE) -1;
-
-			if(sum < 0)
-				sum = 0;
-
-			if(side==0)
-				color = textures.get(texNum).pixels[sum];
-			else
-				color = (textures.get(texNum).pixels[sum]>>1) & 8355711;//Make y sides darker
-
-			pixels[x + y*(width)] = color;
-		}
-	}
-
 	private void filltextureArray() {
-		textures.add(Texture.brickStone);
-		textures.add(Texture.brickStone1);
-		textures.add(Texture.brickStone2);
-		textures.add(Texture.brickStone3);
-		textures.add(Texture.brickStone4);
+		wallTextures.add(Texture.brickStone);
+		wallTextures.add(Texture.brickStone1);
+		wallTextures.add(Texture.brickStone2);
+		wallTextures.add(Texture.brickStone3);
+		wallTextures.add(Texture.brickStone4);
+		wallTextures.add(Texture.brickStone5);
 
-		textures.add(Texture.statue);
-		textures.add(Texture.unicorn_blood);
-		textures.add(Texture.shriveled_head);
+		entityTextures.add(Texture.statue);
+		entityTextures.add(Texture.unicorn_blood);
+		entityTextures.add(Texture.shriveled_head);
 
-		textures.add(Texture.portal);
-		textures.add(Texture.portal_1);
-		textures.add(Texture.portal_2);
-		textures.add(Texture.portal_3);
+		entityTextures.add(Texture.portal);
+		entityTextures.add(Texture.portal_1);
+		entityTextures.add(Texture.portal_2);
+		entityTextures.add(Texture.portal_3);
 	}
 }
