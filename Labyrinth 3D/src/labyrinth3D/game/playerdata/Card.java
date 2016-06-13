@@ -1,16 +1,18 @@
 package labyrinth3D.game.playerdata;
 
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-
-import labyrinth3D.engine.gameBase.GamePanel;
-
-
 import static labyrinth3D.game.entity.collectables.EntityCollectible.HEAD;
 import static labyrinth3D.game.entity.collectables.EntityCollectible.STATUE;
 import static labyrinth3D.game.entity.collectables.EntityCollectible.UNICORN_BLOOD;
-import static labyrinth3D.gamestates.content.Images.*;
+import static labyrinth3D.gamestates.content.ImageLoader.card;
+import static labyrinth3D.gamestates.content.ImageLoader.dried_head;
+import static labyrinth3D.gamestates.content.ImageLoader.statue;
+import static labyrinth3D.gamestates.content.ImageLoader.unicorn_blood;
+
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import labyrinth3D.engine.GamePanel;
 
 public class Card {
 

@@ -1,5 +1,7 @@
-package labyrinth3D.game.gameplay.hud;
+package labyrinth3D.game.hud;
 
+
+import static labyrinth3D.gamestates.content.ImageLoader.hud_elements;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -8,8 +10,6 @@ import java.util.ArrayList;
 
 import labyrinth3D.game.gen.GenMaze;
 import labyrinth3D.gamestates.maze3D.Camera;
-
-import static labyrinth3D.gamestates.content.Images.*;
 
 public class MiniMap {
 

@@ -1,17 +1,21 @@
 package labyrinth3D.gamestates;
 
+import static labyrinth3D.gamestates.content.ImageLoader.bubble;
+import static labyrinth3D.gamestates.content.ImageLoader.bubble_empty;
+import static labyrinth3D.gamestates.content.ImageLoader.player;
+import static labyrinth3D.gamestates.content.ImageLoader.shadow;
+import static labyrinth3D.gamestates.content.ImageLoader.smith;
+import static labyrinth3D.gamestates.content.ImageLoader.smithyBackground;
+
 import java.awt.Color;
-
-import static labyrinth3D.gamestates.content.Images.*;
-
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import labyrinth3D.engine.gameBase.GamePanel;
-import labyrinth3D.engine.gameBase.GameState;
-import labyrinth3D.engine.gameBase.GameStateHandler;
-import labyrinth3D.engine.gameBase.KeyHandler;
+import labyrinth3D.engine.GamePanel;
+import labyrinth3D.engine.GameState;
+import labyrinth3D.engine.GameStateHandler;
+import labyrinth3D.engine.KeyHandler;
 import labyrinth3D.game.playerdata.PlayerData;
 
 

@@ -1,4 +1,4 @@
-package labyrinth3D.gamestates.content;
+package labyrinth3D.gamestates.bounds;
 
 import java.awt.Rectangle;
 

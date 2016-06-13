@@ -11,14 +11,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.SwingWorker;
 
-import labyrinth3D.engine.gameBase.GamePanel;
-import labyrinth3D.engine.gameBase.GameState;
-import labyrinth3D.engine.gameBase.GameStateHandler;
-import labyrinth3D.engine.gameBase.KeyHandler;
-import labyrinth3D.gamestates.content.Images;
-import labyrinth3D.gamestates.content.Texture;
-
-
+import labyrinth3D.engine.GamePanel;
+import labyrinth3D.engine.GameState;
+import labyrinth3D.engine.GameStateHandler;
+import labyrinth3D.engine.KeyHandler;
+import labyrinth3D.gamestates.content.ImageLoader;
+import labyrinth3D.gamestates.content.ImageLoader.Texture;
 
 public class GameStateMenu extends GameState {
 
@@ -52,7 +50,7 @@ public class GameStateMenu extends GameState {
 			protected Integer doInBackground() {
 
 				try {
-					new Images().load();
+					new ImageLoader().load();
 					new Texture().loadTextures();
 					
 				} catch (Exception e) {

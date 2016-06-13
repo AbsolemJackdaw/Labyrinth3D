@@ -4,17 +4,17 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
 
-import labyrinth3D.engine.gameBase.GamePanel;
-import labyrinth3D.engine.gameBase.GameState;
-import labyrinth3D.engine.gameBase.GameStateHandler;
+import labyrinth3D.engine.GamePanel;
+import labyrinth3D.engine.GameState;
+import labyrinth3D.engine.GameStateHandler;
 import labyrinth3D.game.entity.Entity;
 import labyrinth3D.game.entity.collectables.EntityCollectible;
 import labyrinth3D.game.entity.portal.Portal;
-import labyrinth3D.game.gameplay.hud.MiniMap;
 import labyrinth3D.game.gen.GenMaze;
+import labyrinth3D.game.hud.MiniMap;
 import labyrinth3D.game.playerdata.Card;
 import labyrinth3D.game.playerdata.PlayerData;
-import labyrinth3D.gamestates.content.Images;
+import labyrinth3D.gamestates.content.ImageLoader;
 import labyrinth3D.gamestates.maze3D.Camera;
 import labyrinth3D.gamestates.maze3D.Screen;
 
@@ -86,7 +86,7 @@ public class GameStateMaze3D extends GameState {
 		if(Camera.isPressed(Camera.Map))
 			minimap.draw(g);
 
-		g.drawImage(Images.hud, 0, 0, GamePanel.W, GamePanel.H, null);
+		g.drawImage(ImageLoader.hud, 0, 0, GamePanel.W, GamePanel.H, null);
 
 		if(!PlayerData.currentlyCollectedCards.isEmpty())
 			for(Card card : PlayerData.currentlyCollectedCards) {

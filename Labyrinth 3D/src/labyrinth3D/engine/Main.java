@@ -1,8 +1,7 @@
-package labyrinth3D.engine.launcher.main;
+package labyrinth3D.engine;
 
 import javax.swing.JFrame;
 
-import labyrinth3D.engine.gameBase.GamePanel;
 
 
 

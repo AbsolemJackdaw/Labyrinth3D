@@ -1,13 +1,12 @@
 package labyrinth3D.game.gen;
 
+import static labyrinth3D.gamestates.content.ImageLoader.walls;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
 import labyrinth3D.utility.Maze2DScreenShot;
-
-
-import static labyrinth3D.gamestates.content.Images.*;
 
 public class GenMaze {
 

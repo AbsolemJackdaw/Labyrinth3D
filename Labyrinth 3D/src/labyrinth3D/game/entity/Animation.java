@@ -3,7 +3,7 @@ package labyrinth3D.game.entity;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import labyrinth3D.engine.gameBase.GamePanel;
+import labyrinth3D.engine.GamePanel;
 
 
 public class Animation {

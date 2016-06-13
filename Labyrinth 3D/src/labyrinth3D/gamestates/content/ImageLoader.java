@@ -138,7 +138,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class Images {
+public class ImageLoader {
 
 	private static final int characterNumber = 2; // number of different characters / heads.  
 
@@ -166,7 +166,7 @@ public class Images {
 	public static BufferedImage hud_shade;
 	public static BufferedImage hud_elements;
 	public static BufferedImage hud;
-	
+
 	public static BufferedImage card;
 
 	public static BufferedImage portal;
@@ -186,68 +186,68 @@ public class Images {
 
 	public static BufferedImage shadow;
 
-	
+
 	public static final int totalResources = 25;
 
 	public static ArrayList<Texture> textures = new ArrayList<Texture>();
 
-	
+
 	public void load (){
 		loadPlayerImages();
 		loadSprites();
-		
+
 		textures.add(Texture.wood);
 		textures.add(Texture.brick);
 		textures.add(Texture.bluestone);
 		textures.add(Texture.stone);
 		textures.add(Texture.pixelTest);
 		textures.add(Texture.walls);
-		
+
 		textures.add(Texture.statue);
 		textures.add(Texture.unicorn_blood);
 		textures.add(Texture.shriveled_head);
-		
+
 	}
 
 	private void loadPlayerImages(){
-//			loadImages(heads, "playerSprite/front/head/head");
-			loadImages(bodies, "/playerSprite/front/body/body");
-			loadImages(arms, "/playerSprite/front/arm/hands");
-			loadImages(walls, "/Walls/Wall");
-			loadImages(hair, "/playerSprite/front/hair/hair");
-			loadImages(heads_l, "/playerSprite/sidel/head/head");
-			loadImages(arms_l, "/playerSprite/sidel/arm/arm");
-			loadImages(hair_l, "/playerSprite/sidel/hair/hair");
-			loadImages(bodies_l, "/playerSprite/sidel/body/body");
-			loadImages(heads_r, "/playerSprite/sider/head/head");
-			loadImages(arms_r, "/playerSprite/sider/arm/arm");
-			loadImages(hair_r, "/playerSprite/sider/hair/hair");
-			loadImages(bodies_r, "/playerSprite/sider/body/body");
+		//			loadImages(heads, "playerSprite/front/head/head");
+		loadImages(bodies, "/playerSprite/front/body/body");
+		loadImages(arms, "/playerSprite/front/arm/hands");
+		loadImages(walls, "/Walls/Wall");
+		loadImages(hair, "/playerSprite/front/hair/hair");
+		loadImages(heads_l, "/playerSprite/sidel/head/head");
+		loadImages(arms_l, "/playerSprite/sidel/arm/arm");
+		loadImages(hair_l, "/playerSprite/sidel/hair/hair");
+		loadImages(bodies_l, "/playerSprite/sidel/body/body");
+		loadImages(heads_r, "/playerSprite/sider/head/head");
+		loadImages(arms_r, "/playerSprite/sider/arm/arm");
+		loadImages(hair_r, "/playerSprite/sider/hair/hair");
+		loadImages(bodies_r, "/playerSprite/sider/body/body");
 
-			loadImages(hair_b, "/playerSprite/back/hair/hair");
-			loadImages(bodies_b, "/playerSprite/back/body/body");
+		loadImages(hair_b, "/playerSprite/back/hair/hair");
+		loadImages(bodies_b, "/playerSprite/back/body/body");
 	}
 
 	private void loadSprites(){
-			hud_elements = loadSprite("/hud/hudElements.png");
-			statue = loadSprite("/entity/statue.png");
-			card = loadSprite("/entity/card.png");
-			dried_head = loadSprite("/entity/dried_head.png");
-			unicorn_blood = loadSprite("/entity/unicorn_blood.png");
-			shade = loadSprite("/hud/shade.png");
-			hud_shade = loadSprite("/hud/hud_black.png");
-			hud = loadSprite("/hud/hud.png");
-			portal = loadSprite("/entity/portal/portal.png");
-			loadImages(portalAnim,"/entity/portal/portal");
-			backGroundMain = loadSprite("/background/mainPlace.png");
-			smithyBackground = loadSprite("/background/smithy.png");
+		hud_elements = loadSprite("/hud/hudElements.png");
+		statue = loadSprite("/entity/statue.png");
+		card = loadSprite("/entity/card.png");
+		dried_head = loadSprite("/entity/dried_head.png");
+		unicorn_blood = loadSprite("/entity/unicorn_blood.png");
+		shade = loadSprite("/hud/shade.png");
+		hud_shade = loadSprite("/hud/hud_black.png");
+		hud = loadSprite("/hud/hud.png");
+		portal = loadSprite("/entity/portal/portal.png");
+		loadImages(portalAnim,"/entity/portal/portal");
+		backGroundMain = loadSprite("/background/mainPlace.png");
+		smithyBackground = loadSprite("/background/smithy.png");
 
-			player = loadSprite("/playerSprite/playerMaze/player_hurt.png");
-			smith = loadSprite("/entity/reaper32.png");
+		player = loadSprite("/playerSprite/playerMaze/player_hurt.png");
+		smith = loadSprite("/entity/reaper32.png");
 
-			bubble = loadSprite("/hud/bubble.png");
-			bubble_empty = loadSprite("/hud/bubble_empty.png");
-			shadow = loadSprite("/entity/shadow.png");
+		bubble = loadSprite("/hud/bubble.png");
+		bubble_empty = loadSprite("/hud/bubble_empty.png");
+		shadow = loadSprite("/entity/shadow.png");
 
 	}
 
@@ -260,7 +260,7 @@ public class Images {
 			BufferedImage tempImg = null;
 
 			try {
-				tempImg = ImageIO.read(Images.class.getClass().getResourceAsStream(path));
+				tempImg = ImageIO.read(ImageLoader.class.getClass().getResourceAsStream(path));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -276,7 +276,7 @@ public class Images {
 		BufferedImage tempImg = null;
 
 		try {
-			tempImg = ImageIO.read(Images.class.getClass().getResourceAsStream(path));
+			tempImg = ImageIO.read(ImageLoader.class.getClass().getResourceAsStream(path));
 		} catch (IOException e) {
 			System.out.println(path);
 			e.printStackTrace();
@@ -288,5 +288,81 @@ public class Images {
 		System.out.println("image " +path+ " could not be loaded");
 		return null;
 
+	}
+
+	public static class Texture {
+		public int[] pixels;
+		private String loc;
+		public int SIZE;
+
+		public static Texture wood ;
+		public static Texture brick ;
+		public static Texture bluestone ;
+		public static Texture stone ;
+		public static Texture statue ;
+		public static Texture pixelTest ;
+		public static Texture walls ;
+		public static Texture unicorn_blood ;
+		public static Texture shriveled_head ;
+		public static Texture portal ;
+		public static Texture portal_1 ;
+		public static Texture portal_2 ;
+		public static Texture portal_3 ;
+		public static Texture flat_stone ;
+		public static Texture brickStone ;
+		public static Texture brickStone1 ;
+		public static Texture brickStone2 ;
+		public static Texture brickStone3 ;
+		public static Texture brickStone4 ;
+		public static Texture brickStone5 ;
+
+
+		public Texture() {
+
+		}
+
+		public Texture(String location, int size) {
+			loc = location;
+			SIZE = size;
+			pixels = new int[SIZE * SIZE];
+			load();
+		}
+
+
+		private void load(){
+			try {
+				BufferedImage image = ImageIO.read(Texture.class.getClass().getResourceAsStream(loc));
+				int w = image.getWidth();
+				int h = image.getHeight();
+				image.getRGB(0, 0, w, h, pixels, 0, w);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public void loadTextures(){
+
+			wood = new Texture("/wood.png", 64);
+			brick = new Texture("/redbrick.png", 64);
+			bluestone = new Texture("/bluestone.png", 64);
+			stone = new Texture("/greystone.png", 64);
+			statue = new Texture("/statue.png", 64);
+			pixelTest = new Texture("/pixel.png", 4);
+			walls = new Texture("/walls.png", 8);
+			unicorn_blood = new Texture("/unicorn_blood.png", 64);
+			shriveled_head = new Texture("/head.png", 64);
+			portal = new Texture("/portal.png", 64);
+			portal_1 = new Texture("/portal_active1.png", 64);
+			portal_2 = new Texture("/portal_active2.png", 64);
+			portal_3 = new Texture("/portal_active3.png", 64);
+			flat_stone = new Texture("/flat_stone.png", 64);
+			brickStone = new Texture("/wall_bricks.png", 64);
+			brickStone1 = new Texture("/wall_bricks_1.png", 64);
+			brickStone2 = new Texture("/wall_bricks_2.png", 64);
+			brickStone3 = new Texture("/wall_bricks_3.png", 64);
+			brickStone4 = new Texture("/wall_bricks_4.png", 64);
+			brickStone5 = new Texture("/wall_bricks_5.png", 64);
+
+		}
 	}
 }

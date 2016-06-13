@@ -1,4 +1,4 @@
-package labyrinth3D.engine.gameBase;
+package labyrinth3D.engine;
 
 
 import java.awt.Dimension;

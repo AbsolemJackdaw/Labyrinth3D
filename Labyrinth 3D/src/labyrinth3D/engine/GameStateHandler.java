@@ -1,4 +1,4 @@
-package labyrinth3D.engine.gameBase;
+package labyrinth3D.engine;
 
 
 import java.awt.Graphics2D;
@@ -67,19 +67,6 @@ public class GameStateHandler {
 		case SMITHY:
 			states[state] = new GameStateSmithy(this);
 			break;
-			
-//		case GAME:
-//			states[state] = new Game(this);
-//			break;
-//		case CREATION:
-//			states[state] = new CharacterCreation(this);
-//			break;
-//		case NAMING:
-//			states[state] = new NamePanel(this);
-//			break;
-//		case ISLAND:
-//			states[state] = new Island(this);
-//			break;
 		}
 	}
 }

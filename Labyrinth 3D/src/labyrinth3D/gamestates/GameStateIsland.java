@@ -1,19 +1,18 @@
 package labyrinth3D.gamestates;
 
+import static labyrinth3D.gamestates.content.ImageLoader.backGroundMain;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import labyrinth3D.engine.gameBase.GamePanel;
-import labyrinth3D.engine.gameBase.GameState;
-import labyrinth3D.engine.gameBase.GameStateHandler;
-import labyrinth3D.engine.gameBase.KeyHandler;
-import labyrinth3D.gamestates.content.Doorway;
-import labyrinth3D.gamestates.content.Images;
-
-
-import static labyrinth3D.gamestates.content.Images.*;
+import labyrinth3D.engine.GamePanel;
+import labyrinth3D.engine.GameState;
+import labyrinth3D.engine.GameStateHandler;
+import labyrinth3D.engine.KeyHandler;
+import labyrinth3D.gamestates.bounds.Doorway;
+import labyrinth3D.gamestates.content.ImageLoader;
 
 public class GameStateIsland extends GameState {
 
@@ -65,9 +64,9 @@ public class GameStateIsland extends GameState {
 		drawWallText(g);
 
 		if(facingRight)
-			g.drawImage(Images.player, playerPositionX, playerPositionY-60, null);
+			g.drawImage(ImageLoader.player, playerPositionX, playerPositionY-60, null);
 		else
-			g.drawImage(Images.player, playerPositionX+64, playerPositionY-60, -64, 64, null);
+			g.drawImage(ImageLoader.player, playerPositionX+64, playerPositionY-60, -64, 64, null);
 
 		//		draws the player's bounding box
 		//		for(Rectangle r : boundingBox) {

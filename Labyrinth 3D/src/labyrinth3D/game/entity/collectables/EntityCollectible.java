@@ -1,12 +1,14 @@
 package labyrinth3D.game.entity.collectables;
 
 
+import static labyrinth3D.gamestates.content.ImageLoader.dried_head;
+import static labyrinth3D.gamestates.content.ImageLoader.statue;
+import static labyrinth3D.gamestates.content.ImageLoader.unicorn_blood;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import labyrinth3D.game.entity.Entity;
-
-import static labyrinth3D.gamestates.content.Images.*;
 
 public class EntityCollectible extends Entity{
 
