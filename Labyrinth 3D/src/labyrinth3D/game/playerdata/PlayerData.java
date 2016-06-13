@@ -2,6 +2,8 @@ package labyrinth3D.game.playerdata;
 
 import java.util.ArrayList;
 
+import labyrinth3D.game.entity.collectables.Card;
+
 public class PlayerData {
 
 
@@ -12,5 +14,9 @@ public class PlayerData {
 
 	public static boolean hasVisitedSmith;
 
+	public static boolean hasWarfSword = false;
 	
+	public static int collectedKeys = 0;
+
+	public static int attackSpeed = 5;
 }

@@ -1,13 +1,8 @@
-package labyrinth3D.game.playerdata;
+package labyrinth3D.game.entity.collectables;
 
 
-import static labyrinth3D.game.entity.collectables.EntityCollectible.HEAD;
-import static labyrinth3D.game.entity.collectables.EntityCollectible.STATUE;
-import static labyrinth3D.game.entity.collectables.EntityCollectible.UNICORN_BLOOD;
-import static labyrinth3D.rscMngr.ImageLoader.card;
-import static labyrinth3D.rscMngr.ImageLoader.dried_head;
-import static labyrinth3D.rscMngr.ImageLoader.statue;
-import static labyrinth3D.rscMngr.ImageLoader.unicorn_blood;
+import static labyrinth3D.game.entity.collectables.EntityCollectible.*;
+import static labyrinth3D.rscMngr.ImageLoader.*;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -49,6 +44,8 @@ public class Card {
 			return dried_head;
 		case UNICORN_BLOOD:
 			return unicorn_blood;
+		case WARFSWORD:
+			return warfsword;
 		default: return null;
 		}
 	}

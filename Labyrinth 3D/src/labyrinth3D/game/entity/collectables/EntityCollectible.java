@@ -1,9 +1,7 @@
 package labyrinth3D.game.entity.collectables;
 
 
-import static labyrinth3D.rscMngr.ImageLoader.dried_head;
-import static labyrinth3D.rscMngr.ImageLoader.statue;
-import static labyrinth3D.rscMngr.ImageLoader.unicorn_blood;
+import static labyrinth3D.rscMngr.ImageLoader.*;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -15,14 +13,13 @@ public class EntityCollectible extends Entity{
 	public static final int STATUE = 0;
 	public static final int HEAD = 1;
 	public static final int UNICORN_BLOOD = 2;
+	public static final int WARFSWORD = 3;
 
 	public EntityCollectible(int size, int id) {
 		super(size, id);
-
 	}
 
-	@Override
-	public BufferedImage getTexture() {
+	public BufferedImage getImage() {
 		switch (id) {
 		case STATUE:
 			return statue;
@@ -30,27 +27,19 @@ public class EntityCollectible extends Entity{
 			return dried_head;
 		case UNICORN_BLOOD:
 			return unicorn_blood;
+		case WARFSWORD:
+			return warfsword;
 		default : 
 			return null;
 		}
 	}
-
-	@Override
-	public int getTextureIndex() {
-		switch (id) {
-		case STATUE:
-			return 0;
-		case HEAD:
-			return 2;
-		case UNICORN_BLOOD:
-			return 1;
-		default : 
-			return 0;
-		}
-	}
-
+	
 	@Override
 	public void draw(Graphics2D g) {
 		super.draw(g);
+	}
+	
+	public void onPickUp() {
+		
 	}
 }

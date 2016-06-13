@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import labyrinth3D.rscMngr.ImageLoader.Texture;
+
 public class Entity {
 
 	//position in the world. should be withing map's borders;
@@ -32,7 +34,7 @@ public class Entity {
 		
 	}
 	
-	public BufferedImage getTexture(){
+	public BufferedImage getImage(){
 		return null;
 	}
 	
@@ -76,16 +78,14 @@ public class Entity {
 //	public void writeToSave(DataTag entityTag) {
 //		entityTag.writeInt("x", posMapX);
 //		entityTag.writeInt("y", posMapX);
-//
 //	}
 	
 	public Entity setPositionUnrelativeToCenter(int x , int y){
-//		posMapX = posX = x ;
-//		posMapY = posY = y ;
 		return this;
 	}
 	
-	public int getTextureIndex(){
-		return 0;
+	public Texture getTexture() {
+		return null;
 	}
+	
 }

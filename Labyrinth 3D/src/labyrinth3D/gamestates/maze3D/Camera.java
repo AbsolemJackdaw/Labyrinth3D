@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 public class Camera{
 	
 	public double xPos, yPos, xDir, yDir, xPlane, yPlane;
-//	private static boolean left, right, forward, back, enter;
 	public final double MOVE_SPEED = .04;
 	public final double ROTATION_SPEED = .033;
 	

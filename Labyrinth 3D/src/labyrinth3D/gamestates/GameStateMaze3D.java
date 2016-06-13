@@ -7,16 +7,19 @@ import java.util.Random;
 import labyrinth3D.engine.GamePanel;
 import labyrinth3D.engine.GameState;
 import labyrinth3D.engine.GameStateHandler;
+import labyrinth3D.engine.KeyHandler;
 import labyrinth3D.game.entity.Entity;
+import labyrinth3D.game.entity.collectables.Card;
 import labyrinth3D.game.entity.collectables.EntityCollectible;
+import labyrinth3D.game.entity.collectables.EntityKey;
+import labyrinth3D.game.entity.collectables.EntityWeapon;
 import labyrinth3D.game.entity.portal.Portal;
 import labyrinth3D.game.gen.GenMaze;
+import labyrinth3D.game.hud.HUD;
 import labyrinth3D.game.hud.MiniMap;
-import labyrinth3D.game.playerdata.Card;
 import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.gamestates.maze3D.Camera;
 import labyrinth3D.gamestates.maze3D.Screen;
-import labyrinth3D.rscMngr.ImageLoader;
 
 
 public class GameStateMaze3D extends GameState {
@@ -33,6 +36,7 @@ public class GameStateMaze3D extends GameState {
 	public static int[][] map;
 
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
+	private ArrayList<Entity> enemies = new ArrayList<Entity>();
 
 	GenMaze maze;
 
@@ -40,6 +44,11 @@ public class GameStateMaze3D extends GameState {
 
 	int totalCollectables = 0;
 
+	HUD hud;
+	
+	public boolean attack;
+	public int attackTime = 0;
+	
 	public GameStateMaze3D(GameStateHandler gsh, int mazeSize, int collectables) {
 		this.gsh = gsh;
 
@@ -53,7 +62,9 @@ public class GameStateMaze3D extends GameState {
 		addCollectables(collectables);
 		generatePortal();
 
-		minimap = new MiniMap();
+		hud = new HUD(this);
+		
+		minimap = hud.getMinimap();
 
 		camera = new Camera(4.5, 4.5, 1, 0, 0, -.66);
 		screen = new Screen(map, mapWidth, mapHeight, 1024, 576);
@@ -70,24 +81,40 @@ public class GameStateMaze3D extends GameState {
 
 		screen.updateWalls(camera, GamePanel.getScreenPixels(),entities);
 
+//		System.out.println(camera.xDir + " " + camera.yDir);
+		
 		if(Camera.isPressed(Camera.T)){
 			gsh.changeGameState(GameStateHandler.ISLAND);
 		}
+		
+		if(KeyHandler.isPressed(KeyHandler.SPACE) && attackTime <= 0) {
+			attack = true;
+			attackTime = 120;
+			//detect near enemies
+		}
+		
+		if(attackTime > 0)
+			attackTime-= PlayerData.attackSpeed;
+
+		if(attackTime <= 0 && attack)
+			attack = false;
 		
 		updateEntities();
 
 		minimap.update(camera);
 	}
 
+	public void attackenemy(){
+		for(Entity e : enemies) {
+		}
+	}
+	
 	@Override
 	public void draw(Graphics2D g) {
 		super.draw(g);
 
-		if(Camera.isPressed(Camera.Map))
-			minimap.draw(g);
-
-		g.drawImage(ImageLoader.hud, 0, 0, GamePanel.W, GamePanel.H, null);
-
+		hud.draw(g);
+		
 		if(!PlayerData.currentlyCollectedCards.isEmpty())
 			for(Card card : PlayerData.currentlyCollectedCards) {
 				card.draw(g);
@@ -95,22 +122,57 @@ public class GameStateMaze3D extends GameState {
 	}
 
 	public void addCollectables(int loops) {
+
+		generateKeys(loops);
+
+		generateAid();
+
+	}
+
+	private void generateAid() {
+
+		Entity e = null;
+
+		int turns = 1;
+
+		while (turns > 0) {
+			int x = rand.nextInt(maze.getMazeSizeFixed()*3);
+			int y = rand.nextInt(maze.getMazeSizeFixed()*3);
+
+			if(map[x][y] == 0) {
+
+				boolean flag = false;
+				for(Entity ent : entities) {
+					if(ent.getWorldPositionX() != x+.5 && ent.getWorldPositionY() != y+.5) {
+						flag = true;
+					}else
+						flag = false;
+				}
+				if(flag) {
+					e = new EntityWeapon(32, 3).setFirstPosition(x+.5, y+.5);
+					entities.add(e);
+					turns--;
+					System.out.println("added weapon " + e.getID() + " at " + e.worldPositionX+" "+e.worldPositionY  );
+					continue;
+				}
+			}
+		}
+	}
+
+	private void generateKeys(int loops) {
 		Entity e = null;
 
 		int turns = loops;
 		int collectibleID = 0;
 
 		while (turns > 0) {
-
-			System.out.println(turns);
-
 			int x = rand.nextInt(maze.getMazeSizeFixed()*3);
 			int y = rand.nextInt(maze.getMazeSizeFixed()*3);
 
 			if(map[x][y] == 0) {
 				if(entities.isEmpty()) {
 
-					e = new EntityCollectible(32, collectibleID).setFirstPosition(x+.5, y+.5);
+					e = new EntityKey(32, collectibleID).setFirstPosition(x+.5, y+.5);
 					entities.add(e);
 					turns--;
 					collectibleID++;
@@ -128,7 +190,7 @@ public class GameStateMaze3D extends GameState {
 					}
 
 					if(flag) {
-						e = new EntityCollectible(32, collectibleID).setFirstPosition(x+.5, y+.5);
+						e = new EntityKey(32, collectibleID).setFirstPosition(x+.5, y+.5);
 						entities.add(e);
 						turns--;
 						collectibleID++;
@@ -139,7 +201,6 @@ public class GameStateMaze3D extends GameState {
 			}
 		}
 	}
-
 
 	public void generatePortal() {
 
@@ -180,6 +241,7 @@ public class GameStateMaze3D extends GameState {
 						System.out.println("pick up ! ");
 						PlayerData.currentlyCollectedCards.add(new Card(e.getID()).setPickedOrder(cardPickup));
 						cardPickup++;
+						((EntityCollectible) e).onPickUp();
 						entities.remove(e);
 						break;
 					}

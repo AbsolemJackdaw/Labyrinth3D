@@ -1,9 +1,12 @@
 package labyrinth3D.engine;
 
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -43,6 +46,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 		setPreferredSize(new Dimension(W, H));
 		setFocusable(true);
 		requestFocus();
+		
+		// Transparent 16 x 16 pixel cursor image.
+		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+
+		// Create a new blank cursor.
+		Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+		    cursorImg, new Point(0, 0), "blank cursor");
+
+		// Set the blank cursor to the JFrame.
+		setCursor(blankCursor);
 		
 		System.out.println("GamePanel : Initializing game");
 	}

@@ -56,8 +56,9 @@ public class MiniMap {
 
 	public void update(Camera cam){
 
-		int colX = (int) (cam.getxPos()/3);
-		int colY = (int) (cam.getyPos()/3);
+		//these are inverted to fix the mirror map 
+		int colX = (int) (cam.getyPos()/3);
+		int colY = (int) (cam.getxPos()/3);
 
 		if(prevColX < colX || prevColX > colX){
 			MiniMapRectangle mmp = 

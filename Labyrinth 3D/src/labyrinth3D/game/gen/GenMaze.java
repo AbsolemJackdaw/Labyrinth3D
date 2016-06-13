@@ -363,7 +363,8 @@ public class GenMaze {
 
 			for(int y =0; y < mazeSizeFixed*3; y++){
 
-				numberGrid3D[x][y] = getGridFromTile(numberGrid[x/3][y/3], indeY, indeX);
+				//mirror fixed. switch x and y
+				numberGrid3D[y][x] = getGridFromTile(numberGrid[x/3][y/3], indeY, indeX);
 
 				indeY++;
 				if(indeY>2)

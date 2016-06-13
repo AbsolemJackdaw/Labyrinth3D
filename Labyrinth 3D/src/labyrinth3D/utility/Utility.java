@@ -19,7 +19,7 @@ public class Utility {
 	 * image has to be square
 	 */
 	public static BufferedImage rotateImage(BufferedImage item, double rotation){
-		return rotateImage(item, rotation, item.getWidth() + 20, 20/2);
+		return rotateImage(item, rotation, item.getWidth()+200, 100);
 	}
 
 	public static BufferedImage rotateImage(BufferedImage item, double rotation, int size, int extra){
@@ -35,9 +35,9 @@ public class Utility {
 
 		//rotate canvas internally
 		if(rotation < 0)
-			g2d.rotate(-Math.toRadians(rotation), size/2, size/2);
+			g2d.rotate(-Math.toRadians(rotation), size, size);
 		else
-			g2d.rotate(Math.toRadians(rotation), size/2, size/2);
+			g2d.rotate(Math.toRadians(rotation), size, size);
 
 		//		g2d.setColor(new Color(0,1,0,0.5f));
 		//		g2d.fillRect(0, 0, size, size);
@@ -83,4 +83,5 @@ public class Utility {
 	public static void stopLoadingIcon(){
 //		GamePanelExtended.drawLoadingIcon = false;
 	}
+	
 }

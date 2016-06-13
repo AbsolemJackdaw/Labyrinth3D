@@ -185,6 +185,10 @@ public class ImageLoader {
 
 	public static BufferedImage shadow;
 
+	public static BufferedImage warfSword_fp;
+	public static BufferedImage warfsword;
+	public static BufferedImage fp_weapons;
+
 
 	public static final int totalResources = 25;
 
@@ -215,6 +219,10 @@ public class ImageLoader {
 		bubble = loadSprite("/hud/bubble.png");
 		bubble_empty = loadSprite("/hud/bubble_empty.png");
 		shadow = loadSprite("/entity/shadow.png");
+
+		warfSword_fp = loadSprite("/hud/first_person_warfSword.png");
+		warfsword = loadSprite("/entity/card/warfsword.png");
+		fp_weapons = loadSprite("/hud/first_person_weapons.png");
 
 	}
 
@@ -262,19 +270,15 @@ public class ImageLoader {
 		private String loc;
 		public int SIZE;
 
-		public static Texture wood ;
-		public static Texture brick ;
-		public static Texture bluestone ;
-		public static Texture stone ;
-		public static Texture statue ;
-		public static Texture pixelTest ;
-		public static Texture walls ;
-		public static Texture unicorn_blood ;
-		public static Texture shriveled_head ;
-		public static Texture portal ;
-		public static Texture portal_1 ;
-		public static Texture portal_2 ;
-		public static Texture portal_3 ;
+		public static Texture tex_statue ;
+		public static Texture tex_unicorn_blood ;
+		public static Texture tex_head ;
+		
+		public static Texture tex_portal ;
+		public static Texture tex_portal_1 ;
+		public static Texture tex_portal_2 ;
+		public static Texture tex_portal_3 ;
+		
 		public static Texture flat_stone ;
 		public static Texture brickStone ;
 		public static Texture brickStone1 ;
@@ -282,7 +286,10 @@ public class ImageLoader {
 		public static Texture brickStone3 ;
 		public static Texture brickStone4 ;
 		public static Texture brickStone5 ;
+		
+		public static Texture tex_warfsword ;
 
+		public static Texture tex_enemytest;
 
 		public Texture() {
 
@@ -309,14 +316,14 @@ public class ImageLoader {
 
 		public void loadTextures(){
 
-			statue = new Texture("/entity/statue.png", 64);
-			unicorn_blood = new Texture("/entity/unicorn_blood.png", 64);
-			shriveled_head = new Texture("/entity/head.png", 64);
+			tex_statue = new Texture("/entity/statue.png", 64);
+			tex_unicorn_blood = new Texture("/entity/unicorn_blood.png", 64);
+			tex_head = new Texture("/entity/head.png", 64);
 			
-			portal = new Texture("/entity/portal.png", 64);
-			portal_1 = new Texture("/entity/portal_active1.png", 64);
-			portal_2 = new Texture("/entity/portal_active2.png", 64);
-			portal_3 = new Texture("/entity/portal_active3.png", 64);
+			tex_portal = new Texture("/entity/portal.png", 64);
+			tex_portal_1 = new Texture("/entity/portal_active1.png", 64);
+			tex_portal_2 = new Texture("/entity/portal_active2.png", 64);
+			tex_portal_3 = new Texture("/entity/portal_active3.png", 64);
 			
 			flat_stone = new Texture("/mazeTextures/flat_stone.png", 64);
 			brickStone = new Texture("/mazeTextures/wall_bricks.png", 64);
@@ -325,6 +332,11 @@ public class ImageLoader {
 			brickStone3 = new Texture("/mazeTextures/wall_bricks_3.png", 64);
 			brickStone4 = new Texture("/mazeTextures/wall_bricks_4.png", 64);
 			brickStone5 = new Texture("/mazeTextures/wall_bricks_5.png", 64);
+
+			tex_warfsword = new Texture("/entity/warfsword.png", 128);
+			
+			tex_enemytest = new Texture("/entity/enemy/enemytest.png", 128);
+
 
 		}
 	}

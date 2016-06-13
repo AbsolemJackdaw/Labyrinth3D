@@ -231,13 +231,11 @@ public class Screen {
 
 			e = entity.get(entities);
 
-			texIndex = e.getTextureIndex();
+			texture = e.getTexture();
 
-			texture = entityTextures.get(texIndex);
+			texSize = texture.SIZE;
 
-			texSize = entityTextures.get(e.getTextureIndex()).SIZE;
-
-			//translate sprite position to relative to camera
+			//translate sprite position relative to camera
 			spriteWorldPosX = e.worldPositionX - camera.xPos;
 			spriteWorldPosY = e.worldPositionY - camera.yPos;
 
@@ -316,6 +314,7 @@ public class Screen {
 	}
 
 	private void filltextureArray() {
+		/////////////////////////////////////
 		wallTextures.add(Texture.brickStone);
 		wallTextures.add(Texture.brickStone1);
 		wallTextures.add(Texture.brickStone2);
@@ -323,13 +322,18 @@ public class Screen {
 		wallTextures.add(Texture.brickStone4);
 		wallTextures.add(Texture.brickStone5);
 
-		entityTextures.add(Texture.statue);
-		entityTextures.add(Texture.unicorn_blood);
-		entityTextures.add(Texture.shriveled_head);
+		/////////////////////////////////////
+		
+		entityTextures.add(Texture.tex_portal);
+		entityTextures.add(Texture.tex_portal_1);
+		entityTextures.add(Texture.tex_portal_2);
+		entityTextures.add(Texture.tex_portal_3);
+		
+		entityTextures.add(Texture.tex_statue);
+		entityTextures.add(Texture.tex_unicorn_blood);
+		entityTextures.add(Texture.tex_head);
+		
+		entityTextures.add(Texture.tex_warfsword);
 
-		entityTextures.add(Texture.portal);
-		entityTextures.add(Texture.portal_1);
-		entityTextures.add(Texture.portal_2);
-		entityTextures.add(Texture.portal_3);
 	}
 }
