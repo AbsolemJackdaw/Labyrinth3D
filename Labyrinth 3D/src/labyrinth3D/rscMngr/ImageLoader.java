@@ -129,12 +129,11 @@
 //	}
 //}
 
-package labyrinth3D.gamestates.content;
+package labyrinth3D.rscMngr;
 
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -189,60 +188,28 @@ public class ImageLoader {
 
 	public static final int totalResources = 25;
 
-	public static ArrayList<Texture> textures = new ArrayList<Texture>();
-
-
 	public void load (){
-		loadPlayerImages();
-		loadSprites();
-
-		textures.add(Texture.wood);
-		textures.add(Texture.brick);
-		textures.add(Texture.bluestone);
-		textures.add(Texture.stone);
-		textures.add(Texture.pixelTest);
-		textures.add(Texture.walls);
-
-		textures.add(Texture.statue);
-		textures.add(Texture.unicorn_blood);
-		textures.add(Texture.shriveled_head);
-
+		loadImages();
 	}
 
-	private void loadPlayerImages(){
-		//			loadImages(heads, "playerSprite/front/head/head");
-		loadImages(bodies, "/playerSprite/front/body/body");
-		loadImages(arms, "/playerSprite/front/arm/hands");
-		loadImages(walls, "/Walls/Wall");
-		loadImages(hair, "/playerSprite/front/hair/hair");
-		loadImages(heads_l, "/playerSprite/sidel/head/head");
-		loadImages(arms_l, "/playerSprite/sidel/arm/arm");
-		loadImages(hair_l, "/playerSprite/sidel/hair/hair");
-		loadImages(bodies_l, "/playerSprite/sidel/body/body");
-		loadImages(heads_r, "/playerSprite/sider/head/head");
-		loadImages(arms_r, "/playerSprite/sider/arm/arm");
-		loadImages(hair_r, "/playerSprite/sider/hair/hair");
-		loadImages(bodies_r, "/playerSprite/sider/body/body");
+	private void loadImages(){
+		loadImages(walls, "/walls/Wall");
 
-		loadImages(hair_b, "/playerSprite/back/hair/hair");
-		loadImages(bodies_b, "/playerSprite/back/body/body");
-	}
-
-	private void loadSprites(){
+		
 		hud_elements = loadSprite("/hud/hudElements.png");
-		statue = loadSprite("/entity/statue.png");
-		card = loadSprite("/entity/card.png");
-		dried_head = loadSprite("/entity/dried_head.png");
-		unicorn_blood = loadSprite("/entity/unicorn_blood.png");
 		shade = loadSprite("/hud/shade.png");
 		hud_shade = loadSprite("/hud/hud_black.png");
 		hud = loadSprite("/hud/hud.png");
-		portal = loadSprite("/entity/portal/portal.png");
-		loadImages(portalAnim,"/entity/portal/portal");
+		
 		backGroundMain = loadSprite("/background/mainPlace.png");
 		smithyBackground = loadSprite("/background/smithy.png");
+		
+		card = loadSprite("/entity/card/card.png");
+		statue = loadSprite("/entity/card/statue.png");
+		dried_head = loadSprite("/entity/card/dried_head.png");
+		unicorn_blood = loadSprite("/entity/card/unicorn_blood.png");
 
-		player = loadSprite("/playerSprite/playerMaze/player_hurt.png");
+		player = loadSprite("/player/player_hurt.png");
 		smith = loadSprite("/entity/reaper32.png");
 
 		bubble = loadSprite("/hud/bubble.png");
@@ -342,26 +309,22 @@ public class ImageLoader {
 
 		public void loadTextures(){
 
-			wood = new Texture("/wood.png", 64);
-			brick = new Texture("/redbrick.png", 64);
-			bluestone = new Texture("/bluestone.png", 64);
-			stone = new Texture("/greystone.png", 64);
-			statue = new Texture("/statue.png", 64);
-			pixelTest = new Texture("/pixel.png", 4);
-			walls = new Texture("/walls.png", 8);
-			unicorn_blood = new Texture("/unicorn_blood.png", 64);
-			shriveled_head = new Texture("/head.png", 64);
-			portal = new Texture("/portal.png", 64);
-			portal_1 = new Texture("/portal_active1.png", 64);
-			portal_2 = new Texture("/portal_active2.png", 64);
-			portal_3 = new Texture("/portal_active3.png", 64);
-			flat_stone = new Texture("/flat_stone.png", 64);
-			brickStone = new Texture("/wall_bricks.png", 64);
-			brickStone1 = new Texture("/wall_bricks_1.png", 64);
-			brickStone2 = new Texture("/wall_bricks_2.png", 64);
-			brickStone3 = new Texture("/wall_bricks_3.png", 64);
-			brickStone4 = new Texture("/wall_bricks_4.png", 64);
-			brickStone5 = new Texture("/wall_bricks_5.png", 64);
+			statue = new Texture("/entity/statue.png", 64);
+			unicorn_blood = new Texture("/entity/unicorn_blood.png", 64);
+			shriveled_head = new Texture("/entity/head.png", 64);
+			
+			portal = new Texture("/entity/portal.png", 64);
+			portal_1 = new Texture("/entity/portal_active1.png", 64);
+			portal_2 = new Texture("/entity/portal_active2.png", 64);
+			portal_3 = new Texture("/entity/portal_active3.png", 64);
+			
+			flat_stone = new Texture("/mazeTextures/flat_stone.png", 64);
+			brickStone = new Texture("/mazeTextures/wall_bricks.png", 64);
+			brickStone1 = new Texture("/mazeTextures/wall_bricks_1.png", 64);
+			brickStone2 = new Texture("/mazeTextures/wall_bricks_2.png", 64);
+			brickStone3 = new Texture("/mazeTextures/wall_bricks_3.png", 64);
+			brickStone4 = new Texture("/mazeTextures/wall_bricks_4.png", 64);
+			brickStone5 = new Texture("/mazeTextures/wall_bricks_5.png", 64);
 
 		}
 	}

@@ -1,6 +1,6 @@
 package labyrinth3D.game.gen;
 
-import static labyrinth3D.gamestates.content.ImageLoader.walls;
+import static labyrinth3D.rscMngr.ImageLoader.walls;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

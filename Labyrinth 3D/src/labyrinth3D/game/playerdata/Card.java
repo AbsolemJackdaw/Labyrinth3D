@@ -4,10 +4,10 @@ package labyrinth3D.game.playerdata;
 import static labyrinth3D.game.entity.collectables.EntityCollectible.HEAD;
 import static labyrinth3D.game.entity.collectables.EntityCollectible.STATUE;
 import static labyrinth3D.game.entity.collectables.EntityCollectible.UNICORN_BLOOD;
-import static labyrinth3D.gamestates.content.ImageLoader.card;
-import static labyrinth3D.gamestates.content.ImageLoader.dried_head;
-import static labyrinth3D.gamestates.content.ImageLoader.statue;
-import static labyrinth3D.gamestates.content.ImageLoader.unicorn_blood;
+import static labyrinth3D.rscMngr.ImageLoader.card;
+import static labyrinth3D.rscMngr.ImageLoader.dried_head;
+import static labyrinth3D.rscMngr.ImageLoader.statue;
+import static labyrinth3D.rscMngr.ImageLoader.unicorn_blood;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

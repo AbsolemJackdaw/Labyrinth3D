@@ -1,6 +1,6 @@
 package labyrinth3D.gamestates;
 
-import static labyrinth3D.gamestates.content.ImageLoader.backGroundMain;
+import static labyrinth3D.rscMngr.ImageLoader.backGroundMain;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,7 +12,7 @@ import labyrinth3D.engine.GameState;
 import labyrinth3D.engine.GameStateHandler;
 import labyrinth3D.engine.KeyHandler;
 import labyrinth3D.gamestates.bounds.Doorway;
-import labyrinth3D.gamestates.content.ImageLoader;
+import labyrinth3D.rscMngr.ImageLoader;
 
 public class GameStateIsland extends GameState {
 
@@ -125,13 +125,13 @@ public class GameStateIsland extends GameState {
 		doPlayerMovement();
 
 		if(doors[0].getBoundingBox().intersects(boundingBox[0]))
-			if(KeyHandler.isPressed(KeyHandler.ENTER)|| KeyHandler.isPressed(KeyHandler.UP)){
+			if(KeyHandler.isPressed(KeyHandler.ENTER)|| KeyHandler.keyState[KeyHandler.UP]){
 				//set gamestate to game, according to door, generate multiple floors
 				gsh.changeGameState(GameStateHandler.MAZE_10);
 			}
 
 		if(doors[1].getBoundingBox().intersects(boundingBox[0]))
-			if(KeyHandler.isPressed(KeyHandler.ENTER)|| KeyHandler.isPressed(KeyHandler.UP)){
+			if(KeyHandler.isPressed(KeyHandler.ENTER)|| KeyHandler.keyState[KeyHandler.UP]){
 				//set gamestate to game, according to door, generate multiple floors
 				gsh.changeGameState(GameStateHandler.SMITHY);
 			}

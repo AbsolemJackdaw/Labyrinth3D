@@ -1,11 +1,11 @@
 package labyrinth3D.gamestates;
 
-import static labyrinth3D.gamestates.content.ImageLoader.bubble;
-import static labyrinth3D.gamestates.content.ImageLoader.bubble_empty;
-import static labyrinth3D.gamestates.content.ImageLoader.player;
-import static labyrinth3D.gamestates.content.ImageLoader.shadow;
-import static labyrinth3D.gamestates.content.ImageLoader.smith;
-import static labyrinth3D.gamestates.content.ImageLoader.smithyBackground;
+import static labyrinth3D.rscMngr.ImageLoader.bubble;
+import static labyrinth3D.rscMngr.ImageLoader.bubble_empty;
+import static labyrinth3D.rscMngr.ImageLoader.player;
+import static labyrinth3D.rscMngr.ImageLoader.shadow;
+import static labyrinth3D.rscMngr.ImageLoader.smith;
+import static labyrinth3D.rscMngr.ImageLoader.smithyBackground;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import labyrinth3D.game.entity.Entity;
-import labyrinth3D.gamestates.content.ImageLoader.Texture;
+import labyrinth3D.rscMngr.ImageLoader.Texture;
 
 public class Screen {
 	public int[][] map;

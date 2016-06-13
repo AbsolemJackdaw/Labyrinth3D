@@ -1,9 +1,9 @@
 package labyrinth3D.game.entity.collectables;
 
 
-import static labyrinth3D.gamestates.content.ImageLoader.dried_head;
-import static labyrinth3D.gamestates.content.ImageLoader.statue;
-import static labyrinth3D.gamestates.content.ImageLoader.unicorn_blood;
+import static labyrinth3D.rscMngr.ImageLoader.dried_head;
+import static labyrinth3D.rscMngr.ImageLoader.statue;
+import static labyrinth3D.rscMngr.ImageLoader.unicorn_blood;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

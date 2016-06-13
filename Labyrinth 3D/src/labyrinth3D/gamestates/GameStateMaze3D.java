@@ -14,9 +14,9 @@ import labyrinth3D.game.gen.GenMaze;
 import labyrinth3D.game.hud.MiniMap;
 import labyrinth3D.game.playerdata.Card;
 import labyrinth3D.game.playerdata.PlayerData;
-import labyrinth3D.gamestates.content.ImageLoader;
 import labyrinth3D.gamestates.maze3D.Camera;
 import labyrinth3D.gamestates.maze3D.Screen;
+import labyrinth3D.rscMngr.ImageLoader;
 
 
 public class GameStateMaze3D extends GameState {
