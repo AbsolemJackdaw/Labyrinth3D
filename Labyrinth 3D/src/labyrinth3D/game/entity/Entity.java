@@ -1,7 +1,6 @@
 package labyrinth3D.game.entity;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import labyrinth3D.rscMngr.ImageLoader;
@@ -52,10 +51,6 @@ public class Entity {
 		return this;
 	}
 	
-	public Point getMapPosition(){
-		return new Point((int)worldPositionX,(int)worldPositionY);
-	}
-	
 	public double getWorldPositionX() {
 		return worldPositionX;
 	}
@@ -81,10 +76,6 @@ public class Entity {
 //		entityTag.writeInt("x", posMapX);
 //		entityTag.writeInt("y", posMapX);
 //	}
-	
-	public Entity setPositionUnrelativeToCenter(int x , int y){
-		return this;
-	}
 	
 	public Texture getTexture() {
 		return TextureLoader.tex_default;
