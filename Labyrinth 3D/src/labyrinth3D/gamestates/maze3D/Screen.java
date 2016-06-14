@@ -51,7 +51,7 @@ public class Screen {
 
 	}
 
-	public int[] updateWalls(Camera camera, int[] pixels, ArrayList<Entity> entity, ArrayList<Entity> enemy) {
+	public int[] drawScreen(Camera camera, int[] pixels, ArrayList<Entity> entity, ArrayList<Entity> enemy) {
 
 		//floor colors. top and bottom
 		for(int n=0; n<pixels.length/2; n++) {

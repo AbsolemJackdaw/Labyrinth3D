@@ -75,7 +75,7 @@ public class GameStateMaze3D extends GameState {
 		camera = new Camera(4.5, 4.5, 1, 0, 0, -.66);
 		screen = new Screen(map, mapWidth, mapHeight, 1024, 576);
 
-		enemies.add((EntityEnemy) new EntityEnemy(0, 0).setFirstPosition(10.5, 10.5));
+		//		enemies.add((EntityEnemy) new EntityEnemy(0, 0).setFirstPosition(10.5, 10.5));
 
 	}
 
@@ -86,8 +86,6 @@ public class GameStateMaze3D extends GameState {
 		super.update();
 
 		camera.update(map);
-
-		screen.updateWalls(camera, GamePanel.getScreenPixels(), entities, enemies);
 
 		//		System.out.println(camera.xDir + " " + camera.yDir);
 
@@ -111,6 +109,20 @@ public class GameStateMaze3D extends GameState {
 		updateEntities();
 
 		hud.update();
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+		super.draw(g);
+
+		screen.drawScreen(camera, GamePanel.getScreenPixels(), entities, enemies);
+
+		hud.draw(g);
+
+		if(!PlayerData.currentlyCollectedCards.isEmpty())
+			for(Card card : PlayerData.currentlyCollectedCards) {
+				card.draw(g);
+			}
 	}
 
 	public void attackenemy(){
@@ -141,18 +153,6 @@ public class GameStateMaze3D extends GameState {
 		}
 	}
 
-	@Override
-	public void draw(Graphics2D g) {
-		super.draw(g);
-
-		hud.draw(g);
-
-		if(!PlayerData.currentlyCollectedCards.isEmpty())
-			for(Card card : PlayerData.currentlyCollectedCards) {
-				card.draw(g);
-			}
-	}
-
 	public void addCollectables(int loops) {
 
 		generateKeys(loops);
@@ -164,7 +164,7 @@ public class GameStateMaze3D extends GameState {
 	//stores all possible collectibles. 
 	//picks out x collectibles. never the same.
 	private EntityAid[] listWithAid = new EntityAid[]{new EntityFeather(0), new EntityGrail(0), new EntityCape(0), new EntityScythe(0)};
-	
+
 	private void generateAid() {
 
 		Entity e = null;
@@ -173,18 +173,18 @@ public class GameStateMaze3D extends GameState {
 		//always a minimum of 3 helping items
 		if(turns < 2)
 			turns = 2;
-		
-//		//help for first step trough game. only have 1 aid
-//		if(turns > listWithAid.length)
-//			turns = listWithAid.length;
+
+		//		//help for first step trough game. only have 1 aid
+		//		if(turns > listWithAid.length)
+		//			turns = listWithAid.length;
 
 		while (turns > 0) {
-			
+
 			EntityAid aid;
 
 			// an aid
 			aid = listWithAid[rand.nextInt(listWithAid.length)];
-			
+
 			int x ;
 			int y ;
 
