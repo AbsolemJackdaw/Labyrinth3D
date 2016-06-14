@@ -377,7 +377,7 @@ public class GenMaze {
 
 	}
 
-	private int i() {
+	private int getRandomWallTexture() {
 		return rand.nextInt(5)+1;
 	}
 
@@ -398,18 +398,78 @@ public class GenMaze {
 		int[][] grid11=null;
 
 		switch(id) {
-		case 0:grid0 = new int[][]{{i(),i(),i()},{0,0,0},{i(),i(),i()}};return grid0[x][y];
-		case 1:grid1 = new int[][]{{i(),0,i()},{i(),0,i()},{i(),0,i()}};return grid1[x][y];
-		case 2:grid2 = new int[][]{{i(),i(),i()},{0,0,0},{i(),0,i()}};return grid2[x][y];
-		case 3:grid3 = new int[][]{{i(),0,i()},{0,0,0},{i(),i(),i()}};return grid3[x][y];
-		case 4:grid4 = new int[][]{{i(),0,i()},{0,0,i()},{i(),0,i()}};return grid4[x][y];
-		case 5:grid5 = new int[][]{{i(),0,i()},{i(),0,0},{i(),0,i()}};return grid5[x][y];
-		case 6:grid6 = new int[][]{{i(),i(),i()},{i(),0,0},{i(),0,i()}};return grid6[x][y];
-		case 7:grid7 = new int[][]{{i(),i(),i()},{0,0,i()},{i(),0,i()}};return grid7[x][y];
-		case 8:grid8 = new int[][]{{i(),0,i()},{0,0,i()},{i(),i(),i()}};return grid8[x][y];
-		case 9:grid9 = new int[][]{{i(),0,i()},{i(),0,0},{i(),i(),i()}};return grid9[x][y];
-		case 10:grid10 = new int[][]{{i(),0,i()},{0,0,0},{i(),0,i()}};return grid10[x][y];
-		case 11:grid11 = new int[][]{{i(),i(),i()},{i(),i(),i()},{i(),i(),i()}};return grid11[x][y];
+		case 0:grid0 = new int[][]{
+				{getRandomWallTexture(),getRandomWallTexture(),getRandomWallTexture()}
+				,{0,0,0},
+				{getRandomWallTexture(),getRandomWallTexture(),getRandomWallTexture()}
+		};
+		return grid0[x][y];
+		case 1:grid1 = new int[][]{
+				{getRandomWallTexture(),0,getRandomWallTexture()}
+				,{getRandomWallTexture(),0,getRandomWallTexture()}
+				,{getRandomWallTexture(),0,getRandomWallTexture()}
+		};
+		return grid1[x][y];
+		case 2:grid2 = new int[][]{
+				{getRandomWallTexture(),getRandomWallTexture(),getRandomWallTexture()},
+				{0,0,0},
+				{getRandomWallTexture(),0,getRandomWallTexture()}
+		};
+		return grid2[x][y];
+		case 3:grid3 = new int[][]{
+				{getRandomWallTexture(),0,getRandomWallTexture()},
+				{0,0,0},
+				{getRandomWallTexture(),getRandomWallTexture(),getRandomWallTexture()}
+		};
+		return grid3[x][y];
+		case 4:grid4 = new int[][]{
+				{getRandomWallTexture(),0,getRandomWallTexture()},
+				{0,0,getRandomWallTexture()},
+				{getRandomWallTexture(),0,getRandomWallTexture()}
+		};
+		return grid4[x][y];
+		case 5:grid5 = new int[][]{
+				{getRandomWallTexture(),0,getRandomWallTexture()},
+				{getRandomWallTexture(),0,0},
+				{getRandomWallTexture(),0,getRandomWallTexture()}
+		};
+		return grid5[x][y];
+		case 6:grid6 = new int[][]{
+				{getRandomWallTexture(),getRandomWallTexture(),getRandomWallTexture()},
+				{getRandomWallTexture(),0,0},
+				{getRandomWallTexture(),0,getRandomWallTexture()}
+		};
+		return grid6[x][y];
+		case 7:grid7 = new int[][]{
+				{getRandomWallTexture(),getRandomWallTexture(),getRandomWallTexture()},
+				{0,0,getRandomWallTexture()},
+				{getRandomWallTexture(),0,getRandomWallTexture()}
+		};
+		return grid7[x][y];
+		case 8:grid8 = new int[][]{
+				{getRandomWallTexture(),0,getRandomWallTexture()},
+				{0,0,getRandomWallTexture()},
+				{getRandomWallTexture(),getRandomWallTexture(),getRandomWallTexture()}
+		};
+		return grid8[x][y];
+		case 9:grid9 = new int[][]{
+				{getRandomWallTexture(),0,getRandomWallTexture()},
+				{getRandomWallTexture(),0,0},{getRandomWallTexture(),
+					getRandomWallTexture(),getRandomWallTexture()}
+		};
+		return grid9[x][y];
+		case 10:grid10 = new int[][]{
+				{getRandomWallTexture(),0,getRandomWallTexture()},
+				{0,0,0},
+				{getRandomWallTexture(),0,getRandomWallTexture()}
+		};
+		return grid10[x][y];
+		case 11:grid11 = new int[][]{
+				{getRandomWallTexture(),getRandomWallTexture(),getRandomWallTexture()},
+				{getRandomWallTexture(),getRandomWallTexture(),getRandomWallTexture()},
+				{getRandomWallTexture(),getRandomWallTexture(),getRandomWallTexture()}
+		};
+		return grid11[x][y];
 		}
 
 		return 1;
