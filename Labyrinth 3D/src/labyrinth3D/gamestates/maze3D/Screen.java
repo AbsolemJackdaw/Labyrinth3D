@@ -51,7 +51,7 @@ public class Screen {
 
 	}
 
-	public int[] updateWalls(Camera camera, int[] pixels, ArrayList<Entity> entity) {
+	public int[] updateWalls(Camera camera, int[] pixels, ArrayList<Entity> entity, ArrayList<Entity> enemy) {
 
 		//floor colors. top and bottom
 		for(int n=0; n<pixels.length/2; n++) {
@@ -66,6 +66,7 @@ public class Screen {
 		drawWalls(camera, pixels);
 
 		drawEntities(entity, camera, pixels);
+		drawEntities(enemy, camera, pixels);
 
 		return null;
 	}
@@ -223,6 +224,12 @@ public class Screen {
 
 	private void drawEntities(ArrayList<Entity> entity, Camera camera, int [] pixels){
 
+		 //parameters for scaling and moving the sprites
+	      double uDiv = 1;
+	      double vDiv = 1;
+	      double vMove = 0.0;
+	      int vMoveScreen;
+	      
 		//required for correct matrix multiplication
 		double invDet = 1.0 / (camera.xPlane * camera.yDir - camera.xDir * camera.yPlane); 
 
@@ -231,6 +238,10 @@ public class Screen {
 
 			e = entity.get(entities);
 
+			uDiv = e.getScaleX();
+			vDiv = e.getScaleY();
+			vMove = e.getMoveOffset();
+			
 			texture = e.getTexture();
 
 			texSize = texture.SIZE;
@@ -248,18 +259,20 @@ public class Screen {
 			//this is actually the depth inside the screen, that what Z is in 3D
 			transformY = invDet * (-camera.yPlane * spriteWorldPosX + camera.xPlane * spriteWorldPosY); 
 
+			vMoveScreen = (int) (vMove / transformY);
+					
 			int spriteScreenX = (int) ((width / 2) * (1 + transformX / transformY));
 
 			//calculate height of the sprite on screen
 
 			//using "transformY" instead of the real distance prevents fisheye
-			spriteHeight = (int) Math.abs((height / (transformY))); 
-			spriteWidth  = (int) Math.abs((height / (transformY)));
+			spriteHeight = (int) (Math.abs((height / (transformY))) / vDiv); 
+			spriteWidth  = (int) (Math.abs((height / (transformY))) / uDiv);
 
 			//calculate lowest and highest pixel to fill in current stripe
-			drawStartY = (-spriteHeight / 2 + height / 2);
+			drawStartY = (-spriteHeight / 2 + height / 2) + vMoveScreen;
 			//calculate width of the sprite
-			drawEndY = (spriteHeight / 2 + height / 2);
+			drawEndY = (spriteHeight / 2 + height / 2) + vMoveScreen;
 
 			drawStartX = -spriteWidth / 2 + spriteScreenX;
 			drawEndX = spriteWidth / 2 + spriteScreenX;
@@ -284,17 +297,17 @@ public class Screen {
 				{
 					int textureX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * texSize / spriteWidth) / 256;
 
-					loopEntityTextureHeight(stripe, textureX, texture, pixels);
+					loopEntityTextureHeight(stripe, textureX, vMoveScreen, texture, pixels);
 				}
 			}
 		}
 	}
 
-	private void loopEntityTextureHeight(int stripe, int textureX, Texture texture, int[] pixels) {
+	private void loopEntityTextureHeight(int stripe, int textureX, int vMoveScreen, Texture texture, int[] pixels) {
 
 		for(int y = drawStartY; y < drawEndY; y++){
 
-			int d = (y) * 256 - height * 128 + spriteHeight * 128;
+			int d = (y - vMoveScreen) * 256 - height * 128 + spriteHeight * 128;
 			int textureY = ((d * texSize) / spriteHeight) / 256;
 
 			int sum = (int)textureY*texSize + (int)textureX;

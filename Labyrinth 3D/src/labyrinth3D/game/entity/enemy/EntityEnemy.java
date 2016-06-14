@@ -26,5 +26,10 @@ public class EntityEnemy extends Entity {
 	public Texture getTexture() {
 		return Texture.tex_enemytest;
 	}
+	
+	public void hit() {
+		
+		System.out.println("Entity is hurt ! aawtch");
+	}
 
 }

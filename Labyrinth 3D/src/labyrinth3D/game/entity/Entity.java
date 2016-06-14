@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import labyrinth3D.rscMngr.ImageLoader;
 import labyrinth3D.rscMngr.ImageLoader.Texture;
 
 public class Entity {
@@ -35,7 +36,7 @@ public class Entity {
 	}
 	
 	public BufferedImage getImage(){
-		return null;
+		return ImageLoader.default_image;
 	}
 	
 	public int getID(){
@@ -85,7 +86,18 @@ public class Entity {
 	}
 	
 	public Texture getTexture() {
-		return null;
+		return Texture.tex_default;
 	}
 	
+	public double getScaleX() {
+		return 1;
+	}
+	
+	public double getScaleY() {
+		return 1;
+	}
+	
+	public double getMoveOffset() {
+		return 0.0d;
+	}
 }

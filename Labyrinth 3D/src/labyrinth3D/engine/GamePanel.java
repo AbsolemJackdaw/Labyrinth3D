@@ -16,7 +16,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import javax.swing.JPanel;
-import javax.swing.SwingWorker;
 
 import labyrinth3D.gamestates.maze3D.Camera;
 
@@ -172,28 +171,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 		image = new BufferedImage(W, H, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
 
-		new SwingWorker<Integer, Void>() {
-
-
-			@Override
-			protected Integer doInBackground() {
-				
-				System.out.println("starting pixel detection");
-				
-				try {
-					pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return null;
-			}
-
-			@Override
-			protected void done() {
-				super.done();
-				System.out.println("pixel detection done");
-			}
-		}.execute();
+		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
 		running = true;
 

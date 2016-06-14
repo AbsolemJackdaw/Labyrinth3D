@@ -10,13 +10,17 @@ import labyrinth3D.engine.GameStateHandler;
 import labyrinth3D.engine.KeyHandler;
 import labyrinth3D.game.entity.Entity;
 import labyrinth3D.game.entity.collectables.Card;
+import labyrinth3D.game.entity.collectables.EntityAid;
+import labyrinth3D.game.entity.collectables.EntityCape;
 import labyrinth3D.game.entity.collectables.EntityCollectible;
+import labyrinth3D.game.entity.collectables.EntityFeather;
+import labyrinth3D.game.entity.collectables.EntityGrail;
 import labyrinth3D.game.entity.collectables.EntityKey;
-import labyrinth3D.game.entity.collectables.EntityWeapon;
-import labyrinth3D.game.entity.portal.Portal;
+import labyrinth3D.game.entity.collectables.EntityScythe;
+import labyrinth3D.game.entity.enemy.EntityEnemy;
+import labyrinth3D.game.entity.portal.Ladder;
 import labyrinth3D.game.gen.GenMaze;
 import labyrinth3D.game.hud.HUD;
-import labyrinth3D.game.hud.MiniMap;
 import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.gamestates.maze3D.Camera;
 import labyrinth3D.gamestates.maze3D.Screen;
@@ -31,8 +35,6 @@ public class GameStateMaze3D extends GameState {
 	public Camera camera;
 	public Screen screen;
 
-	private MiniMap minimap;
-
 	public static int[][] map;
 
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -45,17 +47,23 @@ public class GameStateMaze3D extends GameState {
 	int totalCollectables = 0;
 
 	HUD hud;
-	
+
+	public	boolean debug = true;
+
 	public boolean attack;
 	public int attackTime = 0;
-	
+
 	public GameStateMaze3D(GameStateHandler gsh, int mazeSize, int collectables) {
 		this.gsh = gsh;
 
-		maze = new GenMaze(mazeSize);
-		maze.load();
+		if(debug){
+			map = testMap();
+		}else {
+			maze = new GenMaze(mazeSize);
+			maze.load();
 
-		map = maze.getNumberGrid3D();
+			map = maze.getNumberGrid3D();
+		}
 
 		totalCollectables = collectables;
 
@@ -63,11 +71,11 @@ public class GameStateMaze3D extends GameState {
 		generatePortal();
 
 		hud = new HUD(this);
-		
-		minimap = hud.getMinimap();
 
 		camera = new Camera(4.5, 4.5, 1, 0, 0, -.66);
 		screen = new Screen(map, mapWidth, mapHeight, 1024, 576);
+
+		enemies.add((EntityEnemy) new EntityEnemy(0, 0).setFirstPosition(10.5, 10.5));
 
 	}
 
@@ -79,42 +87,66 @@ public class GameStateMaze3D extends GameState {
 
 		camera.update(map);
 
-		screen.updateWalls(camera, GamePanel.getScreenPixels(),entities);
+		screen.updateWalls(camera, GamePanel.getScreenPixels(), entities, enemies);
 
-//		System.out.println(camera.xDir + " " + camera.yDir);
-		
+		//		System.out.println(camera.xDir + " " + camera.yDir);
+
 		if(Camera.isPressed(Camera.T)){
 			gsh.changeGameState(GameStateHandler.ISLAND);
 		}
-		
+
 		if(KeyHandler.isPressed(KeyHandler.SPACE) && attackTime <= 0) {
 			attack = true;
 			attackTime = 120;
-			//detect near enemies
+			attackenemy();
+
 		}
-		
+
 		if(attackTime > 0)
 			attackTime-= PlayerData.attackSpeed;
 
 		if(attackTime <= 0 && attack)
 			attack = false;
-		
+
 		updateEntities();
 
-		minimap.update(camera);
+		hud.update();
 	}
 
 	public void attackenemy(){
+		System.out.println(camera.xPos + " " + camera.yPos + " " + camera.xDir + " " + camera.yDir);
 		for(Entity e : enemies) {
+			EntityEnemy en = (EntityEnemy)e;
+
+			//front
+			if(camera.xDir > 0 && camera.xPos+1.2 > e.worldPositionX && camera.xPos < e.worldPositionX &&
+					camera.yDir >-0.5 && camera.yDir <0.5 && camera.yPos-0.5 < e.worldPositionY && camera.yPos+0.5 > e.worldPositionY) {
+				en.hit();
+			}
+			//back
+			if(camera.xDir < 0 && camera.xPos > e.worldPositionX && camera.xPos-1.2 < e.worldPositionX &&
+					camera.yDir >-0.5 && camera.yDir <0.5 && camera.yPos-0.5 < e.worldPositionY && camera.yPos+0.5 > e.worldPositionY) {
+				en.hit();
+			}
+			//right
+			if(camera.yDir > 0 && camera.yPos+1.2 > e.worldPositionY && camera.yPos < e.worldPositionY &&
+					camera.xDir >-0.5 && camera.xDir <0.5 && camera.xPos-0.5 < e.worldPositionX && camera.xPos+0.5 > e.worldPositionX) {
+				en.hit();
+			}
+			//left
+			if(camera.yDir < 0 && camera.yPos > e.worldPositionY && camera.yPos-1.2 < e.worldPositionY &&
+					camera.xDir >-0.5 && camera.xDir <0.5 && camera.xPos-0.5 < e.worldPositionX && camera.xPos+0.5 > e.worldPositionX) {
+				en.hit();
+			}
 		}
 	}
-	
+
 	@Override
 	public void draw(Graphics2D g) {
 		super.draw(g);
 
 		hud.draw(g);
-		
+
 		if(!PlayerData.currentlyCollectedCards.isEmpty())
 			for(Card card : PlayerData.currentlyCollectedCards) {
 				card.draw(g);
@@ -129,15 +161,42 @@ public class GameStateMaze3D extends GameState {
 
 	}
 
+	//stores all possible collectibles. 
+	//picks out x collectibles. never the same.
+	private EntityAid[] listWithAid = new EntityAid[]{new EntityFeather(0), new EntityGrail(0), new EntityCape(0), new EntityScythe(0)};
+	
+	private ArrayList<EntityAid> aidCycled= new ArrayList<EntityAid>();
+
 	private void generateAid() {
 
 		Entity e = null;
 
-		int turns = 1;
+		int turns = rand.nextInt(listWithAid.length); 
+		//always a minimum of 3 helping items
+		if(turns < 2)
+			turns = 2;
+		
+//		//help for first step trough game. only have 1 aid
+//		if(turns > listWithAid.length)
+//			turns = listWithAid.length;
 
 		while (turns > 0) {
-			int x = rand.nextInt(maze.getMazeSizeFixed()*3);
-			int y = rand.nextInt(maze.getMazeSizeFixed()*3);
+			
+			EntityAid aid;
+
+			// an aid
+			aid = listWithAid[rand.nextInt(listWithAid.length)];
+			
+			int x ;
+			int y ;
+
+			if(maze != null) {
+				x = rand.nextInt(maze.getMazeSizeFixed()*3);
+				y = rand.nextInt(maze.getMazeSizeFixed()*3);
+			}else {
+				x = rand.nextInt((int) (Math.sqrt(map.length)*3));
+				y = rand.nextInt((int) (Math.sqrt(map.length)*3));
+			}
 
 			if(map[x][y] == 0) {
 
@@ -149,11 +208,10 @@ public class GameStateMaze3D extends GameState {
 						flag = false;
 				}
 				if(flag) {
-					e = new EntityWeapon(32, 3).setFirstPosition(x+.5, y+.5);
+					e = aid.setFirstPosition(x+.5, y+.5);
 					entities.add(e);
 					turns--;
-					System.out.println("added weapon " + e.getID() + " at " + e.worldPositionX+" "+e.worldPositionY  );
-					continue;
+					System.out.println("added aid " + e.getID() + " at " + e.worldPositionX+" "+e.worldPositionY  );
 				}
 			}
 		}
@@ -163,19 +221,26 @@ public class GameStateMaze3D extends GameState {
 		Entity e = null;
 
 		int turns = loops;
-		int collectibleID = 0;
 
 		while (turns > 0) {
-			int x = rand.nextInt(maze.getMazeSizeFixed()*3);
-			int y = rand.nextInt(maze.getMazeSizeFixed()*3);
+
+			int x ;
+			int y ;
+
+			if(maze != null) {
+				x = rand.nextInt(maze.getMazeSizeFixed()*3);
+				y = rand.nextInt(maze.getMazeSizeFixed()*3);
+			}else {
+				x = rand.nextInt((int) (Math.sqrt(map.length)*3));
+				y = rand.nextInt((int) (Math.sqrt(map.length)*3));
+			}
 
 			if(map[x][y] == 0) {
 				if(entities.isEmpty()) {
 
-					e = new EntityKey(32, collectibleID).setFirstPosition(x+.5, y+.5);
+					e = new EntityKey(32, 0).setFirstPosition(x+.5, y+.5);
 					entities.add(e);
 					turns--;
-					collectibleID++;
 					System.out.println("added entity " + e.getID() + " at " + e.worldPositionX+" "+e.worldPositionY  );
 
 					continue;
@@ -190,10 +255,9 @@ public class GameStateMaze3D extends GameState {
 					}
 
 					if(flag) {
-						e = new EntityKey(32, collectibleID).setFirstPosition(x+.5, y+.5);
+						e = new EntityKey(32, 0).setFirstPosition(x+.5, y+.5);
 						entities.add(e);
 						turns--;
-						collectibleID++;
 						System.out.println("added entity " + e.getID() + " at " + e.worldPositionX+" "+e.worldPositionY  );
 						continue;
 					}
@@ -209,8 +273,16 @@ public class GameStateMaze3D extends GameState {
 
 		while (e == null) {
 
-			int x = rand.nextInt(maze.getMazeSizeFixed()*3);
-			int y = rand.nextInt(maze.getMazeSizeFixed()*3);
+			int x ;
+			int y ;
+
+			if(maze != null) {
+				x = rand.nextInt(maze.getMazeSizeFixed()*3);
+				y = rand.nextInt(maze.getMazeSizeFixed()*3);
+			}else {
+				x = rand.nextInt((int) (Math.sqrt(map.length)*3));
+				y = rand.nextInt((int) (Math.sqrt(map.length)*3));
+			}
 
 			if(map[x][y] == 0) {
 
@@ -224,7 +296,7 @@ public class GameStateMaze3D extends GameState {
 				}
 
 				if(flag) {
-					e = new Portal(0, 0).setFirstPosition(x+.5, y+.5);
+					e = new Ladder(0, 0).setFirstPosition(x+.5, y+.5);
 					entities.add(e);
 					System.out.println("added portal" + " at " + e.worldPositionX+" "+e.worldPositionY  );
 					break;
@@ -247,14 +319,14 @@ public class GameStateMaze3D extends GameState {
 					}
 				}
 			}
-			if(e instanceof Portal) {
-				Portal portal = (Portal)e;
-				portal.update();
+			if(e instanceof Ladder) {
+				Ladder ladder = (Ladder)e;
+				ladder.update();
 
 				if(PlayerData.currentlyCollectedCards.size() >= totalCollectables)
-					portal.setActive(true);
+					ladder.setActive(true);
 
-				if(portal.isActive()) {
+				if(ladder.isActive()) {
 					if(camera.xPos > e.worldPositionX-0.5 && camera.xPos < e.worldPositionX+0.5 ){
 						if(camera.yPos > e.worldPositionY-0.5 && camera.yPos < e.worldPositionY+0.5 ){
 

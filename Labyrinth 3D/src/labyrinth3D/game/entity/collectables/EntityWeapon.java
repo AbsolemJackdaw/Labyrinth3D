@@ -9,8 +9,8 @@ import static labyrinth3D.rscMngr.ImageLoader.*;
 
 public class EntityWeapon extends EntityCollectible {
 
-	public EntityWeapon(int size, int id) {
-		super(size, id);
+	public EntityWeapon(int size) {
+		super(size, WARFSWORD);
 	}
 
 	@Override
@@ -20,7 +20,6 @@ public class EntityWeapon extends EntityCollectible {
 	
 	@Override
 	public void onPickUp() {
-		super.onPickUp();
 		
 		PlayerData.hasWarfSword = true;
 	}

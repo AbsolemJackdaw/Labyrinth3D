@@ -25,7 +25,7 @@ public class Card {
 		order = i;
 		return this;
 	}
-	
+
 	public void draw(Graphics2D g){
 		g.drawImage(card, 4 + order*32, GamePanel.H - 64 - 3, null);
 		g.drawImage(getTextureFromId(identifier), 4 + order*32, GamePanel.H - 64 - 3 + 16, null);
@@ -38,15 +38,20 @@ public class Card {
 	public BufferedImage getTextureFromId(int id)
 	{
 		switch (id) {
-		case STATUE:
-			return statue;
-		case HEAD:
-			return dried_head;
-		case UNICORN_BLOOD:
-			return unicorn_blood;
+		case SPORT:
+			return sport;
 		case WARFSWORD:
 			return warfsword;
-		default: return null;
+		case FEATHER:
+			return feather;
+		case GRAIL:
+			return grail;
+		case SCYTHE:
+			return scythe;
+		case CAPE:
+			return cape;
+		default: 
+			return default_image;
 		}
 	}
 }

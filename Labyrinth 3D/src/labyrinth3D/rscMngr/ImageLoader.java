@@ -139,26 +139,6 @@ import javax.imageio.ImageIO;
 
 public class ImageLoader {
 
-	private static final int characterNumber = 2; // number of different characters / heads.  
-
-	public static BufferedImage[] heads = new BufferedImage[characterNumber];
-	public static BufferedImage[] bodies = new BufferedImage[characterNumber];
-	public static BufferedImage[] arms = new BufferedImage[characterNumber];
-	public static BufferedImage[] hair = new BufferedImage[characterNumber];
-
-	public static BufferedImage[] heads_l = new BufferedImage[characterNumber];
-	public static BufferedImage[] bodies_l = new BufferedImage[characterNumber];
-	public static BufferedImage[] arms_l = new BufferedImage[characterNumber];
-	public static BufferedImage[] hair_l = new BufferedImage[characterNumber];
-
-	public static BufferedImage[] heads_r = new BufferedImage[characterNumber];
-	public static BufferedImage[] bodies_r = new BufferedImage[characterNumber];
-	public static BufferedImage[] arms_r = new BufferedImage[characterNumber];
-	public static BufferedImage[] hair_r = new BufferedImage[characterNumber];
-
-	public static BufferedImage[] bodies_b = new BufferedImage[characterNumber];
-	public static BufferedImage[] hair_b = new BufferedImage[characterNumber];
-
 	public static BufferedImage[] walls = new BufferedImage[12];
 
 	public static BufferedImage shade; 
@@ -189,8 +169,15 @@ public class ImageLoader {
 	public static BufferedImage warfsword;
 	public static BufferedImage fp_weapons;
 
+	public static BufferedImage default_image;
 
-	public static final int totalResources = 25;
+	public static BufferedImage sport;
+	public static BufferedImage feather;
+	public static BufferedImage cape;
+	public static BufferedImage grail;
+	public static BufferedImage scythe;
+
+
 
 	public void load (){
 		loadImages();
@@ -199,7 +186,8 @@ public class ImageLoader {
 	private void loadImages(){
 		loadImages(walls, "/walls/Wall");
 
-		
+		default_image = loadSprite("/default.png");
+
 		hud_elements = loadSprite("/hud/hudElements.png");
 		shade = loadSprite("/hud/shade.png");
 		hud_shade = loadSprite("/hud/hud_black.png");
@@ -212,6 +200,11 @@ public class ImageLoader {
 		statue = loadSprite("/entity/card/statue.png");
 		dried_head = loadSprite("/entity/card/dried_head.png");
 		unicorn_blood = loadSprite("/entity/card/unicorn_blood.png");
+		sport = loadSprite("/entity/card/sport.png");
+		feather = loadSprite("/entity/card/black_feather.png");
+		grail = loadSprite("/entity/card/grail.png");
+		cape = loadSprite("/entity/card/cape.png");
+		scythe= loadSprite("/entity/card/scythe.png");
 
 		player = loadSprite("/player/player_hurt.png");
 		smith = loadSprite("/entity/reaper32.png");
@@ -223,7 +216,7 @@ public class ImageLoader {
 		warfSword_fp = loadSprite("/hud/first_person_warfSword.png");
 		warfsword = loadSprite("/entity/card/warfsword.png");
 		fp_weapons = loadSprite("/hud/first_person_weapons.png");
-
+		
 	}
 
 	private void loadImages(BufferedImage[] list, String p) {
@@ -291,6 +284,20 @@ public class ImageLoader {
 
 		public static Texture tex_enemytest;
 
+		public static Texture tex_ladder ;
+		public static Texture tex_ladder_sport1 ;
+		public static Texture tex_ladder_sport2 ;
+		public static Texture tex_ladder_sport3 ;
+		
+		public static Texture tex_default ;
+
+		public static Texture tex_sport;
+		
+		public static Texture tex_feather;
+		public static Texture tex_cape;
+		public static Texture tex_grail;
+		public static Texture tex_scythe;
+
 		public Texture() {
 
 		}
@@ -316,6 +323,8 @@ public class ImageLoader {
 
 		public void loadTextures(){
 
+			tex_default= new Texture("/default.png", 64);
+			
 			tex_statue = new Texture("/entity/statue.png", 64);
 			tex_unicorn_blood = new Texture("/entity/unicorn_blood.png", 64);
 			tex_head = new Texture("/entity/head.png", 64);
@@ -335,9 +344,19 @@ public class ImageLoader {
 
 			tex_warfsword = new Texture("/entity/warfsword.png", 128);
 			
-			tex_enemytest = new Texture("/entity/enemy/enemytest.png", 128);
+			tex_enemytest = new Texture("/entity/enemy/enemytest.png", 64);
 
+			tex_ladder = new Texture("/entity/ladder.png", 64);
+			tex_ladder_sport1 = new Texture("/entity/ladder_sport1.png", 64);
+			tex_ladder_sport2 = new Texture("/entity/ladder_sport2.png", 64);
+			tex_ladder_sport3 = new Texture("/entity/ladder_sport3.png", 64);
+			
+			tex_sport = new Texture("/entity/sport.png", 64);
 
+			tex_feather = new Texture("/entity/black_feather.png", 64);
+			tex_cape = new Texture("/entity/cape.png", 64);
+			tex_grail = new Texture("/entity/grail.png", 64);
+			tex_scythe = new Texture("/entity/scythe.png", 64);
 		}
 	}
 }

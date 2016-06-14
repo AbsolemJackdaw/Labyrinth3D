@@ -34,9 +34,16 @@ public class HUD {
 
 		}
 
-		if(Camera.isPressed(Camera.Map))
-			minimap.draw(g);
+		if(!gs.debug)
+			if(Camera.isPressed(Camera.Map))
+				minimap.draw(g);
 
 		g.drawImage(ImageLoader.hud, 0, 0, GamePanel.W, GamePanel.H, null);
+	}
+
+	public void update() {
+
+		if(!gs.debug)
+			minimap.update(gs.camera);
 	}
 }
