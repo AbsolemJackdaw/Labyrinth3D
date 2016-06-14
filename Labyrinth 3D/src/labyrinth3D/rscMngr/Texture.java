@@ -9,9 +9,9 @@ public class Texture {
 
 	}
 
-	public Texture(int size) {
+	public Texture(int size, int[] pixelArray) {
 		SIZE = size;
-		pixels = new int[SIZE * SIZE];
+		pixels = pixelArray;
 	}
 	
 	public int[] getPixels() {

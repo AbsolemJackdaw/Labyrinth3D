@@ -384,43 +384,33 @@ public class GenMaze {
 	/**returns a 3x3 grid to transform tiles from*/
 	private int getGridFromTile(int id, int x, int y){
 
-		int[][] grid0 = {{i(),i(),i()},{0,0,0},{i(),i(),i()}};
-		int[][] grid1 = {{i(),0,i()},{i(),0,i()},{i(),0,i()}};
-		int[][] grid2 = {{i(),i(),i()},{0,0,0},{i(),0,i()}};
-		int[][] grid3 = {{i(),0,i()},{0,0,0},{i(),i(),i()}};
-		int[][] grid4 = {{i(),0,i()},{0,0,i()},{i(),0,i()}};
-		int[][] grid5 = {{i(),0,i()},{i(),0,0},{i(),0,i()}};
-		int[][] grid6 = {{i(),i(),i()},{i(),0,0},{i(),0,i()}};
-		int[][] grid7 = {{i(),i(),i()},{0,0,i()},{i(),0,i()}};
-		int[][] grid8 = {{i(),0,i()},{0,0,i()},{i(),i(),i()}};
-		int[][] grid9 = {{i(),0,i()},{i(),0,0},{i(),i(),i()}};
-		int[][] grid10 = {{i(),0,i()},{0,0,0},{i(),0,i()}};
-		int[][] grid11 = {{i(),i(),i()},{i(),i(),i()},{i(),i(),i()}};
+		int[][] grid0=null;
+		int[][] grid1=null;
+		int[][] grid2=null;
+		int[][] grid3=null;
+		int[][] grid4=null;
+		int[][] grid5=null;
+		int[][] grid6=null;
+		int[][] grid7=null;
+		int[][] grid8=null;
+		int[][] grid9=null;
+		int[][] grid10=null;
+		int[][] grid11=null;
 
-		if(id == 0)
-			return grid0[x][y];
-		else if (id == 1)
-			return grid1[x][y];
-		else if (id == 2)
-			return grid2[x][y];
-		else if (id == 3)
-			return grid3[x][y];
-		else if (id == 4)
-			return grid4[x][y];
-		else if (id == 5)
-			return grid5[x][y];
-		else if (id == 6)
-			return grid6[x][y];
-		else if (id == 7)
-			return grid7[x][y];
-		else if (id == 8)
-			return grid8[x][y];
-		else if (id == 9)
-			return grid9[x][y];
-		else if (id == 10)
-			return grid10[x][y];
-		else if (id == 11)
-			return grid11[x][y];
+		switch(id) {
+		case 0:grid0 = new int[][]{{i(),i(),i()},{0,0,0},{i(),i(),i()}};return grid0[x][y];
+		case 1:grid1 = new int[][]{{i(),0,i()},{i(),0,i()},{i(),0,i()}};return grid1[x][y];
+		case 2:grid2 = new int[][]{{i(),i(),i()},{0,0,0},{i(),0,i()}};return grid2[x][y];
+		case 3:grid3 = new int[][]{{i(),0,i()},{0,0,0},{i(),i(),i()}};return grid3[x][y];
+		case 4:grid4 = new int[][]{{i(),0,i()},{0,0,i()},{i(),0,i()}};return grid4[x][y];
+		case 5:grid5 = new int[][]{{i(),0,i()},{i(),0,0},{i(),0,i()}};return grid5[x][y];
+		case 6:grid6 = new int[][]{{i(),i(),i()},{i(),0,0},{i(),0,i()}};return grid6[x][y];
+		case 7:grid7 = new int[][]{{i(),i(),i()},{0,0,i()},{i(),0,i()}};return grid7[x][y];
+		case 8:grid8 = new int[][]{{i(),0,i()},{0,0,i()},{i(),i(),i()}};return grid8[x][y];
+		case 9:grid9 = new int[][]{{i(),0,i()},{i(),0,0},{i(),i(),i()}};return grid9[x][y];
+		case 10:grid10 = new int[][]{{i(),0,i()},{0,0,0},{i(),0,i()}};return grid10[x][y];
+		case 11:grid11 = new int[][]{{i(),i(),i()},{i(),i(),i()},{i(),i(),i()}};return grid11[x][y];
+		}
 
 		return 1;
 	}

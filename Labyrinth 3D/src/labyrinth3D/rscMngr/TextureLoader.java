@@ -55,7 +55,7 @@ public class TextureLoader {
 			e.printStackTrace();
 		}
 		
-		return new Texture(size);
+		return new Texture(size, pixels);
 	}
 
 	public void loadTextures(){
