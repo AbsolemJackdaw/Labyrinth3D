@@ -1,6 +1,7 @@
 package labyrinth3D.game.entity.collectables;
 
 import labyrinth3D.rscMngr.Texture;
+import labyrinth3D.rscMngr.TextureLoader;
 
 public class EntityCape extends EntityAid {
 
@@ -10,6 +11,6 @@ public class EntityCape extends EntityAid {
 
 	@Override
 	public Texture getTexture() {
-		return Texture.tex_cape;
+		return TextureLoader.tex_cape;
 	}
 }

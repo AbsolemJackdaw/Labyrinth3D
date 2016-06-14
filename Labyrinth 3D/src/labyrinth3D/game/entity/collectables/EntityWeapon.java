@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.rscMngr.Texture;
+import labyrinth3D.rscMngr.TextureLoader;
 
 public class EntityWeapon extends EntityCollectible {
 
@@ -26,6 +27,6 @@ public class EntityWeapon extends EntityCollectible {
 	
 	@Override
 	public Texture getTexture() {
-		return Texture.tex_warfsword;
+		return TextureLoader.tex_warfsword;
 	}
 }

@@ -6,11 +6,12 @@ import java.awt.Graphics2D;
 import labyrinth3D.game.entity.Entity;
 import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.rscMngr.Texture;
+import labyrinth3D.rscMngr.TextureLoader;
 
 public class Ladder extends Entity {
 
 	private boolean isActive;
-	private Texture progress[] = new Texture[]{Texture.tex_ladder, Texture.tex_ladder_sport1, Texture.tex_ladder_sport2, Texture.tex_ladder_sport3};
+	private Texture progress[] = new Texture[]{TextureLoader.tex_ladder, TextureLoader.tex_ladder_sport1, TextureLoader.tex_ladder_sport2, TextureLoader.tex_ladder_sport3};
 
 	public Ladder(int size, int id) {
 		super(size, id);

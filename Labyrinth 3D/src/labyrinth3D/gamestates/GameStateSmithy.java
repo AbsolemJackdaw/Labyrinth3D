@@ -1,12 +1,5 @@
 package labyrinth3D.gamestates;
 
-import static labyrinth3D.rscMngr.ImageLoader.bubble;
-import static labyrinth3D.rscMngr.ImageLoader.bubble_empty;
-import static labyrinth3D.rscMngr.ImageLoader.player;
-import static labyrinth3D.rscMngr.ImageLoader.shadow;
-import static labyrinth3D.rscMngr.ImageLoader.smith;
-import static labyrinth3D.rscMngr.ImageLoader.smithyBackground;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -17,6 +10,7 @@ import labyrinth3D.engine.GameState;
 import labyrinth3D.engine.GameStateHandler;
 import labyrinth3D.engine.KeyHandler;
 import labyrinth3D.game.playerdata.PlayerData;
+import labyrinth3D.rscMngr.ImageLoader;
 
 
 public class GameStateSmithy extends GameState{
@@ -84,11 +78,11 @@ public class GameStateSmithy extends GameState{
 
 		double bob = Math.cos(bobbing)*20;
 
-		g.drawImage(smithyBackground, 0, 0, null);
+		g.drawImage(ImageLoader.smithyBackground, 0, 0, null);
 
-		g.drawImage(shadow, 540-(int)bob, 520 , 400+(int)bob*2, 30, null);
+		g.drawImage(ImageLoader.shadow, 540-(int)bob, 520 , 400+(int)bob*2, 30, null);
 
-		g.drawImage(smith, 500, 20 + (int)bob , 512, 512, null);
+		g.drawImage(ImageLoader.smith, 500, 20 + (int)bob , 512, 512, null);
 
 
 		g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 20));
@@ -97,18 +91,18 @@ public class GameStateSmithy extends GameState{
 		//		g.draw(interactSmith);
 
 		if(facingRight)
-			g.drawImage(player, playerPositionX, playerPositionY-60, 256, 256, null);
+			g.drawImage(ImageLoader.player, playerPositionX, playerPositionY-60, 256, 256, null);
 		else
-			g.drawImage(player, playerPositionX+256, playerPositionY-60, -256, 256, null);
+			g.drawImage(ImageLoader.player, playerPositionX+256, playerPositionY-60, -256, 256, null);
 
 		bob = Math.cos(bobbing*4)*10;
 
 		if(canTalk) {
 			if(!displayText)
-				g.drawImage(bubble, 500, (int)bob, 128, 128, null);
+				g.drawImage(ImageLoader.bubble, 500, (int)bob, 128, 128, null);
 			if(displayText) {
 				g.setColor(new Color(0f, 0f, 0f));
-				g.drawImage(bubble_empty, 300, -20, 320, 192, null);
+				g.drawImage(ImageLoader.bubble_empty, 300, -20, 320, 192, null);
 				g.drawString("In exchange for found items,", 350, 70);
 				g.drawString("I could give you aid ...", 350, 90);
 

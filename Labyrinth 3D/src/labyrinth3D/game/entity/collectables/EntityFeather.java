@@ -1,6 +1,7 @@
 package labyrinth3D.game.entity.collectables;
 
 import labyrinth3D.rscMngr.Texture;
+import labyrinth3D.rscMngr.TextureLoader;
 
 public class EntityFeather extends EntityAid {
 
@@ -10,6 +11,6 @@ public class EntityFeather extends EntityAid {
 
 	@Override
 	public Texture getTexture() {
-		return Texture.tex_feather;
+		return TextureLoader.tex_feather;
 	}
 }

@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import labyrinth3D.rscMngr.ImageLoader;
 import labyrinth3D.rscMngr.Texture;
+import labyrinth3D.rscMngr.TextureLoader;
 
 public class Entity {
 
@@ -86,7 +87,7 @@ public class Entity {
 	}
 	
 	public Texture getTexture() {
-		return Texture.tex_default;
+		return TextureLoader.tex_default;
 	}
 	
 	public double getScaleX() {

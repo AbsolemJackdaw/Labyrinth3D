@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import labyrinth3D.game.entity.Entity;
 import labyrinth3D.rscMngr.Texture;
+import labyrinth3D.rscMngr.TextureLoader;
 
 public class Screen {
 	public int[][] map;
@@ -14,7 +15,6 @@ public class Screen {
 	public ArrayList<Texture> entityTextures = new ArrayList<Texture>();
 
 	public double[] ZBuffer;
-
 
 	int texIndex = 0;
 
@@ -328,25 +328,25 @@ public class Screen {
 
 	private void filltextureArray() {
 		/////////////////////////////////////
-		wallTextures.add(Texture.brickStone);
-		wallTextures.add(Texture.brickStone1);
-		wallTextures.add(Texture.brickStone2);
-		wallTextures.add(Texture.brickStone3);
-		wallTextures.add(Texture.brickStone4);
-		wallTextures.add(Texture.brickStone5);
+		wallTextures.add(TextureLoader.brickStone);
+		wallTextures.add(TextureLoader.brickStone1);
+		wallTextures.add(TextureLoader.brickStone2);
+		wallTextures.add(TextureLoader.brickStone3);
+		wallTextures.add(TextureLoader.brickStone4);
+		wallTextures.add(TextureLoader.brickStone5);
 
 		/////////////////////////////////////
 		
-		entityTextures.add(Texture.tex_portal);
-		entityTextures.add(Texture.tex_portal_1);
-		entityTextures.add(Texture.tex_portal_2);
-		entityTextures.add(Texture.tex_portal_3);
+		entityTextures.add(TextureLoader.tex_portal);
+		entityTextures.add(TextureLoader.tex_portal_1);
+		entityTextures.add(TextureLoader.tex_portal_2);
+		entityTextures.add(TextureLoader.tex_portal_3);
 		
-		entityTextures.add(Texture.tex_statue);
-		entityTextures.add(Texture.tex_unicorn_blood);
-		entityTextures.add(Texture.tex_head);
+		entityTextures.add(TextureLoader.tex_statue);
+		entityTextures.add(TextureLoader.tex_unicorn_blood);
+		entityTextures.add(TextureLoader.tex_head);
 		
-		entityTextures.add(Texture.tex_warfsword);
+		entityTextures.add(TextureLoader.tex_warfsword);
 
 	}
 }

@@ -35,7 +35,7 @@ public class GameStateMaze3D extends GameState {
 	public Camera camera;
 	public Screen screen;
 
-	public static int[][] map;
+	public int[][] map;
 
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private ArrayList<Entity> enemies = new ArrayList<Entity>();
@@ -165,8 +165,6 @@ public class GameStateMaze3D extends GameState {
 	//picks out x collectibles. never the same.
 	private EntityAid[] listWithAid = new EntityAid[]{new EntityFeather(0), new EntityGrail(0), new EntityCape(0), new EntityScythe(0)};
 	
-	private ArrayList<EntityAid> aidCycled= new ArrayList<EntityAid>();
-
 	private void generateAid() {
 
 		Entity e = null;

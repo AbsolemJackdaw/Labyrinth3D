@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 
 import labyrinth3D.game.entity.Entity;
 import labyrinth3D.rscMngr.Texture;
+import labyrinth3D.rscMngr.TextureLoader;
 
 public class EntityEnemy extends Entity {
 
@@ -24,7 +25,7 @@ public class EntityEnemy extends Entity {
 
 	@Override
 	public Texture getTexture() {
-		return Texture.tex_enemytest;
+		return TextureLoader.tex_enemytest;
 	}
 	
 	public void hit() {

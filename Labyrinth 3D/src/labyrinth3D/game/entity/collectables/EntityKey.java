@@ -2,6 +2,7 @@ package labyrinth3D.game.entity.collectables;
 
 import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.rscMngr.Texture;
+import labyrinth3D.rscMngr.TextureLoader;
 
 public class EntityKey extends EntityCollectible {
 
@@ -18,6 +19,6 @@ public class EntityKey extends EntityCollectible {
 
 	@Override
 	public Texture getTexture() {
-			return Texture.tex_sport;
+			return TextureLoader.tex_sport;
 	}
 }
