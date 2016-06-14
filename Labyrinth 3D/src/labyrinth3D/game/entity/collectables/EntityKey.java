@@ -12,8 +12,6 @@ public class EntityKey extends EntityCollectible {
 	
 	@Override
 	public void onPickUp() {
-		super.onPickUp();
-		
 		PlayerData.collectedKeys ++;
 	}
 

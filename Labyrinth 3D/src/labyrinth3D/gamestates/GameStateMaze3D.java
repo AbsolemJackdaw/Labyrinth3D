@@ -48,7 +48,7 @@ public class GameStateMaze3D extends GameState {
 
 	HUD hud;
 
-	public	boolean debug = true;
+	public	boolean debug = false;
 
 	public boolean attack;
 	public int attackTime = 0;

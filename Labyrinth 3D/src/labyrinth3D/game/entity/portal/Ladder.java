@@ -18,17 +18,6 @@ public class Ladder extends Entity {
 	}
 
 	@Override
-	public void draw(Graphics2D g) {
-		super.draw(g);
-
-	}
-
-	@Override
-	public void update() {
-		super.update();
-	}
-
-	@Override
 	public Texture getTexture() {
 
 		return progress[PlayerData.collectedKeys];

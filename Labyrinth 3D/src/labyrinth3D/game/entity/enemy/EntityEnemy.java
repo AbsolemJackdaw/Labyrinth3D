@@ -14,16 +14,6 @@ public class EntityEnemy extends Entity {
 	}
 	
 	@Override
-	public void update() {
-		super.update();
-	}
-	
-	@Override
-	public void draw(Graphics2D g) {
-		super.draw(g);
-	}
-
-	@Override
 	public Texture getTexture() {
 		return TextureLoader.tex_enemytest;
 	}

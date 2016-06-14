@@ -20,15 +20,7 @@ public class Portal extends Entity {
 	}
 
 	@Override
-	public void draw(Graphics2D g) {
-		super.draw(g);
-
-	}
-
-	@Override
 	public void update() {
-		super.update();
-
 		if(isActive)
 			animationCounter++;
 	}

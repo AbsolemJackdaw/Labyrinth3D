@@ -7,7 +7,7 @@ import labyrinth3D.rscMngr.ImageLoader;
 import labyrinth3D.rscMngr.Texture;
 import labyrinth3D.rscMngr.TextureLoader;
 
-public class Entity {
+public abstract class Entity {
 
 	//position in the world. should be withing map's borders;
 	public double worldPositionX,worldPositionY;
@@ -24,16 +24,9 @@ public class Entity {
 
 	}
 
-	public void draw(Graphics2D g){
-//		g.setColor(Color.WHITE);
-//		g.fill(getBoundingBox());
-//		g.drawImage(getTexture(), posX, posY, null);
-		
-	}
+	public void draw(Graphics2D g){};
 	
-	public void update(){
-		
-	}
+	public void update(){};
 	
 	public BufferedImage getImage(){
 		return ImageLoader.default_image;

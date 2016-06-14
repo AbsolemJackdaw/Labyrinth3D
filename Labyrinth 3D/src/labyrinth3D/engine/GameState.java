@@ -2,7 +2,7 @@ package labyrinth3D.engine;
 
 import java.awt.Graphics2D;
 
-public class GameState {
+public abstract class GameState {
 
 	protected GameStateHandler gsh;
 	public void draw (Graphics2D g){}
