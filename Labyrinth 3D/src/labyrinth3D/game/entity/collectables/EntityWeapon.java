@@ -1,11 +1,11 @@
 package labyrinth3D.game.entity.collectables;
 
+import static labyrinth3D.rscMngr.ImageLoader.warfsword;
+
 import java.awt.image.BufferedImage;
 
 import labyrinth3D.game.playerdata.PlayerData;
-import labyrinth3D.rscMngr.ImageLoader.Texture;
-
-import static labyrinth3D.rscMngr.ImageLoader.*;
+import labyrinth3D.rscMngr.Texture;
 
 public class EntityWeapon extends EntityCollectible {
 

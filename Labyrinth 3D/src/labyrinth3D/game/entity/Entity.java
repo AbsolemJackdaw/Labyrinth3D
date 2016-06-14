@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import labyrinth3D.rscMngr.ImageLoader;
-import labyrinth3D.rscMngr.ImageLoader.Texture;
+import labyrinth3D.rscMngr.Texture;
 
 public class Entity {
 

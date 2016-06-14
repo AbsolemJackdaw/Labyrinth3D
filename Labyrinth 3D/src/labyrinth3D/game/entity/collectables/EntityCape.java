@@ -1,6 +1,6 @@
 package labyrinth3D.game.entity.collectables;
 
-import labyrinth3D.rscMngr.ImageLoader.Texture;
+import labyrinth3D.rscMngr.Texture;
 
 public class EntityCape extends EntityAid {
 

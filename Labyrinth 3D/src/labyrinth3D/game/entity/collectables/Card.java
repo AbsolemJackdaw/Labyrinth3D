@@ -1,8 +1,20 @@
 package labyrinth3D.game.entity.collectables;
 
 
-import static labyrinth3D.game.entity.collectables.EntityCollectible.*;
-import static labyrinth3D.rscMngr.ImageLoader.*;
+import static labyrinth3D.game.entity.collectables.EntityCollectible.CAPE;
+import static labyrinth3D.game.entity.collectables.EntityCollectible.FEATHER;
+import static labyrinth3D.game.entity.collectables.EntityCollectible.GRAIL;
+import static labyrinth3D.game.entity.collectables.EntityCollectible.SCYTHE;
+import static labyrinth3D.game.entity.collectables.EntityCollectible.SPORT;
+import static labyrinth3D.game.entity.collectables.EntityCollectible.WARFSWORD;
+import static labyrinth3D.rscMngr.ImageLoader.cape;
+import static labyrinth3D.rscMngr.ImageLoader.card;
+import static labyrinth3D.rscMngr.ImageLoader.default_image;
+import static labyrinth3D.rscMngr.ImageLoader.feather;
+import static labyrinth3D.rscMngr.ImageLoader.grail;
+import static labyrinth3D.rscMngr.ImageLoader.scythe;
+import static labyrinth3D.rscMngr.ImageLoader.sport;
+import static labyrinth3D.rscMngr.ImageLoader.warfsword;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
