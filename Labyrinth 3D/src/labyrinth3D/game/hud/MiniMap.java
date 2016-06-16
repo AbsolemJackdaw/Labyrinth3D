@@ -2,6 +2,7 @@ package labyrinth3D.game.hud;
 
 
 import static labyrinth3D.rscMngr.ImageLoader.hud_elements;
+import static labyrinth3D.utility.Scale.*;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -22,29 +23,14 @@ public class MiniMap {
 
 	private int size = 3;
 
-	private float offSetY = -60;
-	private float offSetX = -60;
-
 	public MiniMap() {
-	}
-
-	public float getOffSetX() {
-		return offSetX;
-	}
-	public float getOffSetY() {
-		return offSetY;
-	}
-
-	public void setOffSetX(float offSetX) {
-		this.offSetX += offSetX;
-	}
-	public void setOffSetY(float offSetY) {
-		this.offSetY += offSetY;
 	}
 
 	public void draw(Graphics2D g){
 		//TODO 20 should be replaced with mapsize*2
-		g.drawImage(hud_elements.getSubimage(64*9 -10 ,64-10,126+20,126+21),(64*15-20)+(int)offSetX,(64*8-20)+(int)offSetY , null); 
+		g.drawImage(
+				hud_elements.getSubimage(64*9 -10, 64-10, 126+20, 126+21)
+				,scale(880), scale(432), null); 
 
 		for(MiniMapRectangle mmr : path)
 			mmr.draw(g);
@@ -90,8 +76,8 @@ public class MiniMap {
 			int a=0;
 			int b=0;
 
-			int xp = (64*14)+5;
-			int yp = (64*7)+5 ;
+			int xp = scale(64*14)+ 5;
+			int yp = scale(64*7) + 5 ;
 
 			if(type == 1){
 				a = 1*size; b = 3*size;

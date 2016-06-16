@@ -86,8 +86,8 @@ public class GameStateMaze3D extends GameState {
 		//		System.out.println(camera.xDir + " " + camera.yDir);
 
 		if(Camera.isPressed(Camera.T)){
-			PlayerData.positionForNextLevelX = (int)(((float)GamePanel.W/1024f) * 80f);
-			PlayerData.positionForNextLevelY = (int)(((float)GamePanel.W/1024f) * 480f);
+			PlayerData.positionForNextLevelX = (int)(((float)GamePanel.W/1024f) * 150);
+			PlayerData.positionForNextLevelY = (int)(((float)GamePanel.W/1024f) * 490);
 			gsh.changeGameState(GameStateHandler.ISLAND);
 		}
 
@@ -335,6 +335,8 @@ public class GameStateMaze3D extends GameState {
 								PlayerData.cards.add(c);
 							PlayerData.currentlyCollectedCards.clear();
 
+							PlayerData.positionForNextLevelX = (int)(((float)GamePanel.W/1024f) * 150);
+							PlayerData.positionForNextLevelY = (int)(((float)GamePanel.W/1024f) * 490);
 							gsh.changeGameState(GameStateHandler.ISLAND);
 						}
 					}

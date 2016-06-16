@@ -17,6 +17,8 @@ import labyrinth3D.engine.KeyHandler;
 import labyrinth3D.rscMngr.ImageLoader;
 import labyrinth3D.rscMngr.TextureLoader;
 
+import static labyrinth3D.utility.Scale.*;
+
 public class GameStateMenu extends GameState {
 
 	Font fontTitle;
@@ -33,8 +35,6 @@ public class GameStateMenu extends GameState {
 
 	BufferedImage bg;
 	
-	float scale;
-
 	public GameStateMenu(GameStateHandler gsh) {
 
 		System.out.println("launched menu");
@@ -42,8 +42,6 @@ public class GameStateMenu extends GameState {
 		counting = true;
 		this.gsh = gsh;
 
-		scale = (float)GamePanel.W / 1024f ;
-		
 		fontTitle = new Font("Arial", Font.ITALIC, scale(50));
 		font = new Font("Arial", Font.BOLD, scale(20));
 		
@@ -76,7 +74,6 @@ public class GameStateMenu extends GameState {
 				doneLoading = true;
 			}
 		}.execute();
-
 	}
 
 	@Override
@@ -155,9 +152,5 @@ public class GameStateMenu extends GameState {
 		System.out.println("menu bg could not be loaded");
 		return null;
 
-	}
-	
-	private int scale(float nr) {
-		return (int)(nr* scale);
 	}
 }

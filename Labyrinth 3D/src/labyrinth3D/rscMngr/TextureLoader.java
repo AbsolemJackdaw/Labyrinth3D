@@ -23,7 +23,9 @@ public class TextureLoader {
 	public static Texture brickStone3 ;
 	public static Texture brickStone4 ;
 	public static Texture brickStone5 ;
-	
+	public static Texture floor ;
+	public static Texture ceiling ;
+
 	public static Texture tex_warfsword ;
 
 	public static Texture tex_enemytest;
@@ -78,6 +80,8 @@ public class TextureLoader {
 		brickStone3 = load("/mazeTextures/wall_bricks_3.png", 64);
 		brickStone4 = load("/mazeTextures/wall_bricks_4.png", 64);
 		brickStone5 = load("/mazeTextures/wall_bricks_5.png", 64);
+		floor = load("/mazeTextures/floor.png", 64);
+		ceiling = load("/mazeTextures/ceiling.png", 64);
 
 		tex_warfsword = load("/entity/warfsword.png", 128);
 		

@@ -1,6 +1,9 @@
 package labyrinth3D.gamestates;
 
 import java.awt.Color;
+
+import static labyrinth3D.utility.Scale.*;
+
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -19,7 +22,6 @@ public class GameStateSmithy extends GameState{
 	private Rectangle interactSmith;
 
 	float alpha = 1f;
-	private float scale;
 	
 	private Player player;
 
@@ -28,8 +30,6 @@ public class GameStateSmithy extends GameState{
 		
 		player = new Player();
 		
-		scale = (float)GamePanel.W / 1024f ;
-
 		interactSmith = new Rectangle(scale(500), scale(80), scale(512), scale(512));
 	}
 
@@ -50,7 +50,7 @@ public class GameStateSmithy extends GameState{
 
 		player.update();
 		
-		if(player.positionX < -(int)(180f*scale)) {
+		if(player.positionX < -scale(180)) {
 			PlayerData.positionForNextLevelX = scale(315);
 			PlayerData.positionForNextLevelY = scale(480);
 			gsh.changeGameState(GameStateHandler.ISLAND);
@@ -129,9 +129,5 @@ public class GameStateSmithy extends GameState{
 		if(KeyHandler.keyState[KeyHandler.LEFT]){
 			player.movePlayerLeft(scale(5));
 		}
-	}
-	
-	private int scale(float nr) {
-		return (int)(nr* scale);
 	}
 }

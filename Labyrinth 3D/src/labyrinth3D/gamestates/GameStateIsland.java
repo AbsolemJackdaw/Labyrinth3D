@@ -15,6 +15,8 @@ import labyrinth3D.game.entity.Player;
 import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.gamestates.bounds.Doorway;
 
+import static labyrinth3D.utility.Scale.*;
+
 public class GameStateIsland extends GameState {
 
 	private Rectangle[] boundingBox;
@@ -24,11 +26,7 @@ public class GameStateIsland extends GameState {
 	private Rectangle bottomWall;
 	private Rectangle topWall;
 
-	private boolean facingRight = true;
-
 	private Doorway[] doors;
-
-	private float scale;
 
 	private Player player;
 
@@ -39,8 +37,6 @@ public class GameStateIsland extends GameState {
 		this.gsh = gsh;
 
 		player = new Player();
-
-		scale = (float)GamePanel.W / 1024f ;
 
 		playerPositionX = player.positionX;
 		playerPositionY = player.positionY;
@@ -79,12 +75,6 @@ public class GameStateIsland extends GameState {
 
 		player.draw(g, scale(64), player.positionX, player.positionY - scale(58));
 
-//		if(facingRight)
-//			g.drawImage(player, playerPositionX, playerPositionY-scale(60), scale(64), scale(64), null);
-//		else
-//			g.drawImage(player, playerPositionX+scale(64), playerPositionY-scale(60), -scale(64), scale(64), null);
-
-		
 		//draws the player's bounding box
 		for(Rectangle r : boundingBox) {
 			g.setColor(Color.BLUE);
@@ -159,7 +149,6 @@ public class GameStateIsland extends GameState {
 	private void doPlayerMovement() {
 
 		if(KeyHandler.keyState[KeyHandler.RIGHT]){
-			facingRight = true;
 			if(!boundingBox[3].intersects(rightWall)) {
 				player.movePlayerRight(2);
 
@@ -169,7 +158,6 @@ public class GameStateIsland extends GameState {
 		}
 
 		if(KeyHandler.keyState[KeyHandler.LEFT]){
-			facingRight = false;
 			if(!boundingBox[2].intersects(leftWall)) {
 				player.movePlayerLeft(2);
 
@@ -194,9 +182,5 @@ public class GameStateIsland extends GameState {
 					r.y+=2;
 			}
 		}
-	}
-
-	private int scale(float nr) {
-		return (int)(nr * scale);
 	}
 }

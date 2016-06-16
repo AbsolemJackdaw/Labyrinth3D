@@ -1,7 +1,6 @@
 package labyrinth3D.gamestates.maze3D;
 
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import labyrinth3D.game.entity.Entity;
@@ -53,14 +52,14 @@ public class Screen {
 
 	public int[] drawScreen(Camera camera, int[] pixels, ArrayList<Entity> entity, ArrayList<Entity> enemy) {
 
-		//floor colors. top and bottom
-		for(int n=0; n<pixels.length/2; n++) {
-			if(pixels[n] != Color.DARK_GRAY.getRGB()) pixels[n] = Color.DARK_GRAY.getRGB();
-		}
-
-		for(int i=pixels.length/2; i<pixels.length; i++){
-			if(pixels[i] != Color.GRAY.getRGB()) pixels[i] = Color.GRAY.getRGB();
-		}
+//		//floor colors. top and bottom
+//		for(int n=0; n<pixels.length/2; n++) {
+//			if(pixels[n] != Color.DARK_GRAY.getRGB()) pixels[n] = Color.DARK_GRAY.getRGB();
+//		}
+//
+//		for(int i=pixels.length/2; i<pixels.length; i++){
+//			if(pixels[i] != Color.GRAY.getRGB()) pixels[i] = Color.GRAY.getRGB();
+//		}
 
 		//casting the walls
 		drawWalls(camera, pixels);
@@ -178,7 +177,7 @@ public class Screen {
 
 			//texture
 			Texture texture = wallTextures.get(texNum);
-			
+
 			double wallX;//Exact position of where wall was hit
 
 			if(side==1) {//If its a y-axis wall
@@ -217,19 +216,73 @@ public class Screen {
 
 				pixels[x + y*(width)] = color;
 			}
-			
+
 			ZBuffer[x] = perpWallDist;
+
+			//FLOOR CASTING
+			double floorXWall, floorYWall; //x, y position of the floor texel at the bottom of the wall
+
+			//4 different wall directions possible
+			if(side == 0 && rayDirX > 0)
+			{
+				floorXWall = mapX;
+				floorYWall = mapY + wallX;
+			}
+			else if(side == 0 && rayDirX < 0)
+			{
+				floorXWall = mapX + 1.0;
+				floorYWall = mapY + wallX;
+			}
+			else if(side == 1 && rayDirY > 0)
+			{
+				floorXWall = mapX + wallX;
+				floorYWall = mapY;
+			}
+			else
+			{
+				floorXWall = mapX + wallX;
+				floorYWall = mapY + 1.0;
+			}
+
+			double distWall, distPlayer, currentDist;
+
+			distWall = perpWallDist;
+			distPlayer = 0.0;
+			if (drawEnd < 0) drawEnd = height; //becomes < 0 when the integer overflows
+			
+			Texture ceilTex = TextureLoader.ceiling;
+			Texture floorTex = TextureLoader.floor;
+
+			//draw the floor from drawEnd to the bottom of the screen
+			for(int y = drawEnd + 1; y < height; y++)
+			{
+				currentDist = height / (2.0 * y - height); //you could make a small lookup table for this instead
+
+				double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+
+				double currentFloorX = weight * floorXWall + (1.0 - weight) * camera.xPos;
+				double currentFloorY = weight * floorYWall + (1.0 - weight) * camera.yPos;
+
+				int floorTexX, floorTexY;
+				floorTexX = (int)(currentFloorX * 64) % 64;
+				floorTexY = (int)(currentFloorY * 64) % 64;
+
+				//floor
+				pixels[x+y*width] = floorTex.pixels[64 * floorTexY + floorTexX] >> 1 & 8355711;
+				//ceiling (symmetrical!)
+				pixels[(x+((height-y)*width))] = ceilTex.pixels[64 * floorTexY + floorTexX];
+			}
 		}
 	}
 
 	private void drawEntities(ArrayList<Entity> entity, Camera camera, int [] pixels){
 
-		 //parameters for scaling and moving the sprites
-	      double uDiv = 1;
-	      double vDiv = 1;
-	      double vMove = 0.0;
-	      int vMoveScreen;
-	      
+		//parameters for scaling and moving the sprites
+		double uDiv = 1;
+		double vDiv = 1;
+		double vMove = 0.0;
+		int vMoveScreen;
+
 		//required for correct matrix multiplication
 		double invDet = 1.0 / (camera.xPlane * camera.yDir - camera.xDir * camera.yPlane); 
 
@@ -241,7 +294,7 @@ public class Screen {
 			uDiv = e.getScaleX();
 			vDiv = e.getScaleY();
 			vMove = e.getMoveOffset();
-			
+
 			texture = e.getTexture();
 
 			texSize = texture.SIZE;
@@ -260,7 +313,7 @@ public class Screen {
 			transformY = invDet * (-camera.yPlane * spriteWorldPosX + camera.xPlane * spriteWorldPosY); 
 
 			vMoveScreen = (int) (vMove / transformY);
-					
+
 			int spriteScreenX = (int) ((width / 2) * (1 + transformX / transformY));
 
 			//calculate height of the sprite on screen
@@ -336,16 +389,16 @@ public class Screen {
 		wallTextures.add(TextureLoader.brickStone5);
 
 		/////////////////////////////////////
-		
+
 		entityTextures.add(TextureLoader.tex_portal);
 		entityTextures.add(TextureLoader.tex_portal_1);
 		entityTextures.add(TextureLoader.tex_portal_2);
 		entityTextures.add(TextureLoader.tex_portal_3);
-		
+
 		entityTextures.add(TextureLoader.tex_statue);
 		entityTextures.add(TextureLoader.tex_unicorn_blood);
 		entityTextures.add(TextureLoader.tex_head);
-		
+
 		entityTextures.add(TextureLoader.tex_warfsword);
 
 	}
