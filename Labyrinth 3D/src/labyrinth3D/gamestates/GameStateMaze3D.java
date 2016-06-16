@@ -69,7 +69,7 @@ public class GameStateMaze3D extends GameState {
 		hud = new HUD(this);
 
 		camera = new Camera(4.5, 4.5, 1, 0, 0, -.66);
-		screen = new Screen(map, mapWidth, mapHeight, 1024, 576);
+		screen = new Screen(map, mapWidth, mapHeight, GamePanel.W, GamePanel.H);
 
 		//		enemies.add((EntityEnemy) new EntityEnemy(0, 0).setFirstPosition(10.5, 10.5));
 
@@ -86,6 +86,8 @@ public class GameStateMaze3D extends GameState {
 		//		System.out.println(camera.xDir + " " + camera.yDir);
 
 		if(Camera.isPressed(Camera.T)){
+			PlayerData.positionForNextLevelX = (int)(((float)GamePanel.W/1024f) * 80f);
+			PlayerData.positionForNextLevelY = (int)(((float)GamePanel.W/1024f) * 480f);
 			gsh.changeGameState(GameStateHandler.ISLAND);
 		}
 

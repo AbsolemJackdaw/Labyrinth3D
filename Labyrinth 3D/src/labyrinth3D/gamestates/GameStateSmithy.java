@@ -9,25 +9,28 @@ import labyrinth3D.engine.GamePanel;
 import labyrinth3D.engine.GameState;
 import labyrinth3D.engine.GameStateHandler;
 import labyrinth3D.engine.KeyHandler;
+import labyrinth3D.game.entity.Player;
 import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.rscMngr.ImageLoader;
 
 
 public class GameStateSmithy extends GameState{
 
-	private int playerPositionX = 75;
-	private int playerPositionY = 350;
-
-	private boolean facingRight = true;
-
 	private Rectangle interactSmith;
 
 	float alpha = 1f;
+	private float scale;
+	
+	private Player player;
 
 	public GameStateSmithy(GameStateHandler gsh) {
 		this.gsh = gsh;
+		
+		player = new Player();
+		
+		scale = (float)GamePanel.W / 1024f ;
 
-		interactSmith = new Rectangle(500, 80, 512, 512);
+		interactSmith = new Rectangle(scale(500), scale(80), scale(512), scale(512));
 	}
 
 	private double bobbing;
@@ -45,11 +48,15 @@ public class GameStateSmithy extends GameState{
 
 		doPlayerMovement();
 
-		if(playerPositionX < -180) {
+		player.update();
+		
+		if(player.positionX < -(int)(180f*scale)) {
+			PlayerData.positionForNextLevelX = scale(315);
+			PlayerData.positionForNextLevelY = scale(480);
 			gsh.changeGameState(GameStateHandler.ISLAND);
 		}
 
-		if(playerPositionX + 100 > interactSmith.x -250) {
+		if(player.positionX + scale(100) > interactSmith.x -scale(125)) {
 			canTalk = true;
 		}else {
 			canTalk = false;
@@ -78,33 +85,30 @@ public class GameStateSmithy extends GameState{
 
 		double bob = Math.cos(bobbing)*20;
 
-		g.drawImage(ImageLoader.smithyBackground, 0, 0, null);
+		g.drawImage(ImageLoader.smithyBackground, 0, 0, GamePanel.W, GamePanel.H, null);
 
-		g.drawImage(ImageLoader.shadow, 540-(int)bob, 520 , 400+(int)bob*2, 30, null);
+		g.drawImage(ImageLoader.shadow, scale(540)-(int)bob, scale(520) , scale(400)+(int)bob*2, scale(30), null);
 
-		g.drawImage(ImageLoader.smith, 500, 20 + (int)bob , 512, 512, null);
+		g.drawImage(ImageLoader.smith, scale(500), scale(20) + (int)bob , scale(512), scale(512), null);
 
 
-		g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 20));
+		g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, scale(20)));
 
 		//		g.setColor(Color.black);
 		//		g.draw(interactSmith);
 
-		if(facingRight)
-			g.drawImage(ImageLoader.player, playerPositionX, playerPositionY-60, 256, 256, null);
-		else
-			g.drawImage(ImageLoader.player, playerPositionX+256, playerPositionY-60, -256, 256, null);
+		player.draw(g, scale(256), player.positionX, scale(player.positionY-60));
 
 		bob = Math.cos(bobbing*4)*10;
 
 		if(canTalk) {
 			if(!displayText)
-				g.drawImage(ImageLoader.bubble, 500, (int)bob, 128, 128, null);
+				g.drawImage(ImageLoader.bubble, scale(500), (int)bob, scale(128), scale(128), null);
 			if(displayText) {
 				g.setColor(new Color(0f, 0f, 0f));
-				g.drawImage(ImageLoader.bubble_empty, 300, -20, 320, 192, null);
-				g.drawString("In exchange for found items,", 350, 70);
-				g.drawString("I could give you aid ...", 350, 90);
+				g.drawImage(ImageLoader.bubble_empty, scale(300), -scale(20), scale(320), scale(192), null);
+				g.drawString("In exchange for found items,", scale(350), scale(70));
+				g.drawString("I could give you aid ...", scale(350), scale(90));
 
 			}
 		}
@@ -117,15 +121,17 @@ public class GameStateSmithy extends GameState{
 
 	private void doPlayerMovement() {
 		if(KeyHandler.keyState[KeyHandler.RIGHT]){
-			facingRight = true;
-			if(playerPositionX + 180 < interactSmith.x) {
-				playerPositionX+=5;
+			if(player.positionX + scale(180) < interactSmith.x) {
+				player.movePlayerRight(scale(5));
 			}
 		}
 
 		if(KeyHandler.keyState[KeyHandler.LEFT]){
-			facingRight = false;
-			playerPositionX-=5;
+			player.movePlayerLeft(scale(5));
 		}
+	}
+	
+	private int scale(float nr) {
+		return (int)(nr* scale);
 	}
 }

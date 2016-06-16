@@ -19,8 +19,8 @@ import labyrinth3D.gamestates.maze3D.Camera;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 
-	public static int W = 1024; //64*16 & 64*9
-	public static int H = 576;
+	public static int W = 1280; //64*16 & 64*9
+	public static int H = 720;
 
 	// game thread
 	private Thread thread;

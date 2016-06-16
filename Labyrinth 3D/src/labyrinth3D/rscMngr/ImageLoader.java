@@ -159,6 +159,7 @@ public class ImageLoader {
 	public static BufferedImage smithyBackground;
 
 	public static BufferedImage player;
+	public static BufferedImage[] player_walking = new BufferedImage[4];
 	public static BufferedImage smith;
 	public static BufferedImage bubble;
 	public static BufferedImage bubble_empty;
@@ -185,6 +186,7 @@ public class ImageLoader {
 
 	private void loadImages(){
 		loadImages(walls, "/walls/Wall");
+		loadImages(player_walking, "/player/cycle");
 
 		default_image = loadSprite("/default.png");
 

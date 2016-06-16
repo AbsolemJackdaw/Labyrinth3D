@@ -11,13 +11,11 @@ import labyrinth3D.engine.GamePanel;
 import labyrinth3D.engine.GameState;
 import labyrinth3D.engine.GameStateHandler;
 import labyrinth3D.engine.KeyHandler;
+import labyrinth3D.game.entity.Player;
+import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.gamestates.bounds.Doorway;
-import labyrinth3D.rscMngr.ImageLoader;
 
 public class GameStateIsland extends GameState {
-
-	private int playerPositionX = 80;
-	private int playerPositionY = 480;
 
 	private Rectangle[] boundingBox;
 
@@ -28,28 +26,44 @@ public class GameStateIsland extends GameState {
 
 	private boolean facingRight = true;
 
-	private Doorway[] doors = new Doorway[]{
-			(Doorway) new Doorway(65, Doorway.DOOR1,150, 400),
-			(Doorway) new Doorway(65, Doorway.DOORSMITH, 305, 400),
-			(Doorway) new Doorway(65, Doorway.DOOR2, 470, 400),
-			(Doorway) new Doorway(65, Doorway.DOOR3, 650, 400),
-			(Doorway) new Doorway(65, Doorway.DOOR5, 800, 400)
-	};
+	private Doorway[] doors;
+
+	private float scale;
+
+	private Player player;
+
+	private int playerPositionX;
+	private int playerPositionY;
 
 	public GameStateIsland(GameStateHandler gsh) {
 		this.gsh = gsh;
 
+		player = new Player();
+
+		scale = (float)GamePanel.W / 1024f ;
+
+		playerPositionX = player.positionX;
+		playerPositionY = player.positionY;
+
 		boundingBox = new Rectangle[]{
-				new Rectangle(playerPositionX+16+8, playerPositionY-16+8-2, 16, 2), //up
-				new Rectangle(playerPositionX+16+8, playerPositionY+16-16+8, 16, 2), //down
-				new Rectangle(playerPositionX+16+8-2, playerPositionY-16+8, 2, 16), //left
-				new Rectangle(playerPositionX+16+16+8, playerPositionY-16+8, 2, 16), //right
+				new Rectangle(playerPositionX+scale(24), playerPositionY-scale(10), scale(16), scale(2)), //up
+				new Rectangle(playerPositionX+scale(24), playerPositionY+scale(8), scale(16), scale(2)), //down
+				new Rectangle(playerPositionX+scale(22), playerPositionY-scale(8), scale(2), scale(16)), //left
+				new Rectangle(playerPositionX+scale(40), playerPositionY-scale(8), scale(2), scale(16)), //right
 		};
 
-		leftWall = new Rectangle(0, 0, 50, GamePanel.H);
-		rightWall = new Rectangle(GamePanel.W-100, 0, 99, GamePanel.H);
-		bottomWall = new Rectangle(0, GamePanel.H-75, GamePanel.W, 50);
-		topWall = new Rectangle(0, 410, GamePanel.W, 50);
+		doors = new Doorway[]{
+				(Doorway) new Doorway(scale(65), Doorway.DOOR1,scale(150), scale(400)),
+				(Doorway) new Doorway(scale(65), Doorway.DOORSMITH, scale(305), scale(400)),
+				(Doorway) new Doorway(scale(65), Doorway.DOOR2, scale(470), scale(400)),
+				(Doorway) new Doorway(scale(65), Doorway.DOOR3, scale(650), scale(400)),
+				(Doorway) new Doorway(scale(65), Doorway.DOOR5, scale(800), scale(400))
+		};
+
+		leftWall = new Rectangle(0, 0, scale(50), GamePanel.H);
+		rightWall = new Rectangle(GamePanel.W-scale(100), 0, scale(99), GamePanel.H);
+		bottomWall = new Rectangle(0, GamePanel.H - scale(75), GamePanel.W, scale(50));
+		topWall = new Rectangle(0, scale(410), GamePanel.W, scale(50));
 	}
 
 	float alpha = 1f;
@@ -59,31 +73,34 @@ public class GameStateIsland extends GameState {
 
 		super.draw(g);
 
-		g.drawImage(backGroundMain, 0, 0, null);
+		g.drawImage(backGroundMain, 0, 0, GamePanel.W, GamePanel.H, null);
 
 		drawWallText(g);
 
-		if(facingRight)
-			g.drawImage(ImageLoader.player, playerPositionX, playerPositionY-60, null);
-		else
-			g.drawImage(ImageLoader.player, playerPositionX+64, playerPositionY-60, -64, 64, null);
+		player.draw(g, scale(64), player.positionX, player.positionY - scale(58));
 
-		//		draws the player's bounding box
-		//		for(Rectangle r : boundingBox) {
-		//			g.setColor(Color.BLUE);
-		//			g.draw(r);
-		//		}
+//		if(facingRight)
+//			g.drawImage(player, playerPositionX, playerPositionY-scale(60), scale(64), scale(64), null);
+//		else
+//			g.drawImage(player, playerPositionX+scale(64), playerPositionY-scale(60), -scale(64), scale(64), null);
+
+		
+		//draws the player's bounding box
+		for(Rectangle r : boundingBox) {
+			g.setColor(Color.BLUE);
+			g.draw(r);
+		}
 
 		//draws bounding box of map limits
-		//		g.draw(bottomWall);
-		//		g.draw(topWall);
-		//		g.draw(leftWall);
-		//		g.draw(rightWall);
+		g.draw(bottomWall);
+		g.draw(topWall);
+		g.draw(leftWall);
+		g.draw(rightWall);
 
-		//		g.setColor(Color.orange);
-		//		for(Doorway d : doors){
-		//			g.draw(d.getBoundingBox());
-		//		}
+		g.setColor(Color.orange);
+		for(Doorway d : doors){
+			g.draw(d.getBoundingBox());
+		}
 
 		//fade in effect
 		if(alpha > 0) {
@@ -93,25 +110,25 @@ public class GameStateIsland extends GameState {
 	}
 
 	private void drawWallText(Graphics2D g) {
-		g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 45));
+		g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, scale(45)));
 
 		g.setColor(Color.black);
-		g.drawString("I", 174, 301);
-		g.drawString("II", 484, 301);
-		g.drawString("III", 659, 301);
-		g.drawString("V", 819, 301);
+		g.drawString("I", scale(174), scale(301));
+		g.drawString("II", scale(484), scale(301));
+		g.drawString("III", scale(659), scale(301));
+		g.drawString("V", scale(819), scale(301));
 
 		g.setColor(Color.darkGray);
-		g.drawString("I", 175, 300);
-		g.drawString("II", 485, 300);
-		g.drawString("III", 660, 300);
-		g.drawString("V", 820, 300);
+		g.drawString("I", scale(175), scale(300));
+		g.drawString("II", scale(485), scale(300));
+		g.drawString("III", scale(660), scale(300));
+		g.drawString("V", scale(820), scale(300));
 
-		g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 30));
+		g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, scale(30)));
 		g.setColor(Color.black);
-		g.drawString("Smithy", 294, 351);
+		g.drawString("Smithy", scale(294), scale(351));
 		g.setColor(Color.darkGray);
-		g.drawString("Smithy", 295, 350);
+		g.drawString("Smithy", scale(295), scale(350));
 
 	}
 
@@ -123,25 +140,28 @@ public class GameStateIsland extends GameState {
 			alpha-=0.005f;
 
 		doPlayerMovement();
+		//update after movement !
+		player.update();
 
 		if(doors[0].getBoundingBox().intersects(boundingBox[0]))
 			if(KeyHandler.isPressed(KeyHandler.ENTER)|| KeyHandler.keyState[KeyHandler.UP]){
-				//set gamestate to game, according to door, generate multiple floors
 				gsh.changeGameState(GameStateHandler.MAZE_10);
 			}
 
 		if(doors[1].getBoundingBox().intersects(boundingBox[0]))
 			if(KeyHandler.isPressed(KeyHandler.ENTER)|| KeyHandler.keyState[KeyHandler.UP]){
-				//set gamestate to game, according to door, generate multiple floors
+				PlayerData.positionForNextLevelX = 75;
+				PlayerData.positionForNextLevelY = 350;
 				gsh.changeGameState(GameStateHandler.SMITHY);
 			}
 	}
 
 	private void doPlayerMovement() {
+
 		if(KeyHandler.keyState[KeyHandler.RIGHT]){
 			facingRight = true;
 			if(!boundingBox[3].intersects(rightWall)) {
-				playerPositionX+=2;
+				player.movePlayerRight(2);
 
 				for(Rectangle r : boundingBox)
 					r.x+=2;
@@ -151,7 +171,7 @@ public class GameStateIsland extends GameState {
 		if(KeyHandler.keyState[KeyHandler.LEFT]){
 			facingRight = false;
 			if(!boundingBox[2].intersects(leftWall)) {
-				playerPositionX-=2;
+				player.movePlayerLeft(2);
 
 				for(Rectangle r : boundingBox)
 					r.x-=2;
@@ -160,19 +180,23 @@ public class GameStateIsland extends GameState {
 
 		if(KeyHandler.keyState[KeyHandler.UP]){
 			if(!boundingBox[0].intersects(topWall)) {
-				playerPositionY-=2;
+				player.movePlayerUp(2);
 
 				for(Rectangle r : boundingBox)
 					r.y-=2;
 			}
 		}
+
 		if(KeyHandler.keyState[KeyHandler.DOWN]){
 			if(!boundingBox[1].intersects(bottomWall)) {
-				playerPositionY+=2;
-
+				player.movePlayerDown(2);
 				for(Rectangle r : boundingBox)
 					r.y+=2;
 			}
 		}
+	}
+
+	private int scale(float nr) {
+		return (int)(nr * scale);
 	}
 }

@@ -19,8 +19,8 @@ import labyrinth3D.rscMngr.TextureLoader;
 
 public class GameStateMenu extends GameState {
 
-	Font fontTitle = new Font("Arial", Font.ITALIC, 50);
-	Font font = new Font("Arial", Font.BOLD, 20);
+	Font fontTitle;
+	Font font;
 
 	private int titlePosX = GamePanel.W/2 - 100;
 	private int titlePosY = 200;
@@ -32,6 +32,8 @@ public class GameStateMenu extends GameState {
 	private boolean doneLoading;
 
 	BufferedImage bg;
+	
+	float scale;
 
 	public GameStateMenu(GameStateHandler gsh) {
 
@@ -40,6 +42,11 @@ public class GameStateMenu extends GameState {
 		counting = true;
 		this.gsh = gsh;
 
+		scale = (float)GamePanel.W / 1024f ;
+		
+		fontTitle = new Font("Arial", Font.ITALIC, scale(50));
+		font = new Font("Arial", Font.BOLD, scale(20));
+		
 		load();
 	}
 
@@ -109,9 +116,9 @@ public class GameStateMenu extends GameState {
 
 		g.setColor(c);
 		if(doneLoading)
-			g.drawString("Press Enter to Start", titlePosX, titlePosY+50);
+			g.drawString("Press Enter to Start", titlePosX, titlePosY+scale(50));
 		else
-			g.drawString("Loading...", titlePosX+50, titlePosY+50);
+			g.drawString("Loading...", titlePosX+scale(50), titlePosY+scale(50));
 
 	}
 
@@ -124,7 +131,6 @@ public class GameStateMenu extends GameState {
 
 		if(KeyHandler.isPressed(KeyHandler.ENTER) && doneLoading){
 			gsh.changeGameState(GameStateHandler.MAZE_10);
-
 		}
 
 		//		//assuring save folder creation
@@ -149,5 +155,9 @@ public class GameStateMenu extends GameState {
 		System.out.println("menu bg could not be loaded");
 		return null;
 
+	}
+	
+	private int scale(float nr) {
+		return (int)(nr* scale);
 	}
 }

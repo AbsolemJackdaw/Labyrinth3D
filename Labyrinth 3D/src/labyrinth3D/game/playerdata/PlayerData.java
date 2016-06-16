@@ -19,4 +19,8 @@ public class PlayerData {
 	public static int collectedKeys = 0;
 
 	public static int attackSpeed = 5;
+	
+	public static int positionForNextLevelX = 0;
+	public static int positionForNextLevelY = 0;
+
 }
