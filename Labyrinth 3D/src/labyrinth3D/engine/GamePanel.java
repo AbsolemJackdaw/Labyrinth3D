@@ -9,9 +9,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
@@ -20,7 +17,7 @@ import javax.swing.JPanel;
 import labyrinth3D.gamestates.maze3D.Camera;
 
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener {
+public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	public static int W = 1024; //64*16 & 64*9
 	public static int H = 576;
@@ -65,8 +62,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 		if (thread == null) {
 			thread = new Thread(this);
 			addKeyListener(this);
-			addMouseListener(this);
-			addMouseMotionListener(this);
 			thread.start();
 		}
 	}
@@ -183,33 +178,4 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 	public static int[] getScreenPixels(){
 		return pixels;
 	}
-
-	public void mouseClicked(MouseEvent arg0) {
-	}
-
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	public void mouseExited(MouseEvent e) {
-
-	}
-
-	public void mousePressed(MouseEvent e) {
-		//		MouseHandler.setClick(true);
-		//		MouseHandler.setReleased(false);
-
-	}
-
-	public void mouseReleased(MouseEvent e) {
-		//		MouseHandler.setReleased(true);
-		//		MouseHandler.setClick(false);
-	}
-
-	public void mouseDragged(MouseEvent e) {
-	}
-
-	public void mouseMoved(MouseEvent e) {
-		//		MouseHandler.setPosition(e.getX(), e.getY());
-	}
-
 }
