@@ -110,6 +110,9 @@ public class GameStateMenu extends GameState {
 		g.setColor(c);
 		if(doneLoading)
 			g.drawString("Press Enter to Start", titlePosX, titlePosY+50);
+		else
+			g.drawString("Loading...", titlePosX+50, titlePosY+50);
+
 	}
 
 	@Override
