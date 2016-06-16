@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -30,20 +29,22 @@ public class GameStateMenu extends GameState {
 	private boolean counting;
 	private float alpha2;
 
+	private boolean doneLoading;
+
 	BufferedImage bg;
 
 	public GameStateMenu(GameStateHandler gsh) {
-		
+
 		System.out.println("launched menu");
-		
+
 		counting = true;
 		this.gsh = gsh;
-		
+
 		load();
 	}
-	
+
 	private void load(){
-		
+
 		new SwingWorker<Integer, Void>() {
 
 			@Override
@@ -52,7 +53,7 @@ public class GameStateMenu extends GameState {
 				try {
 					new ImageLoader().load();
 					new TextureLoader().loadTextures();
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("texture error. shutting down");
@@ -65,9 +66,10 @@ public class GameStateMenu extends GameState {
 			protected void done() {
 				super.done();
 				System.out.println("images done loading");
+				doneLoading = true;
 			}
 		}.execute();
-		
+
 	}
 
 	@Override
@@ -106,7 +108,8 @@ public class GameStateMenu extends GameState {
 		Color c = new Color(1f,1f,1f,(float)alpha);
 
 		g.setColor(c);
-		g.drawString("Press Enter to Start", titlePosX, titlePosY+50);
+		if(doneLoading)
+			g.drawString("Press Enter to Start", titlePosX, titlePosY+50);
 	}
 
 	@Override
@@ -116,16 +119,16 @@ public class GameStateMenu extends GameState {
 			bg = loadBG();
 		}
 
-		if(KeyHandler.isPressed(KeyHandler.ENTER)){
+		if(KeyHandler.isPressed(KeyHandler.ENTER) && doneLoading){
 			gsh.changeGameState(GameStateHandler.MAZE_10);
 
 		}
 
-		//assuring save folder creation
-		File f = new File("saves");
-		if(!f.exists()){
-			f.mkdir();
-		}
+		//		//assuring save folder creation
+		//		File f = new File("saves");
+		//		if(!f.exists()){
+		//			f.mkdir();
+		//		}
 	}
 
 
