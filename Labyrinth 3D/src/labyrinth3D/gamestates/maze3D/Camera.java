@@ -106,19 +106,23 @@ public class Camera{
 
 		if (i == KeyEvent.VK_T)
 			keyState[T] = b;
-		else if (i == KeyEvent.VK_Z){
-			keyState[Forward] = b;
-		}else if (i == KeyEvent.VK_S){
-			keyState[Back] = b;
-		}else if (i == KeyEvent.VK_LEFT){
+		else if (i == KeyEvent.VK_LEFT){
 			keyState[Left] = b;
 		}else if (i == KeyEvent.VK_RIGHT){
 			keyState[Right] = b;
-		}else if (i == KeyEvent.VK_Q){
+		}
+		
+		else if (i == KeyEvent.VK_Z || i == KeyEvent.VK_W){
+			keyState[Forward] = b;
+		}else if (i == KeyEvent.VK_Q|| i == KeyEvent.VK_A){
 			keyState[StrafeLeft] = b;
+		}else if (i == KeyEvent.VK_S){
+			keyState[Back] = b;
 		}else if (i == KeyEvent.VK_D){
 			keyState[StrafeRight] = b;
-		}else if (i == KeyEvent.VK_F){
+		}
+		
+		else if (i == KeyEvent.VK_F){
 			keyState[Map] = b;
 		}
 	}	
