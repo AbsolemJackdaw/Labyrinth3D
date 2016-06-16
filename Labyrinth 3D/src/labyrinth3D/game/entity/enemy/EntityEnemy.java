@@ -1,7 +1,5 @@
 package labyrinth3D.game.entity.enemy;
 
-import java.awt.Graphics2D;
-
 import labyrinth3D.game.entity.Entity;
 import labyrinth3D.rscMngr.Texture;
 import labyrinth3D.rscMngr.TextureLoader;
