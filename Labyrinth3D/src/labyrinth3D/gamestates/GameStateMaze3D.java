@@ -1,5 +1,7 @@
 package labyrinth3D.gamestates;
 
+import static labyrinth3D.utility.Scale.scale;
+
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,7 +26,6 @@ import labyrinth3D.game.hud.HUD;
 import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.gamestates.maze3D.Camera;
 import labyrinth3D.gamestates.maze3D.Screen;
-import static labyrinth3D.utility.Scale.*;
 
 
 public class GameStateMaze3D extends GameState {

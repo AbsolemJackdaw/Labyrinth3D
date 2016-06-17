@@ -1,9 +1,8 @@
 package labyrinth3D.gamestates;
 
+import static labyrinth3D.utility.Scale.scale;
+
 import java.awt.Color;
-
-import static labyrinth3D.utility.Scale.*;
-
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;

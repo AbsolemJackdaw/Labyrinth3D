@@ -1,48 +1,32 @@
 package labyrinth3D.gamestates;
 
-import java.awt.Graphics2D;
+import static labyrinth3D.utility.Scale.scale;
 
+import labyrinth3D.engine.GamePanel;
 import labyrinth3D.engine.GameState;
 import labyrinth3D.engine.GameStateHandler;
+import labyrinth3D.engine.KeyHandler;
+import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.javafx.VideoPlayer;
 
 public class GameStateIntroScene extends GameState{
 
-	private int clipTimer = 0;
-	private int clipTrack = 0;
-	
 	public GameStateIntroScene(GameStateHandler gsh) {
 		this.gsh = gsh;
-		
-		VideoPlayer.playVideo("/clips/intro.mp4");
-
+		VideoPlayer.addVideo("/clips/Intro_seq.mp4");
+		VideoPlayer.playVideo();
 	}
 
 
 	@Override
 	public void update() {
 
-//		clipTimer++;
-//		
-//		if( clipTrack >= 191 || KeyHandler.isPressed(KeyHandler.ENTER)) {
-//			
-//			PlayerData.positionForNextLevelX = GamePanel.W/2;
-//			PlayerData.positionForNextLevelY = GamePanel.H/2 + scale(200);
-//			gsh.changeGameState(GameStateHandler.CRASH);
-//		}
-		
-	}
-
-	@Override
-	public void draw(Graphics2D g) {
-		
-//		if(clipTimer % 3 == 0) {
-//			clipTrack++;
-//		}
-//		
-//		if(clipTrack < 191)
-//		
-//		g.drawImage(ImageLoader.intro[clipTrack], 0, 0, GamePanel.W, GamePanel.H, null);
-
+		if( VideoPlayer.isVideoStopped() || KeyHandler.isPressed(KeyHandler.ENTER)) {
+			
+			VideoPlayer.endVideo();
+			PlayerData.positionForNextLevelX = GamePanel.W/2;
+			PlayerData.positionForNextLevelY = GamePanel.H/2 + scale(200);
+			gsh.changeGameState(GameStateHandler.CRASH);
+		}
 	}
 }

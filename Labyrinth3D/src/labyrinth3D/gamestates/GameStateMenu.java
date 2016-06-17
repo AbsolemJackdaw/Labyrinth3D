@@ -1,5 +1,7 @@
 package labyrinth3D.gamestates;
 
+import static labyrinth3D.utility.Scale.scale;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,11 +16,8 @@ import labyrinth3D.engine.GamePanel;
 import labyrinth3D.engine.GameState;
 import labyrinth3D.engine.GameStateHandler;
 import labyrinth3D.engine.KeyHandler;
-import labyrinth3D.game.playerdata.PlayerData;
 import labyrinth3D.rscMngr.ImageLoader;
 import labyrinth3D.rscMngr.TextureLoader;
-
-import static labyrinth3D.utility.Scale.*;
 
 public class GameStateMenu extends GameState {
 

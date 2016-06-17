@@ -12,12 +12,12 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import javax.swing.JPanel;
-
+import javafx.embed.swing.JFXPanel;
 import labyrinth3D.gamestates.maze3D.Camera;
+import labyrinth3D.javafx.VideoPlayer;
 
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel implements Runnable, KeyListener {
+public class GamePanel extends JFXPanel implements Runnable, KeyListener {
 
 	public static int W = 1024; //64*16 & 64*9
 	public static int H = W * 9 / 16;
@@ -179,7 +179,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		int updates = 0;
 		int frames = 0;
 		long timer = System.currentTimeMillis();
-		
+		boolean flag = true;
+
 		while(running)
 		{
 			// convert the time to seconds
@@ -196,8 +197,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				updates++;
 
 				if((currTime < lastTime) || (skippedFrames > maxSkippedFrames)){
-					draw();
-					drawToScreen();
+					if(!VideoPlayer.isPlaying()) {
+						draw();
+						drawToScreen();
+					}
 					skippedFrames = 1;
 					frames++;
 				}
@@ -206,7 +209,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			}else{
 				// calculate the time to sleep
 				int sleepTime = (int)(1000.0 * (lastTime - currTime));
-				
+
 				// sanity check
 				if(sleepTime > 0)
 				{
@@ -217,7 +220,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					}
 				}
 			}
-			
+
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				System.out.println(updates + " Ticks, Fps " + frames);

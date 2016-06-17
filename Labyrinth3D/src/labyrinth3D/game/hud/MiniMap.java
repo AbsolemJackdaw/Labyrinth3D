@@ -2,7 +2,7 @@ package labyrinth3D.game.hud;
 
 
 import static labyrinth3D.rscMngr.ImageLoader.hud_elements;
-import static labyrinth3D.utility.Scale.*;
+import static labyrinth3D.utility.Scale.scale;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

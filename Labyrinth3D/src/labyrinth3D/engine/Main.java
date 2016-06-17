@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 
-	public static Stage gameStage = null;
+	public static GamePanel gamepanel = null;
 	
 	public static void main(String[] args) {
 		launch();
@@ -20,10 +20,10 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		gameStage = primaryStage;
+		gamepanel = new GamePanel();
 		
 		JFrame frame = new JFrame("Labyrinth");
-		frame.setContentPane(new GamePanel());
+		frame.setContentPane(gamepanel);
 		//set size before relative location, or it wont be centered
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
