@@ -26,6 +26,7 @@ public class Camera{
 	}
 	
 	public void update(int[][] map) {
+		
 		if(keyState[Forward]) {
 			if(map[(int)(xPos + xDir * MOVE_SPEED)][(int)yPos] == 0) {
 				xPos+=xDir*MOVE_SPEED;

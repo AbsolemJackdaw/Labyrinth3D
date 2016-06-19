@@ -114,34 +114,6 @@ public class ImageLoader {
 		}
 
 	}
-	
-	private void loadSequence(BufferedImage[] list) {
-
-		for(int i = 0; i < 191; i++){
-			String s = "";
-			
-			if( i < 10)
-				s = "00"+i;
-			else if(i < 100)
-				s = "0"+i;
-			else
-				s = ""+i;
-				
-			String path ="/clips/Sequence0"+s+".png";
-
-			BufferedImage tempImg = null;
-
-			try {
-				tempImg = ImageIO.read(ImageLoader.class.getClass().getResourceAsStream(path));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			if(tempImg != null)
-				list[i] = tempImg;
-		}
-
-	}
 
 	public BufferedImage loadSprite(String path) {
 

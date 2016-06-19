@@ -1,5 +1,7 @@
 package labyrinth3D.javafx;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
@@ -23,13 +25,20 @@ public class VideoPlayer {
 		mediaPlayer = new MediaPlayer(m);
 		viewer = new MediaView(mediaPlayer);
 
+		DoubleProperty mvw = viewer.fitWidthProperty();
+		DoubleProperty mvh = viewer.fitHeightProperty();
+		mvw.bind(Bindings.selectDouble(viewer.sceneProperty(), "width"));
+		mvh.bind(Bindings.selectDouble(viewer.sceneProperty(), "height"));
+		
 		mediaPlayer.setCycleCount(1);
 		
 		root = new StackPane();
 		root.getChildren().add(viewer);
 		
-		Main.gamepanel.setScene(new Scene(root, GamePanel.W, GamePanel.H));
-
+		Scene scene = new Scene(root, GamePanel.W, GamePanel.H);
+		scene.setCursor(javafx.scene.Cursor.NONE);
+		
+		Main.gamepanel.setScene(scene);
 	}
 	
 	public static void playVideo() {
