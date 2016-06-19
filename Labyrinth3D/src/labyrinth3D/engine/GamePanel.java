@@ -1,26 +1,32 @@
 package labyrinth3D.engine;
 
 
+import java.awt.AWTException;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 import javafx.embed.swing.JFXPanel;
 import labyrinth3D.gamestates.maze3D.Camera;
 import labyrinth3D.javafx.VideoPlayer;
+import labyrinth3D.utility.Window;
 
 @SuppressWarnings("serial")
-public class GamePanel extends JFXPanel implements Runnable, KeyListener {
+public class GamePanel extends JFXPanel implements Runnable, KeyListener{
 
-	public static int W = 1024; //64*16 & 64*9
-	public static int H = W * 9 / 16;
+	public static int W = Window.getWidth();
+	public static int H = Window.getHeight();
 
 	// game thread
 	private Thread thread;
@@ -37,6 +43,11 @@ public class GamePanel extends JFXPanel implements Runnable, KeyListener {
 
 	private GameStateHandler ghs;
 
+	private static Robot robot;//mouse and keyboard helper
+	private static JFrame topFrame;
+
+	public static Cursor blankCursor;
+
 	public GamePanel() {
 
 		setPreferredSize(new Dimension(W, H));
@@ -44,10 +55,12 @@ public class GamePanel extends JFXPanel implements Runnable, KeyListener {
 		requestFocus();
 
 		// Transparent 16 x 16 pixel cursor image.
-		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+		//		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+
+		BufferedImage cursorImg = new BufferedImage(1, 1, BufferedImage.TRANSLUCENT);
 
 		// Create a new blank cursor.
-		Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+		blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
 				cursorImg, new Point(0, 0), "blank cursor");
 
 		// Set the blank cursor to the JFrame.
@@ -104,9 +117,10 @@ public class GamePanel extends JFXPanel implements Runnable, KeyListener {
 	}
 
 	protected void update() {
-		ghs.update();
-		KeyHandler.update();
-		//		MouseHandler.update();
+		if(this.hasFocus()) {
+			ghs.update();
+			KeyHandler.update();
+		}
 	}
 
 	private void init() {
@@ -122,46 +136,19 @@ public class GamePanel extends JFXPanel implements Runnable, KeyListener {
 
 		ghs = new GameStateHandler();
 
+		try {
+			robot = new Robot();
+		} catch (AWTException e1) {
+			e1.printStackTrace();
+		}
+
+		topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+		System.out.println(topFrame + " " + robot);
+
 	}
 
 	public static int[] getScreenPixels(){
 		return pixels;
-	}
-
-	private void runGameLoop() {
-		long lastTime = System.nanoTime();
-		final double targetFps = 60.0;
-		double ns = 1000000000.0 / targetFps;
-		double delta = 0;
-
-		int frames = 0;
-		int updates = 0;
-		long timer = System.currentTimeMillis();
-
-		while(running) {
-
-			long now = System.nanoTime();
-
-			delta+= (now-lastTime) / ns;
-
-			lastTime = now;
-			if(delta >= 1) {
-				update();
-				delta--;
-				updates++;
-			}
-			draw();
-			drawToScreen();
-			frames++;
-
-			if(System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-				System.out.println(updates + " Ticks, Fps " + frames);
-				updates = 0;
-				frames = 0;
-
-			}
-		}
 	}
 
 	private void runComplexLoop() {
@@ -179,7 +166,6 @@ public class GamePanel extends JFXPanel implements Runnable, KeyListener {
 		int updates = 0;
 		int frames = 0;
 		long timer = System.currentTimeMillis();
-		boolean flag = true;
 
 		while(running)
 		{
@@ -197,6 +183,7 @@ public class GamePanel extends JFXPanel implements Runnable, KeyListener {
 				updates++;
 
 				if((currTime < lastTime) || (skippedFrames > maxSkippedFrames)){
+
 					if(!VideoPlayer.isPlaying()) {
 						draw();
 						drawToScreen();
@@ -223,7 +210,7 @@ public class GamePanel extends JFXPanel implements Runnable, KeyListener {
 
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println(updates + " Ticks, Fps " + frames);
+				//System.out.println(updates + " Ticks, Fps " + frames);
 				updates = 0;
 				frames = 0;
 
